@@ -1,55 +1,32 @@
-<body>
-  <div class="container-fluid">
-    <div class="row flex-wrap">
-      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-leftbar">
+<header>
 
-        <app-leftbar></app-leftbar>
+  <h1>My products</h1>
 
-      </div>
-
-
-      <div class="col px-0">
-        <section class="jumpers">
-          <div class="container">
-
-            <header>
-
-              <h1>My products</h1>
-
-            </header>
-
-            <div class="row">
-              <div class="col-sm-1">
-                Znaczek
-              </div>
-              <div class="col-md-4 col-sm-1">
-                Nazwa
-              </div>
-              <div class="col-sm-1">
-                Ilość
-              </div>
-              <div class="col-sm-1">
-                Data ważności
-              </div>
-              <div class="col-sm-1">
-                button
-              </div>
-              <div class="col-sm-1">
-                button
-              </div>
-              <div class="col-sm-1">
-                button
-              </div>
-            </div>
-
-            <div *ngFor="let product of products">
-              <app-product-thumbail [product]='product'></app-product-thumbail>
-            </div>
-          </div>
-        </section>
-
-      </div>
-    </div>
+</header>
+<div class="row">
+  <div class="col-sm-1">
+    Znaczek
   </div>
+  <div class="col-md-4 col-sm-1">
+    Nazwa
+  </div>
+  <div class="col-sm-1">
+    Ilość
+  </div>
+  <div class="col-sm-1">
+    Data ważności
+  </div>
+  <div class="col-sm-1">
+    button
+  </div>
+  <div class="col-sm-1">
+    button
+  </div>
+  <div class="col-sm-1">
+    button
+  </div>
+</div>
 
-</body>
+<div *ngFor="let product of products">
+  <app-product-thumbail [product]='product'></app-product-thumbail>
+</div>

@@ -5,17 +5,21 @@
       <img src="/assets/images/logo.svg" alt="EatMe" class="img-fluid logo">
 
       <li>
-        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+        <a [routerLink]="['/MyProducts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
           <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
 
         <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
           <li class="w-100">
-            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">In fridge</span> 1 </a>
+            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">In fridge</span></a>
           </li>
           <li>
-            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Outside</span> 2 </a>
+            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Outside</span></a>
           </li>
         </ul>
+      </li>
+      <li>
+        <a [routerLink]="['MyProducts/add']" routerLinkActive="active" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Add my Product</span></a>
       </li>
       <li>
         <a href="#" class="nav-link px-0 align-middle">
