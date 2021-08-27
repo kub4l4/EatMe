@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Resolve } from "@angular/router";
 import { map } from "rxjs/operators";
-import { ProductService } from "./shared/product.service";
+import { ProductService } from "../shared/product.service";
 
 @Injectable()
 export class ProductListResolver implements Resolve<any>{
@@ -10,7 +10,7 @@ export class ProductListResolver implements Resolve<any>{
 
     }
     resolve(){
-        //return this.productService.getProducts().pipe(map(products => products))
+        return this.productService.getProducts().pipe(map(products => products))
     }
 
 }

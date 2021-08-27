@@ -3,6 +3,6 @@ export interface IMyProduct {
     name: string
     productType: string
     quantity: number
-    dateAdd: string
-    dateExp: string
+    dateExp: Date
+    dateAdd: Date
 }

@@ -1,49 +1,48 @@
 import { Injectable } from "@angular/core"
-import { Subject } from "rxjs"
+import { Observable, Subject } from "rxjs";
+import { IMyProduct } from "./myProduct.model";
 
 @Injectable()
 export class ProductService{
-    getProducts(){
-      return PRODUCTS
-      //let subject = new Subject()
-      //setTimeout(() => {subject.next(PRODUCTS); subject.complete();}, 100)
-      //  return subject
+    getProducts():Observable<IMyProduct[]>{
+      let subject = new Subject<IMyProduct[]>()
+      setTimeout(() => {subject.next(PRODUCTS); subject.complete();}, 100)
+        return subject
     }
-    getProduct(id:number){
+    getProduct(id:number) {
         return PRODUCTS.find(product => product.id === id)
     }
 
     saveEvent(myProduct: any){
       myProduct.id = 999
-      myProduct.session = []
       console.log(myProduct)
       PRODUCTS.push(myProduct)
     }
 }
 
-const PRODUCTS = [
+const PRODUCTS:IMyProduct[] = [
   {
     id: 1,
     name: 'Milk',
-    productType: 'Dairy',
+    productType: 'type1',
     quantity: 2,
-    dateExp: '20-11-2021',
-    dateAdd: '10-10-2021'
+    dateExp: new Date('12/21/2021'),
+    dateAdd: new Date('10/30/2021')
   },
   {
       id: 2,
       name: 'Banana',
-      productType: 'Fruits',
+      productType: 'type1',
       quantity: 5,
-      dateExp: '15-08-2021',
-      dateAdd: '10-10-2021'
+      dateExp: new Date('12/15/2021'),
+      dateAdd: new Date('11/11/2021')
     },
     {
       id: 3,
       name: 'Chocolate Cookies',
-      productType: 'Sweets',
+      productType: 'type2',
       quantity: 5,
-      dateExp: '04-02-2023',
-      dateAdd: '10-10-2021'
+      dateExp: new Date('08/16/2022'),
+      dateAdd: new Date('12/22/2021')
     }
   ]

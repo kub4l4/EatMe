@@ -50,7 +50,7 @@ export class CreateMyProduct implements OnInit{
             name: formValues.name,
             productType: formValues.productType,
             quantity: +formValues.quantity,
-            dateAdd: "26/08.2021",
+            dateAdd: new Date('21/11/2021'),
             dateExp: formValues.dateExp,
         }
         this.productService.saveEvent(formValues)
