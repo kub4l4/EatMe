@@ -12,10 +12,10 @@ import { Component, Input } from '@angular/core';
           {{product?.name}}
         </div>
         <div class="col-sm-1">
-          {{product?.sumQuantity}}
+          {{product?.quantity}}
         </div>
         <div class="col-sm-1" >
-          {{product?.eartlestExpDate}}
+          {{product?.dateExp}}
         </div>
         <div class="col-sm-1">
           Dodaj 

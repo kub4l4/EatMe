@@ -16,6 +16,7 @@ export class ProductService{
     saveEvent(myProduct: any){
       myProduct.id = 999
       myProduct.session = []
+      console.log(myProduct)
       PRODUCTS.push(myProduct)
     }
 }
@@ -25,24 +26,24 @@ const PRODUCTS = [
     id: 1,
     name: 'Milk',
     productType: 'Dairy',
-    sumQuantity: 2,
-    eartlestExpDate: '20-11-2021',
-    dateAdded: '10-10-2021'
+    quantity: 2,
+    dateExp: '20-11-2021',
+    dateAdd: '10-10-2021'
   },
   {
       id: 2,
       name: 'Banana',
       productType: 'Fruits',
-      sumQuantity: 5,
-      eartlestExpDate: '15-08-2021',
-      dateAdded: '10-10-2021'
+      quantity: 5,
+      dateExp: '15-08-2021',
+      dateAdd: '10-10-2021'
     },
     {
       id: 3,
       name: 'Chocolate Cookies',
       productType: 'Sweets',
-      sumQuantity: 5,
-      eartlestExpDate: '04-02-2023',
-      dateAdded: '10-10-2021'
+      quantity: 5,
+      dateExp: '04-02-2023',
+      dateAdd: '10-10-2021'
     }
   ]

@@ -28,15 +28,15 @@
       </div>
 
       <div class="form-group" [ngClass]="{'error' :quantity.invalid && quantity.dirty }">
-        <label for="quantity">Presenter:</label>
+        <label for="quantity">Quantity:</label>
         <em *ngIf="quantity.invalid && quantity.dirty">Required</em>
-        <input formControlName="quantity" id="quantity" type="text" class="form-control" placeholder="quantity..." />
+        <input formControlName="quantity" id="quantity" type="number" class="form-control" placeholder="quantity..." />
       </div>
 
       <div class="form-group" [ngClass]="{'error' :dateExp.invalid && dateExp.dirty }">
         <label for="dateExp">Expiration date</label>
         <em *ngIf="dateExp.invalid && dateExp.dirty">Required</em>
-        <input formControlName="dateExp" id="dateExp" type="text" class="form-control" placeholder="dateExp..." />
+        <input formControlName="dateExp" id="dateExp" type="date" class="form-control" placeholder="dateExp..." />
       </div>
 
       <!-- TODO Change to date input -->

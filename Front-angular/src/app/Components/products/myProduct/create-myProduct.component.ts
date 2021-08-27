@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { IMyProduct } from "../shared/myProduct.model";
+import { ProductService } from "../shared/product.service";
 
 @Component({
     templateUrl: './create-myProduct.component.html',
@@ -23,7 +24,7 @@ export class CreateMyProduct implements OnInit{
     public dateAdd!: FormControl
     public dateExp!: FormControl
 
-    constructor(private router:Router){
+    constructor(private router:Router, private productService:ProductService){
 
     }
 
@@ -31,36 +32,33 @@ export class CreateMyProduct implements OnInit{
         this.name = new FormControl('', Validators.required)
         this.productType = new FormControl('', Validators.required)
         this.quantity = new FormControl('', Validators.required)
-        this.dateAdd = new FormControl('', Validators.required)
         this.dateExp = new FormControl('', [Validators.required, Validators.maxLength(400)])
 
         this.newMyProductForm = new FormGroup({
             name: this.name,
             productType: this.productType,
             quantity: this.quantity,
-            dateAdd: this.dateAdd,
             dateExp: this.dateExp
         })
     }
 
 
 
-    saveSession(formValues: { name: any; productType: any; quantity: string | number; dateAdd: any; dateExp: any; }){
+    saveSession(formValues: { name: any; productType: any; quantity: string | number; dateExp: any; }){
         let session:IMyProduct ={
             id: 1,
             name: formValues.name,
             productType: formValues.productType,
             quantity: +formValues.quantity,
-            dateAdd: formValues.dateAdd,
+            dateAdd: "26/08.2021",
             dateExp: formValues.dateExp,
         }
-        console.log(formValues)
-        console.log(session)
+        this.productService.saveEvent(formValues)
+        this.router.navigate(['/MyProducts'])
+
     }
 
     cancel(){
-        console.log("HCU")
         this.router.navigate(['/MyProducts'])
-        
     }
 }
