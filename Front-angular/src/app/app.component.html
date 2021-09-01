@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row flex-wrap">
+    <div *ngIf="true" class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-leftbar">
+        <!-- ngIf user is If the user is logged in -->
+      <app-leftbar></app-leftbar>
+    </div>
+    <div class="col px-0">
+      <section class="jumpers">
+        <div class="container">
+          <router-outlet></router-outlet>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

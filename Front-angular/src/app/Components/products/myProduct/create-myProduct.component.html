@@ -1,0 +1,48 @@
+<div class="col-md-12">
+  <header>
+    <h1>Add product to your storage</h1>
+  </header>
+  </div>
+  <div class="col-md-6">
+    <form [formGroup]="newMyProductForm" (ngSubmit)="saveSession(newMyProductForm.value)"  autocomplete="off">
+      <div class="form-group" [ngClass]="{'error' :name.invalid && name.dirty }">
+        <label for="sessionName">Product Name:</label>
+        <em *ngIf="name.invalid && name.dirty">Required</em>
+        <input formControlName="name" id="productName" type="text" class="form-control" placeholder="product name..." />
+      </div>
+
+      <div class="form-group" [ngClass]="{'error' :productType.invalid && productType.dirty }">
+        <label for="productType">Product type:</label>
+        <em *ngIf="productType.invalid && productType.dirty">Required</em>
+        <select formControlName="productType" class="form-control">
+          <option value="">select product type...</option>
+          <option value="1">Dairy and Egg Products</option>
+          <option value="2">Spices and Herbs</option>
+          <option value="3">Fats and Oils</option>
+          <option value="4">Poultry Products</option>
+          <option value="5">Fruits and Fruit Juices</option>
+          <option value="6">Nut and Seed Products</option>
+        </select>
+      </div>
+
+      <div class="form-group" [ngClass]="{'error' :quantity.invalid && quantity.dirty }">
+        <label for="quantity">Quantity:</label>
+        <em *ngIf="quantity.invalid && quantity.dirty">Required</em>
+        <input formControlName="quantity" id="quantity" type="number" class="form-control" placeholder="quantity..." />
+      </div>
+
+      <div class="form-group" [ngClass]="{'error' :dateExp.invalid && dateExp.dirty }">
+        <label for="dateExp">Expiration date</label>
+        <em *ngIf="dateExp.invalid && dateExp.dirty">Required</em>
+        <input formControlName="dateExp" id="dateExp" type="date" class="form-control" placeholder="dateExp..." />
+      </div>
+
+      <!-- TODO Change to date input -->
+
+
+
+
+      <button type="submit" [disabled]="newMyProductForm.invalid" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
