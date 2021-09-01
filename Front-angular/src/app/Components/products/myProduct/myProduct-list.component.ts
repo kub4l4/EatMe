@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/_services/user.service';
 import { IMyProduct } from '../shared/myProduct.model';
 import { ProductService } from '../shared/product.service';
 
@@ -16,13 +17,14 @@ export class ProductListComponent implements OnInit {
   filterBy: string = "all"
   sortBy: string = 'dateExp'
 
-  constructor(private productService: ProductService, private route:ActivatedRoute) {
-    // this.products=this.productService.getProducts() chyba usunąć
+  content?: string;
+
+  constructor(private productService: ProductService, private route:ActivatedRoute, private userService: UserService) {
    }
   
 
   ngOnInit(): void {
     this.products = this.route.snapshot.data['products']
-  }
 
+  }
 }

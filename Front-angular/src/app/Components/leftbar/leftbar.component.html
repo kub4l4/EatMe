@@ -5,41 +5,69 @@
       <img src="/assets/images/logo.svg" alt="EatMe" class="img-fluid logo">
 
       <li>
-        <a [routerLink]="['/MyProducts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-          <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
-
-        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-          <li class="w-100">
-            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">In fridge</span></a>
-          </li>
-          <li>
-            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Outside</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a [routerLink]="['MyProducts/add']" routerLinkActive="active" class="nav-link px-0 align-middle">
-          <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Add my Product</span></a>
-      </li>
-      <li>
         <a href="#" class="nav-link px-0 align-middle">
-          <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Shopping list</span></a>
+          <i class="fs-5 bi-info-square"></i> <span class="ms-1 d-none d-sm-inline"> About EatMe</span></a>
+      </li>
+
+      <div *ngIf="isLoggedIn">
+
+        <li>
+          <a [routerLink]="['/MyProducts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+            <i class="fs-5 bi-bag-check"></i> <span class="ms-1 d-none d-sm-inline"> Products</span> </a>
+
+          <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+            <li class="w-100">
+              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Inside fridge</span></a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Outside fridge</span></a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a [routerLink]="['MyProducts/add']" routerLinkActive="active" class="nav-link px-0 align-middle">
+            <i class="fs-5 bi-plus-square"></i> <span class="ms-1 d-none d-sm-inline"> Add products</span></a>
+        </li>
+
+        <li>
+          <a href="#" class="nav-link px-0 align-middle">
+            <i class="fs-5 bi-journal-check"></i> <span class="ms-1 d-none d-sm-inline"> Shopping list</span></a>
+        </li>
+
+      </div>
+    </ul>
+
+    <!-- TODO: Tutorial -->
+    <ul>
+      <li routerLinkActive="active" class="nav-link px-0 align-middle" *ngIf="showAdminBoard">
+        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
       </li>
     </ul>
-    <hr>
-    <div class="dropdown pb-4">
+
+
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li routerLinkActive="active" class="nav-link px-0 align-middle">
+        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+      </li>
+    </ul>
+
+    <div class="dropdown pb-4" *ngIf="isLoggedIn">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
         data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://avatars.githubusercontent.com/u/18147901?v=4" alt="hugenerd" width="30" height="30" class="rounded-circle">
-        <span class="d-none d-sm-inline mx-1">Kamil Kubala</span>
+        <img src="https://avatars.githubusercontent.com/u/18147901?v=4" alt="hugenerd" width="30" height="30"
+          class="rounded-circle">
+        <span class="d-none d-sm-inline mx-1">{{ username }}</span>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
         <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/profile']">Profile</a></li>
         <li>
           <hr class="dropdown-divider">
         </li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
+        <li><a href class="nav-link" (click)="logout()">LogOut</a></li>
       </ul>
     </div>
+
   </div>
