@@ -1,0 +1,77 @@
+.container-fluid {
+
+  background-color: #F8751E;
+  height: 100vh;
+
+}
+
+form {
+  background: #FFFFFFE0 0% 0% no-repeat padding-box;
+  box-shadow: 0px 6px 6px #00000029;
+  border: 1px solid #707070;
+  border-radius: 33px;
+}
+
+
+
+.form-group {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  background: transparent linear-gradient(180deg, #3D8EF3 0%, #2251B9 100%) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 19px;
+  width: 100%;
+  border: none;
+  color: white;
+  margin-top: 1em;
+  line-height: 2.5em;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid gray;
+  margin-top: 1em;
+
+
+}
+
+label {
+  width: 80%;
+}
+
+em {
+  float: right;
+  color: #E05C65;
+  padding-left: 10px;
+}
+
+.error input {
+  background-color: #E3C3C5;
+}
+
+.error ::-webkit-input-placeholder {
+  color: #999;
+}
+
+.error ::-moz-placeholder {
+  color: #999;
+}
+
+.error :-moz-placeholder {
+  color: #999;
+}
+
+.error :ms-input-placeholder {
+  color: #999;
+}
+
+.nav-link{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+  }
