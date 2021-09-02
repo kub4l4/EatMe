@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idUser;
+	private Integer userId;
 
 	@NotBlank
 	@Size(max = 20)
@@ -38,6 +38,9 @@ public class User {
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+	@OneToMany(mappedBy = "user")
+	private Set<Product> products;
+
 	public User() {
 	}
 
@@ -47,12 +50,12 @@ public class User {
 		this.password = password;
 	}
 
-	public Integer getId() {
-		return idUser;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setId(Integer idUser) {
-		this.idUser = idUser;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {
@@ -87,4 +90,11 @@ public class User {
 		this.roles = roles;
 	}
 
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 }

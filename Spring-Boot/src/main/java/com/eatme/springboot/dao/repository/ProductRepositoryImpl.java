@@ -20,11 +20,11 @@ import java.util.List;
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
-    private static final String SQL_FIND_ALL = "SELECT PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY FROM PRODUCT WHERE USER_ID = ?";
-    private static final String SQL_FIND_BY_ID = "SELECT PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY FROM PRODUCT WHERE USER_ID = ? AND PRODUCT_ID = ?";
-    private static final String SQL_CREATE = "INSERT INTO PRODUCT (PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY) VALUES(NEXTVAL('product_product_id_seq'), ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE PRODUCT SET NAME = ?, EXPIRE_DATE = ?, QUANTITY = ?, CATEGORY_ID = ? WHERE USER_ID = ? AND PRODUCT_ID = ?";
-    private static final String SQL_DELETE = "DELETE FROM PRODUCT WHERE USER_ID = ? AND PRODUCT_ID = ?";
+    private static final String SQL_FIND_ALL = "SELECT PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY FROM PRODUCTS WHERE USER_ID = ?";
+    private static final String SQL_FIND_BY_ID = "SELECT PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY FROM PRODUCTS WHERE USER_ID = ? AND PRODUCT_ID = ?";
+    private static final String SQL_CREATE = "INSERT INTO PRODUCTS (PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY) VALUES(NEXTVAL('product_product_id_seq'), ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE PRODUCTS SET NAME = ?, EXPIRE_DATE = ?, QUANTITY = ?, CATEGORY_ID = ? WHERE USER_ID = ? AND PRODUCT_ID = ?";
+    private static final String SQL_DELETE = "DELETE FROM PRODUCTS WHERE USER_ID = ? AND PRODUCT_ID = ?";
 
     @Autowired
     JdbcTemplate jdbcTemplate;

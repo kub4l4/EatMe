@@ -2,10 +2,11 @@ package com.eatme.springboot.dao.models;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "product")
+@Table(name = "PRODUCTS")
 public class Product {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,11 +15,28 @@ public class Product {
     private String createdAt;
     private String expireDate;
     private String name;
+
+    @ManyToOne
+    private Category category;
+
     private Integer categoryId;
+
     private String quantity;
     private Integer userId;
 
+    @ManyToOne
+    private User user;
+
     public Product() {
+    }
+
+    public Product(String createdAt, String expireDate, String name, Integer categoryId, String quantity, Integer userId) {
+        this.createdAt = createdAt;
+        this.expireDate = expireDate;
+        this.name = name;
+        this.categoryId = categoryId;
+        this.quantity = quantity;
+        this.userId = userId;
     }
 
     public Product(Integer productId, String createdAt, String expireDate, String name, Integer categoryId, String quantity, Integer userId) {
@@ -35,8 +53,8 @@ public class Product {
         return productId;
     }
 
-    public void setProductId(Integer productid) {
-        this.productId = productid;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getCreatedAt() {
@@ -86,7 +104,20 @@ public class Product {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-//@ManyToOne
-    //@MapsId("idUser")
-    //@JoinColumn(name = "idUser")
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
