@@ -12,7 +12,6 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { LogoutComponent } from './logout/logout.component';
 
 const routes:Routes = [
 
@@ -25,7 +24,6 @@ const routes:Routes = [
     { path: 'profile', component: ProfileComponent },
 
     { path: 'admin', component: BoardAdminComponent },
-    { path: 'logout', component: LogoutComponent},
 
 
 

@@ -17,21 +17,21 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { LogoutComponent } from './logout/logout.component';
+import { NavbarComponent } from './Components/navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LeftbarComponent,
+    NavbarComponent,
     ProductListComponent,
     ProductThumbailComponent,
     CreateMyProduct,
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    BoardAdminComponent,
-    LogoutComponent
+    BoardAdminComponent
   ],
   imports: [
     BrowserModule,
