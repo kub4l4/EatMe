@@ -1,54 +1,56 @@
-<div class="row">
+<div class="container-fluid mt-5 pt-3">
+  <div class="row">
 
-  <div class="col-md-4">
-    <h1>My products</h1>
+    <div class="col-md-4">
+      <h1>My products</h1>
+    </div>
+
+    <div class="col-md-4">
+      <div class="btn-group btn-group-sm">
+        <button class="btn btn-default" [class.active]="filterBy==='all'" (click)="filterBy='all'">All</button>
+        <button class="btn" [class.active]="filterBy==='type1'" (click)="filterBy='type1'">Dairy and Egg
+          Products</button>
+        <button class="btn" [class.active]="filterBy==='type2'" (click)="filterBy='type2'">Spices and Herbs</button>
+        <button class="btn" [class.active]="filterBy==='type3'" (click)="filterBy='type3'">Fats and
+          Oils</button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="btn-group btn-group-sm">
+        <button class="btn btn-default" [class.active]="sortBy==='anamell'" (click)="sortBy='name'">By Name</button>
+        <button class="btn" [class.active]="sortBy==='dateAdd'" (click)="sortBy='dateAdd'">By Date Added</button>
+        <button class="btn" [class.active]="sortBy==='dateExp'" (click)="sortBy='dateExp'">Expiration date</button>
+      </div>
+    </div>
+
+
   </div>
-
-  <div class="col-md-4">
-    <div class="btn-group btn-group-sm">
-      <button class="btn btn-default" [class.active]="filterBy==='all'" (click)="filterBy='all'">All</button>
-      <button class="btn" [class.active]="filterBy==='type1'" (click)="filterBy='type1'">Dairy and Egg
-        Products</button>
-      <button class="btn" [class.active]="filterBy==='type2'" (click)="filterBy='type2'">Spices and Herbs</button>
-      <button class="btn" [class.active]="filterBy==='type3'" (click)="filterBy='type3'">Fats and
-        Oils</button>
+  <div class="row">
+    <div class="col-sm-1">
+      Znaczek
+    </div>
+    <div class="col-md-4 col-sm-1">
+      Nazwa
+    </div>
+    <div class="col-sm-1">
+      Ilość
+    </div>
+    <div class="col-sm-1">
+      Data ważności
+    </div>
+    <div class="col-sm-1">
+      button
+    </div>
+    <div class="col-sm-1">
+      button
+    </div>
+    <div class="col-sm-1">
+      button
     </div>
   </div>
 
-  <div class="col-md-4">
-    <div class="btn-group btn-group-sm">
-      <button class="btn btn-default" [class.active]="sortBy==='anamell'" (click)="sortBy='name'">By Name</button>
-      <button class="btn" [class.active]="sortBy==='dateAdd'" (click)="sortBy='dateAdd'">By Date Added</button>
-      <button class="btn" [class.active]="sortBy==='dateExp'" (click)="sortBy='dateExp'">Expiration date</button>
-    </div>
+  <div>
+    <myProduct-thumbail [sortBy]="sortBy" [filterBy]="filterBy" [products]="products"></myProduct-thumbail>
   </div>
-
-
-</div>
-<div class="row">
-  <div class="col-sm-1">
-    Znaczek
-  </div>
-  <div class="col-md-4 col-sm-1">
-    Nazwa
-  </div>
-  <div class="col-sm-1">
-    Ilość
-  </div>
-  <div class="col-sm-1">
-    Data ważności
-  </div>
-  <div class="col-sm-1">
-    button
-  </div>
-  <div class="col-sm-1">
-    button
-  </div>
-  <div class="col-sm-1">
-    button
-  </div>
-</div>
-
-<div>
-  <myProduct-thumbail [sortBy]="sortBy" [filterBy]="filterBy" [products]="products"></myProduct-thumbail>
 </div>

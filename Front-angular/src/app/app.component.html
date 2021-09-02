@@ -1,17 +1,6 @@
 
-
-  <div class="container-fluid">
-    <div class="row flex-wrap">
-      <div class="col-md-3 col-xl-2 px-sm-2 px-0 bg-leftbar">
-        <app-leftbar></app-leftbar>
-      </div>
-      <div class="col px-0">
-        <section class="jumpers">
-          <div class="container">
-            <router-outlet></router-outlet>
-          </div>
-        </section>
-      </div>
-    </div>
-  </div>
-
+<app-navbar></app-navbar>
+<app-leftbar></app-leftbar>
+<main>
+  <router-outlet></router-outlet>
+</main>

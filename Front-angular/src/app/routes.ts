@@ -10,8 +10,10 @@ import { ProductListComponent } from "./Components/products/myProduct/myProduct-
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-
 import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { AboutComponent } from './about/about.component';
+import { SettingsComponent } from './settings/settings.component';
+
 
 const routes:Routes = [
 
@@ -22,7 +24,8 @@ const routes:Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'profile', component: ProfileComponent },
-
+    { path: 'about', component: AboutComponent},
+    { path: 'settings', component: SettingsComponent},
     { path: 'admin', component: BoardAdminComponent },
 
 

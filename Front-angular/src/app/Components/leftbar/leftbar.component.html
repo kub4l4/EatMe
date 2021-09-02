@@ -1,73 +1,73 @@
-  <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-    </a>
-    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-      <img src="/assets/images/logo.svg" alt="EatMe" class="img-fluid logo">
+<div class="offcanvas sidebar-nav" tabindex="-1" id="sidebar">
+  <div class="offcanvas-body p-0">
+    <nav class="navbar-dark">
 
-      <li>
-        <a href="#" class="nav-link px-0 align-middle">
-          <i class="fs-5 bi-info-square"></i> <span class="ms-1 d-none d-sm-inline"> About EatMe</span></a>
-      </li>
-
-      <div *ngIf="isLoggedIn">
-
-        <li>
-          <a [routerLink]="['/MyProducts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-            data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-            <i class="fs-5 bi-bag-check"></i> <span class="ms-1 d-none d-sm-inline"> Products</span> </a>
-
-          <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-            <li class="w-100">
-              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Inside fridge</span></a>
-            </li>
-            <li>
-              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Outside fridge</span></a>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <a [routerLink]="['MyProducts/add']" routerLinkActive="active" class="nav-link px-0 align-middle">
-            <i class="fs-5 bi-plus-square"></i> <span class="ms-1 d-none d-sm-inline"> Add products</span></a>
-        </li>
-
-        <li>
-          <a href="#" class="nav-link px-0 align-middle">
-            <i class="fs-5 bi-journal-check"></i> <span class="ms-1 d-none d-sm-inline"> Shopping list</span></a>
-        </li>
-
-      </div>
-    </ul>
-
-    <!-- TODO: Tutorial -->
-    <ul>
-      <li routerLinkActive="active" class="nav-link px-0 align-middle" *ngIf="showAdminBoard">
-        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
-      </li>
-    </ul>
-
-
-    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
-      <li routerLinkActive="active" class="nav-link px-0 align-middle">
-        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
-      </li>
-    </ul>
-
-    <div class="dropdown pb-4" *ngIf="isLoggedIn">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
-        data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://avatars.githubusercontent.com/u/18147901?v=4" alt="hugenerd" width="30" height="30"
-          class="rounded-circle">
-        <span class="d-none d-sm-inline mx-1">{{ username }}</span>
+      <!-- Zdecydować gdzie zrobić router -->
+      <a>
+        <img src="/assets/images/logo.svg" alt="EatMe" class="img-fluid logo">
       </a>
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/profile']">Profile</a></li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <li><a href class="nav-link" (click)="logout()">LogOut</a></li>
-      </ul>
-    </div>
 
-  </div>
+      <ul id="menu">
+        <li>
+          <a [routerLink]="['/about']" class="nav-link align-middle">
+            <i class="fs-5 bi-info-square"></i> About EatMe </a>
+        </li>
+
+        <div *ngIf="isLoggedIn">
+
+          <li>
+            <a [routerLink]="['/MyProducts']" routerLinkActive="active" class="nav-link align-middle">
+              <i class="fs-5 bi-bag-check"></i> Products </a>
+          </li>
+
+          <li>
+            <a [routerLink]="['MyProducts/add']" routerLinkActive="active" class="nav-link align-middle">
+              <i class="fs-5 bi-plus-square"></i> Add products</a>
+          </li>
+        </div>
+      </ul>
+
+
+
+      <!-- Bottom -->
+      <ul class=fixed-bottom>
+
+        <span *ngIf="!isLoggedIn">
+          <li routerLinkActive="active" class="nav-link px-0 align-middle">
+            <a [routerLink]="['/register']" class="nav-link" routerLink="register">Sign Up</a>
+          </li>
+
+          <li routerLinkActive="active" class="nav-link px-0 align-middle">
+            <a [routerLink]="['/login']" class="nav-link" routerLink="login">Log In</a>
+          </li>
+        </span>
+
+        <li *ngIf="showAdminBoard" routerLinkActive="active" class="nav-link px-0 align-middle">
+          <a [routerLink]="['/admin']" class="nav-link" routerLink="admin">Admin Dashboard </a>
+        </li>
+
+
+        <div *ngIf="isLoggedIn" class="dropdown pb-4 align-middle" >
+
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+
+            <img src="https://avatars.githubusercontent.com/u/18147901?v=4" alt="hugenerd" width="30" height="30"
+              class="rounded-circle">
+            <span class="d-none d-sm-inline mx-3">{{username}}</span>
+
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="nav-link" [routerLink]="['/settings']">Settings</a></li>
+            <li><a class="nav-link" [routerLink]="['/profile']">Profile</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a href class="nav-link" (click)="logout()">LogOut</a></li>
+          </ul>
+        </div>
+      </ul>
+  </nav>
+</div>
+</div>

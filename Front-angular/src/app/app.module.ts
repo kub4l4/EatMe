@@ -18,6 +18,8 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
+import { AboutComponent } from './about/about.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { NavbarComponent } from './Components/navbar/navbar.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    BoardAdminComponent
+    BoardAdminComponent,
+    AboutComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

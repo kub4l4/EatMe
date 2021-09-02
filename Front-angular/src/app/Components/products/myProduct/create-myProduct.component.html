@@ -1,10 +1,11 @@
-<div class="col-md-12">
-  <header>
-    <h1>Add product to your storage</h1>
-  </header>
+<div class="container-fluid mt-5 pt-3">
+  <div class="col-md-12">
+    <header>
+      <h1>Add product to your storage</h1>
+    </header>
   </div>
   <div class="col-md-6">
-    <form [formGroup]="newMyProductForm" (ngSubmit)="saveSession(newMyProductForm.value)"  autocomplete="off">
+    <form [formGroup]="newMyProductForm" (ngSubmit)="saveSession(newMyProductForm.value)" autocomplete="off">
       <div class="form-group" [ngClass]="{'error' :name.invalid && name.dirty }">
         <label for="sessionName">Product Name:</label>
         <em *ngIf="name.invalid && name.dirty">Required</em>
@@ -28,7 +29,7 @@
       <div class="form-group" [ngClass]="{'error' :quantity.invalid && quantity.dirty }">
         <label for="quantity">Quantity:</label>
         <em *ngIf="quantity.invalid && quantity.dirty">Required</em>
-        <input formControlName="quantity" id="quantity" type="number" class="form-control" placeholder="quantity..." />
+        <input formControlName="quantity" id="quantity" type="text" class="form-control" placeholder="quantity..." />
       </div>
 
       <div class="form-group" [ngClass]="{'error' :dateExp.invalid && dateExp.dirty }">
@@ -46,3 +47,4 @@
       <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
     </form>
   </div>
+</div>
