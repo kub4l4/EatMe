@@ -32,6 +32,7 @@ import com.eatme.springboot.dao.repository.UserRepository;
 import com.eatme.springboot.security.jwt.JwtUtils;
 import com.eatme.springboot.security.services.UserDetailsImpl;
 
+//TODO add req from port 4200
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -120,4 +121,6 @@ public class AuthController {
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
+
+
 }

@@ -2,7 +2,7 @@ package com.eatme.springboot.dao.models;
 
 
 import javax.persistence.*;
-import java.sql.Date;
+
 
 @Entity
 @Table(name = "product")
@@ -10,76 +10,83 @@ public class Product {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private long idProduct;
-
-    private String title;
-    private String type;
-    private java.sql.Date createdAt;
-    private java.sql.Date updatedAt;
-    private String Capacity;
+    private Integer productId;
+    private String createdAt;
+    private String expireDate;
+    private String name;
+    private Integer categoryId;
+    private String quantity;
+    private Integer userId;
 
     public Product() {
     }
 
-    public Product(String title, String type, Date createdAt, Date updatedAt, String Capacity) {
-        this.title = title;
-        this.type = type;
+    public Product(Integer productId, String createdAt, String expireDate, String name, Integer categoryId, String quantity, Integer userId) {
+        this.productId = productId;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.Capacity = Capacity;
+        this.expireDate = expireDate;
+        this.name = name;
+        this.categoryId = categoryId;
+        this.quantity = quantity;
+        this.userId = userId;
     }
 
-    public long getIdProduct() {
-        return idProduct;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setIdProduct(long idProduct) {
-        this.idProduct = idProduct;
+    public void setProductId(Integer productid) {
+        this.productId = productid;
     }
 
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(long idType) {
-        this.type = type;
-    }
-
-
-    public java.sql.Date getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(java.sql.Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-
-    public java.sql.Date getUpdatedAt() {
-        return updatedAt;
+    public String getExpireDate() {
+        return expireDate;
     }
 
-    public void setUpdatedAt(java.sql.Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
     }
 
-
-    public String getCapacity() {
-        return Capacity;
+    public String getName() {
+        return name;
     }
 
-    public void setCapacity(String Capacity) {
-        this.Capacity = Capacity;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+//@ManyToOne
+    //@MapsId("idUser")
+    //@JoinColumn(name = "idUser")
 }

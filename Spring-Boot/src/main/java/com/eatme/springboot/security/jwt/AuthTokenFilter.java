@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.eatme.springboot.security.services.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
             userDetails.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        request.setAttribute("userId", userPrincipal.getId());
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
