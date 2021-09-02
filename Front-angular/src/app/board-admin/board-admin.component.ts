@@ -5,7 +5,10 @@ import { Users } from './model/user.model';
 
 @Component({
   selector: 'app-board-admin',
-  templateUrl: './board-admin.component.html'
+  templateUrl: './board-admin.component.html',
+  styles:[`
+  
+  `]
 })
 export class BoardAdminComponent implements OnInit {
   users?: Users[];
