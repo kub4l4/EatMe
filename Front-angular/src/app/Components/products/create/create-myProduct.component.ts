@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { IMyProduct } from "../shared/myProduct.model";
-import { ProductService } from "../shared/product.service";
+import { IMyProduct } from "../../../_models/myProduct.model";
+import { ProductService } from "../../../_services/product.service";
 
 @Component({
     templateUrl: './create-myProduct.component.html',
@@ -17,7 +17,7 @@ import { ProductService } from "../shared/product.service";
 
 })
 export class CreateMyProduct implements OnInit{
-    public newMyProductForm!: FormGroup; 
+    public newMyProductForm!: FormGroup;
     public name!: FormControl
     public categoryId!: FormControl
     public quantity!: FormControl

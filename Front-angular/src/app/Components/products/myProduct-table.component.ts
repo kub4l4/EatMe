@@ -1,24 +1,24 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { IMyProduct } from '../shared/myProduct.model';
+import { IMyProduct } from '../../_models/myProduct.model';
 
 
 @Component({
-  selector: 'myProduct-thumbail',
-  templateUrl: './myProduct-thumbail.component.html'
+  selector: 'myProduct-table',
+  templateUrl: './myProduct-table.component.html'
 })
-export class ProductThumbailComponent implements OnChanges{
+export class MyProductTableComponent implements OnChanges{
   @Input() products:IMyProduct[]
 
   @Input()
   filterBy: number
   @Input()
   sortBy!: string
-  
-  visibleProducts: IMyProduct [] = []
- 
 
-  
+  visibleProducts: IMyProduct [] = []
+
+
+
   constructor() { }
 
 
@@ -45,8 +45,8 @@ export class ProductThumbailComponent implements OnChanges{
       this.visibleProducts = this.products.filter(products => {
         return products.categoryId === filter;
       })
-    }  
-  }  
+    }
+  }
 }
 
 function sortByNameAsc(s1: IMyProduct, s2: IMyProduct){

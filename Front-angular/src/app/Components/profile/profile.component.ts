@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from '../_services/token-storage.service';
+import { TokenStorageService } from '../../_services/token-storage.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 
@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  
+
   currentUser: any;
 
-  
+
   profileForm:FormGroup
   private firstName:FormControl
   private lastName: FormControl
@@ -42,11 +42,11 @@ export class ProfileComponent implements OnInit {
       this.router.navigate(['events'])
     }
   }
-  
+
   validateFirstName(){
     return this.firstName.valid || this.firstName.untouched
   }
   validateLastName(){
-    return this.lastName.valid || this.lastName.untouched 
+    return this.lastName.valid || this.lastName.untouched
   }
 }

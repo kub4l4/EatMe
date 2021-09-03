@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/_services/user.service';
-import { IMyProduct } from '../shared/myProduct.model';
+import { IMyProduct } from '../../_models/myProduct.model';
 import { DatePipe, NgForOf } from '@angular/common';
-import { ProductService } from '../shared/product.service';
+import { ProductService } from '../../_services/product.service';
 
 @Component({
   selector: 'app-product-list',
-  templateUrl: './myProduct-list.component.html',
+  templateUrl: './myProduct.component.html',
   styles: [`
   h1{	font-size: 36px;	font-weight: 400;	color: #F8751E; margin: 20px;}
   .bg-leftbar {	background-color: #F8751E !important; }
   `]
 })
-export class ProductListComponent implements OnInit {
+export class MyProductComponent implements OnInit {
   products: IMyProduct[]
   product: IMyProduct
 
@@ -29,7 +29,7 @@ export class ProductListComponent implements OnInit {
   new: Date
   constructor(private productService: ProductService, private route:ActivatedRoute, private userService: UserService) {
    }
-  
+
 
 
   ngOnInit(): void {

@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LeftbarComponent } from "./Components/leftbar/leftbar.component"
-import { CreateMyProduct } from "./Components/products/myProduct/create-myProduct.component"
-import { ProductListComponent } from "./Components/products/myProduct/myProduct-list.component"
+import { CreateMyProduct } from "./Components/products/create/create-myProduct.component"
+import { MyProductComponent } from "./Components/products/myProduct.component"
 
 
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { AboutComponent } from './about/about.component';
-import { SettingsComponent } from './settings/settings.component';
+import { RegisterComponent } from './Components/register/register.component';
+import { LoginComponent } from './Components/login/login.component';
+import { ProfileComponent } from './Components/profile/profile.component';
+import { BoardAdminComponent } from './Components/board-admin/board-admin.component';
+import { AboutComponent } from './Components/about/about.component';
+import { SettingsComponent } from './Components/settings/settings.component';
 
 
 const routes:Routes = [
 
-    { path: 'MyProducts', component: ProductListComponent},
+    { path: 'MyProducts', component: MyProductComponent},
     { path: 'sidebar', component: LeftbarComponent},
     { path: 'MyProducts/add', component: CreateMyProduct},
     { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -29,8 +29,8 @@ const routes:Routes = [
 
 
 
-    // { 
-    //     path: 'user', 
+    // {
+    //     path: 'user',
     //     loadChildren: () => import('./userOLD/user.module')
     //     .then(m => m.UserModule)
     // },

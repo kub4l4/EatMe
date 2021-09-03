@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../_services/user.service';
-import { UsersService } from '../_services/users.service';
-import { Users } from './model/user.model';
+import { UserService } from '../../_services/user.service';
+import { UsersService } from '../../_services/users.service';
+import { Users } from '../../_models/user.model';
 
 @Component({
   selector: 'app-board-admin',
   templateUrl: './board-admin.component.html',
   styles:[`
-  
+
   `]
 })
 export class BoardAdminComponent implements OnInit {
