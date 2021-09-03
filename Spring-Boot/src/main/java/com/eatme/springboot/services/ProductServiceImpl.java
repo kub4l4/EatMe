@@ -28,13 +28,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product addProduct(String name, String createdAt, String expireDate, String quantity, Integer categoryId, Integer userId) throws EtBadRequestException
+    public Product addProduct(String name, long createdAt, String expireDate, String quantity, Integer categoryId, Integer userId) throws EtBadRequestException
     {
         int productId = productRepository.create(name, createdAt, expireDate, quantity, categoryId, userId);
         return productRepository.findById(userId, productId);
     }
     @Override
-    public void updateProduct(Integer productId, Integer categoryId, String name, String createdAt, String expireDate, String quantity, Integer userId, Product product) throws EtBadRequestException
+    public void updateProduct(Integer productId, Integer categoryId, String name, long createdAt, String expireDate, String quantity, Integer userId, Product product) throws EtBadRequestException
     {
         productRepository.update(productId, categoryId, name, createdAt, expireDate, quantity, userId, product);
     }

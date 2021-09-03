@@ -13,9 +13,9 @@ public interface ProductService {
 
     Product fetchProductById(Integer userId, Integer productId) throws EtResourceNotFoundException;
 
-    Product addProduct(String name, String createdAt, String expireDate, String quantity, Integer categoryId, Integer userId) throws EtBadRequestException;
+    Product addProduct(String name, long createdAt, String expireDate, String quantity, Integer categoryId, Integer userId) throws EtBadRequestException;
 
-    void updateProduct(Integer productId, Integer categoryId,  String name, String createdAt, String expireDate, String quantity, Integer userId, Product product) throws EtBadRequestException;
+    void updateProduct(Integer productId, Integer categoryId,  String name, long createdAt, String expireDate, String quantity, Integer userId, Product product) throws EtBadRequestException;
 
     void removeProduct(Integer userId, Integer productId) throws EtResourceNotFoundException;
 

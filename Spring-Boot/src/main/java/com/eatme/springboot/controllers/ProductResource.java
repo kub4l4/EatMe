@@ -44,7 +44,7 @@ public class ProductResource {
 
 
         String name = (String) productMap.get("name");
-        String createdAt = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss"));
+        long createdAt = System.currentTimeMillis();
         String expireDate = (String) productMap.get("expireDate");
         String quantity = (String) productMap.get("quantity");
         int categoryId = Integer.decode((String)productMap.get("categoryId"));

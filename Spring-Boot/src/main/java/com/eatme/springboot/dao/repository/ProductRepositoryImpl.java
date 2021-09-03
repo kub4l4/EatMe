@@ -22,7 +22,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     private static final String SQL_FIND_ALL = "SELECT PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY FROM PRODUCTS WHERE USER_ID = ?";
     private static final String SQL_FIND_BY_ID = "SELECT PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY FROM PRODUCTS WHERE USER_ID = ? AND PRODUCT_ID = ?";
-    private static final String SQL_CREATE = "INSERT INTO PRODUCTS (PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY) VALUES(NEXTVAL('product_product_id_seq'), ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_CREATE = "INSERT INTO PRODUCTS (PRODUCT_ID, CATEGORY_ID, USER_ID, NAME, CREATED_AT, EXPIRE_DATE, QUANTITY) VALUES(NEXTVAL('products_product_id_seq'), ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE PRODUCTS SET NAME = ?, EXPIRE_DATE = ?, QUANTITY = ?, CATEGORY_ID = ? WHERE USER_ID = ? AND PRODUCT_ID = ?";
     private static final String SQL_DELETE = "DELETE FROM PRODUCTS WHERE USER_ID = ? AND PRODUCT_ID = ?";
 
@@ -44,7 +44,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Integer create(String name, String createdAt, String expireDate, String quantity, Integer categoryId, Integer userId) throws EtBadRequestException {
+    public Integer create(String name, long createdAt, String expireDate, String quantity, Integer categoryId, Integer userId) throws EtBadRequestException {
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
@@ -52,7 +52,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 ps.setInt(1, categoryId);
                 ps.setInt(2, userId);
                 ps.setString(3, name);
-                ps.setString(4, createdAt);
+                ps.setLong(4, createdAt);
                 ps.setString(5, expireDate);
                 ps.setString(6, quantity);
                 return ps;
@@ -64,7 +64,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void update(Integer productId, Integer categoryId, String name, String createdAt, String expireDate, String quantity,  Integer userId, Product product) throws EtBadRequestException {
+    public void update(Integer productId, Integer categoryId, String name, long createdAt, String expireDate, String quantity,  Integer userId, Product product) throws EtBadRequestException {
         try {
             jdbcTemplate.update(SQL_UPDATE, new Object[]{name, expireDate, quantity, categoryId, userId, productId});
         }catch (Exception e) {
@@ -81,7 +81,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     private RowMapper<Product> transactionRowMapper = ((rs, rowNum) -> {
         return new Product(rs.getInt("PRODUCT_ID"),
-                rs.getString("CREATED_AT"),
+                rs.getLong("CREATED_AT"),
                 rs.getString("EXPIRE_DATE"),
                 rs.getString("NAME"),
                 rs.getInt("PRODUCT_ID"),

@@ -12,7 +12,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer productId;
-    private String createdAt;
+    private long createdAt;
     private String expireDate;
     private String name;
 
@@ -30,7 +30,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String createdAt, String expireDate, String name, Integer categoryId, String quantity, Integer userId) {
+    public Product(long createdAt, String expireDate, String name, Integer categoryId, String quantity, Integer userId) {
         this.createdAt = createdAt;
         this.expireDate = expireDate;
         this.name = name;
@@ -39,7 +39,7 @@ public class Product {
         this.userId = userId;
     }
 
-    public Product(Integer productId, String createdAt, String expireDate, String name, Integer categoryId, String quantity, Integer userId) {
+    public Product(Integer productId, long createdAt, String expireDate, String name, Integer categoryId, String quantity, Integer userId) {
         this.productId = productId;
         this.createdAt = createdAt;
         this.expireDate = expireDate;
@@ -57,11 +57,11 @@ public class Product {
         this.productId = productId;
     }
 
-    public String getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 

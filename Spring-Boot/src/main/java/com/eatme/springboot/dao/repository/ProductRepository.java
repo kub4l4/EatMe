@@ -18,9 +18,9 @@ public interface ProductRepository {
 
     Product findById(Integer userId, Integer productId) throws EtResourceNotFoundException;
 
-    Integer create(String name, String createdAt, String expireDate, String quantity, Integer categoryId, Integer userId) throws EtBadRequestException;
+    Integer create(String name, long createdAt, String expireDate, String quantity, Integer categoryId, Integer userId) throws EtBadRequestException;
 
-    void update(Integer productId, Integer categoryId, String name, String createdAt, String expireDate, String quantity, Integer userId, Product product) throws EtBadRequestException;
+    void update(Integer productId, Integer categoryId, String name, long createdAt, String expireDate, String quantity, Integer userId, Product product) throws EtBadRequestException;
 
     void removeById(Integer userId, Integer productId) throws EtResourceNotFoundException;
 
