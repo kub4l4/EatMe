@@ -1,8 +1,8 @@
 export interface IMyProduct {
-    id: number
+    productId: number
     name: string
-    productType: string
+    categoryId: number
     quantity: number
-    dateExp: Date
-    dateAdd: Date
+    createdAt: Date
+    expireDate: Date
 }

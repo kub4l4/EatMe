@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
       this.roles = this.tokenStorage.getUser().roles;
       //TODO dodać popup o poprawnym zalogowaniu!
       //this.router.navigate(['MyProducts'])
-
     }
   }
 

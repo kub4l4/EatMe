@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LeftbarComponent } from "./Components/leftbar/leftbar.component"
 import { CreateMyProduct } from "./Components/products/myProduct/create-myProduct.component"
-import { ProductListResolver } from "./Components/products/myProduct/myProduct-list-resolver.service"
 import { ProductListComponent } from "./Components/products/myProduct/myProduct-list.component"
 
 
@@ -17,7 +16,7 @@ import { SettingsComponent } from './settings/settings.component';
 
 const routes:Routes = [
 
-    { path: 'MyProducts', component: ProductListComponent, resolve: {products: ProductListResolver}},
+    { path: 'MyProducts', component: ProductListComponent},
     { path: 'sidebar', component: LeftbarComponent},
     { path: 'MyProducts/add', component: CreateMyProduct},
     { path: '', redirectTo: '/login', pathMatch: 'full'},

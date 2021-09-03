@@ -19,7 +19,7 @@ import { ProductService } from "../shared/product.service";
 export class CreateMyProduct implements OnInit{
     public newMyProductForm!: FormGroup; 
     public name!: FormControl
-    public productType!: FormControl
+    public categoryId!: FormControl
     public quantity!: FormControl
     public dateAdd!: FormControl
     public dateExp!: FormControl
@@ -30,13 +30,13 @@ export class CreateMyProduct implements OnInit{
 
     ngOnInit(){
         this.name = new FormControl('', Validators.required)
-        this.productType = new FormControl('', Validators.required)
+        this.categoryId = new FormControl('', Validators.required)
         this.quantity = new FormControl('', Validators.required)
         this.dateExp = new FormControl('', [Validators.required, Validators.maxLength(400)])
 
         this.newMyProductForm = new FormGroup({
             name: this.name,
-            productType: this.productType,
+            categoryId: this.categoryId,
             quantity: this.quantity,
             dateExp: this.dateExp
         })
@@ -44,15 +44,15 @@ export class CreateMyProduct implements OnInit{
 
 
 
-    saveSession(formValues: { name: any; productType: any; quantity: string | number; dateExp: any; }){
-        let session:IMyProduct ={
-            id: 1,
-            name: formValues.name,
-            productType: formValues.productType,
-            quantity: +formValues.quantity,
-            dateAdd: new Date('21/11/2021'),
-            dateExp: formValues.dateExp,
-        }
+    saveSession(formValues: { name: any; categoryId: any; quantity: string | number; dateExp: any; }){
+         //let session:IMyProduct ={
+         //    id: 1,
+         //    name: formValues.name,
+         //    categoryId: formValues.categoryId,
+         //    quantity: +formValues.quantity,
+         //    dateAdd: new Date('21/11/2021'),
+         //    dateExp: formValues.dateExp,
+         //}
         this.productService.saveEvent(formValues)
         this.router.navigate(['/MyProducts'])
 

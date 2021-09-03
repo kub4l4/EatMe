@@ -7,11 +7,11 @@
 
     <div class="col-md-4">
       <div class="btn-group btn-group-sm">
-        <button class="btn btn-default" [class.active]="filterBy==='all'" (click)="filterBy='all'">All</button>
-        <button class="btn" [class.active]="filterBy==='type1'" (click)="filterBy='type1'">Dairy and Egg
+        <button class="btn btn-default" [class.active]="filterBy===0" (click)="filterBy=0">All</button>
+        <button class="btn" [class.active]="filterBy===1" (click)="filterBy=1">Dairy and Egg
           Products</button>
-        <button class="btn" [class.active]="filterBy==='type2'" (click)="filterBy='type2'">Spices and Herbs</button>
-        <button class="btn" [class.active]="filterBy==='type3'" (click)="filterBy='type3'">Fats and
+        <button class="btn" [class.active]="filterBy===2" (click)="filterBy=2">Spices and Herbs</button>
+        <button class="btn" [class.active]="filterBy===3" (click)="filterBy=3">Fats and
           Oils</button>
       </div>
     </div>
@@ -24,33 +24,8 @@
       </div>
     </div>
 
-
-  </div>
-  <div class="row">
-    <div class="col-sm-1">
-      Znaczek
-    </div>
-    <div class="col-md-4 col-sm-1">
-      Nazwa
-    </div>
-    <div class="col-sm-1">
-      Ilość
-    </div>
-    <div class="col-sm-1">
-      Data ważności
-    </div>
-    <div class="col-sm-1">
-      button
-    </div>
-    <div class="col-sm-1">
-      button
-    </div>
-    <div class="col-sm-1">
-      button
-    </div>
   </div>
 
-  <div>
-    <myProduct-thumbail [sortBy]="sortBy" [filterBy]="filterBy" [products]="products"></myProduct-thumbail>
-  </div>
+  <myProduct-thumbail [sortBy]="sortBy" [filterBy]="filterBy" [products]="products"></myProduct-thumbail>
+
 </div>
