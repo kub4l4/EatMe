@@ -12,11 +12,14 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { BoardAdminComponent } from './Components/board-admin/board-admin.component';
 import { AboutComponent } from './Components/about/about.component';
 import { SettingsComponent } from './Components/settings/settings.component';
+import { EditMyProductComponent } from "./Components/products/edit/edit-myProduct.component";
+import { ProductsResolverService } from "./_services/products-resolver.service";
+import { ProductResolverService } from "./_services/product-resolver.service";
 
 
 const routes : Routes = [
 
-  {path : 'MyProducts', component : MyProductComponent},
+  {path : 'MyProducts', component : MyProductComponent, resolve : {products : ProductsResolverService}},
   {path : 'sidebar', component : LeftbarComponent},
   {path : 'MyProducts/add', component : CreateMyProduct},
   {path : '', redirectTo : '/login', pathMatch : 'full'},
@@ -26,6 +29,7 @@ const routes : Routes = [
   {path : 'about', component : AboutComponent},
   {path : 'settings', component : SettingsComponent},
   {path : 'admin', component : BoardAdminComponent},
+  {path : 'MyProducts/edit/:id', component : EditMyProductComponent, resolve : {productById : ProductResolverService}},
 
 
   // {

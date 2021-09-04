@@ -9,36 +9,37 @@ import { ProductService } from '../../_services/product.service';
   selector : 'app-product-list',
   templateUrl : './myProduct.component.html',
   styles : [`
-  h1{	font-size: 36px;	font-weight: 400;	color: #F8751E; margin: 20px;}
-  .bg-leftbar {	background-color: #F8751E !important; }
+    h1 {
+      font-size: 36px;
+      font-weight: 400;
+      color: #F8751E;
+      margin: 20px;
+    }
+
+    .bg-leftbar {
+      background-color: #F8751E !important;
+    }
   `]
 })
 export class MyProductComponent implements OnInit {
   products : IMyProduct[]
   product : IMyProduct
-
   productsMess : any[]
-
   filterBy : number = 0
   sortBy : string = 'dateExp'
-
-  content? : string;
-
-
-  old : string;
-  new : Date
+  test : any[]
 
   constructor(private productService : ProductService, private route : ActivatedRoute, private userService : UserService) {
   }
 
 
   ngOnInit() : void {
-    this.retriveProducts()
-
-
+    this.retrieveProducts()
+    this.test = this.route.snapshot.data['products']
+    console.log(this.test)
   }
 
-  retriveProducts() : void {
+  retrieveProducts() : void {
     this.productService.getProducts1().subscribe(
       data => {
         this.productsMess = data;

@@ -42,7 +42,6 @@ export class CreateMyProduct implements OnInit {
         error => {
           console.log(error);
         })
-    //TODO zrobić czekanie na dodanie produktu, zanim przejdzie na add products
     this.router.navigate(['/MyProducts'])
   }
 

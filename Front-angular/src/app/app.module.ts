@@ -19,7 +19,9 @@ import { RegisterComponent } from './Components/register/register.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { AboutComponent } from './Components/about/about.component';
 import { SettingsComponent } from './Components/settings/settings.component';
-import { UpdateMyProductComponent } from "./Components/products/update/update-myProduct.component";
+import { EditMyProductComponent } from "./Components/products/edit/edit-myProduct.component";
+import { ProductsResolverService } from "./_services/products-resolver.service";
+import { ProductResolverService } from "./_services/product-resolver.service";
 
 
 @NgModule({
@@ -36,7 +38,7 @@ import { UpdateMyProductComponent } from "./Components/products/update/update-my
     BoardAdminComponent,
     AboutComponent,
     SettingsComponent,
-    UpdateMyProductComponent
+    EditMyProductComponent
   ],
   imports : [
     BrowserModule,
@@ -47,7 +49,9 @@ import { UpdateMyProductComponent } from "./Components/products/update/update-my
   ],
   providers : [
     ProductService,
-    authInterceptorProviders
+    authInterceptorProviders,
+    ProductsResolverService,
+    ProductResolverService
   ],
   bootstrap : [AppComponent]
 })

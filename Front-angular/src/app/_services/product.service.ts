@@ -41,12 +41,26 @@ export class ProductService {
       .pipe(catchError(this.handleError<IMyProduct[][]>('saveProduct')))
   }
 
+  updateProduct(id : number, name : string, categoryId : number, quantity : number, expireDate : string) {
+    return this.http.put<any>(API_URL + id, {
+      name,
+      categoryId,
+      quantity,
+      expireDate
+    }, httpOptions)
+      .pipe(catchError(this.handleError<IMyProduct[][]>('saveProduct')))
+  }
+
   deleteProduct(id : number) {
     return this.http.delete<any>(API_URL + id)
   }
 
   getProducts1() : Observable<any[]> {
-    return this.http.get<IMyProduct[]>(API_URL)
+    return this.http.get<any[]>(API_URL)
+  }
+
+  getProductById(id : any) : Observable<any> {
+    return this.http.get<IMyProduct>(API_URL + id)
   }
 
   private handleError<T>(operation = 'operation', result? : T) {
