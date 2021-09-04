@@ -41,7 +41,7 @@ import { SettingsComponent } from './Components/settings/settings.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     ProductService,
