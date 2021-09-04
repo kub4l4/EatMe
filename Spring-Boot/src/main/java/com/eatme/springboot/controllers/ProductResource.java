@@ -1,6 +1,7 @@
 package com.eatme.springboot.controllers;
 
 import com.eatme.springboot.dao.models.Product;
+import com.eatme.springboot.payload.request.ProductRequest;
 import com.eatme.springboot.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,15 +40,15 @@ public class ProductResource {
 
     @PostMapping("")
     public ResponseEntity<Product> addProduct(HttpServletRequest request,
-                                                      @RequestBody Map<String, Object> productMap ) {
+                                                      @RequestBody ProductRequest productRequest) {
         LocalDateTime localDateTime = LocalDateTime.now();
 
 
-        String name = (String) productMap.get("name");
+        String name = productRequest.getName();
         long createdAt = System.currentTimeMillis();
-        String expireDate = (String) productMap.get("expireDate");
-        String quantity = (String) productMap.get("quantity");
-        int categoryId = Integer.decode((String)productMap.get("categoryId"));
+        String expireDate = productRequest.getExpireDate();
+        String quantity = productRequest.getQuantity();
+        int categoryId = productRequest.getCategoryId();
         int userId = (Integer) request.getAttribute("userId");
         Product product = productService.addProduct(name, createdAt, expireDate, quantity, categoryId, userId);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
