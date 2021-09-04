@@ -19,10 +19,11 @@ import { RegisterComponent } from './Components/register/register.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { AboutComponent } from './Components/about/about.component';
 import { SettingsComponent } from './Components/settings/settings.component';
+import { UpdateMyProductComponent } from "./Components/products/update/update-myProduct.component";
 
 
 @NgModule({
-  declarations: [
+  declarations : [
     AppComponent,
     LeftbarComponent,
     NavbarComponent,
@@ -34,19 +35,21 @@ import { SettingsComponent } from './Components/settings/settings.component';
     ProfileComponent,
     BoardAdminComponent,
     AboutComponent,
-    SettingsComponent
+    SettingsComponent,
+    UpdateMyProductComponent
   ],
-  imports: [
+  imports : [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [
+  providers : [
     ProductService,
     authInterceptorProviders
   ],
-  bootstrap: [AppComponent]
+  bootstrap : [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

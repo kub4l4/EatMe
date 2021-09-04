@@ -2,20 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 @Component({
-  selector: 'app-leftbar',
-  templateUrl: './leftbar.component.html',
-  styleUrls: ['./leftbar.component.css']
+  selector : 'app-leftbar',
+  templateUrl : './leftbar.component.html',
+  styleUrls : ['./leftbar.component.css']
 })
 export class LeftbarComponent implements OnInit {
-  private roles: string[] = [];
+  private roles : string[] = [];
   showAdminBoard = false;
-  username?: string;
+  username? : string;
   isLoggedIn = false;
 
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService : TokenStorageService) {
+  }
 
-  ngOnInit(): void {
+  ngOnInit() : void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
@@ -29,7 +30,7 @@ export class LeftbarComponent implements OnInit {
     }
   }
 
-  logout(): void {
+  logout() : void {
     this.tokenStorageService.signOut();
     window.location.reload();
   }

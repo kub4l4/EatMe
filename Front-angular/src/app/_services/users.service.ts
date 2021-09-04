@@ -6,17 +6,18 @@ import { Users } from '../_models/user.model';
 const API_URL = 'http://localhost:8080/api/user/';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn : 'root'
 })
 export class UsersService {
-  constructor(private http: HttpClient) { }
-
-  getAll(): Observable<Users[]> {
-    return this.http.get<Users[]>(API_URL+ 'all');
+  constructor(private http : HttpClient) {
   }
 
-  getUsers(): Observable<any> {
-    return this.http.get(API_URL + 'all', { responseType: 'text' });
+  getAll() : Observable<Users[]> {
+    return this.http.get<Users[]>(API_URL + 'all');
+  }
+
+  getUsers() : Observable<any> {
+    return this.http.get(API_URL + 'all', {responseType : 'text'});
   }
 
 }

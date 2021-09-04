@@ -3,13 +3,12 @@
   <div class="col-md-5">
 
 
-
     <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
 
       <div class="form-group form-floating">
 
         <input type="text" class="form-control" name="username" id="username" placeholder="username"
-          [(ngModel)]="form.username" required minlength="3" maxlength="20" #username="ngModel" />
+               [(ngModel)]="form.username" required minlength="3" maxlength="20" #username="ngModel"/>
 
         <label class="mx-3" for="username">Username</label>
 
@@ -24,7 +23,7 @@
       <div class="form-group form-floating">
 
         <input type="email" class="form-control" name="email" id="email" placeholder="example@example.com"
-          [(ngModel)]="form.email" required email #email="ngModel" />
+               [(ngModel)]="form.email" required email #email="ngModel"/>
 
         <label class="mx-3" for="email">Email</label>
 
@@ -38,7 +37,7 @@
       <div class="form-group form-floating">
 
         <input type="password" class="form-control" name="password" id="password" placeholder="password"
-          [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
+               [(ngModel)]="form.password" required minlength="6" #password="ngModel"/>
         <label class="mx-3" for="password">Password</label>
 
 
@@ -49,13 +48,12 @@
       </div>
       <div class="form-group">
         <button class="btn btn-primary btn-block">Sign Up</button>
-        <a [routerLink]="['/login']" class="nav-link" >Already have account? Log in now</a>
+        <a [routerLink]="['/login']" class="nav-link">Already have account? Log in now</a>
       </div>
 
 
-
       <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed! Please try again<br />{{ errorMessage }}
+        Signup failed! Please try again<br/>{{ errorMessage }}
       </div>
     </form>
 

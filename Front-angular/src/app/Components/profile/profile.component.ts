@@ -5,48 +5,51 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector : 'app-profile',
+  templateUrl : './profile.component.html',
+  styleUrls : ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
 
-  currentUser: any;
+  currentUser : any;
 
 
-  profileForm:FormGroup
-  private firstName:FormControl
-  private lastName: FormControl
+  profileForm : FormGroup
+  private firstName : FormControl
+  private lastName : FormControl
 
-  constructor(private token: TokenStorageService, private router:Router) { }
+  constructor(private token : TokenStorageService, private router : Router) {
+  }
 
-  ngOnInit(): void {
+  ngOnInit() : void {
     this.currentUser = this.token.getUser();
     console.log(this.currentUser);
 
 
-        this.firstName = new FormControl(this.currentUser.email, [Validators.required, Validators.pattern('[a-zA-Z].*')])
+    this.firstName = new FormControl(this.currentUser.email, [Validators.required, Validators.pattern('[a-zA-Z].*')])
     this.lastName = new FormControl(this.currentUser.email, Validators.required)
     this.profileForm = new FormGroup({
-      firstName: this.firstName,
-      lastName: this.lastName
+      firstName : this.firstName,
+      lastName : this.lastName
     })
   }
 
-  cancel(){
+  cancel() {
     this.router.navigate(['events'])
   }
-  saveProfile(formValues: any){
-      if(this.profileForm.valid){
-        //this.authService.updateCurrentUser(formValues.firstName, formValues.lastName)
+
+  saveProfile(formValues : any) {
+    if (this.profileForm.valid) {
+      //this.authService.updateCurrentUser(formValues.firstName, formValues.lastName)
       this.router.navigate(['events'])
     }
   }
 
-  validateFirstName(){
+  validateFirstName() {
     return this.firstName.valid || this.firstName.untouched
   }
-  validateLastName(){
+
+  validateLastName() {
     return this.lastName.valid || this.lastName.untouched
   }
 }

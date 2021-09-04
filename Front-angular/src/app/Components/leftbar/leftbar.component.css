@@ -10,10 +10,11 @@ a {
   color: #2FCC76 !Important;
 }
 
-li{
-  list-style-type:none
+li {
+  list-style-type: none
 }
-li>a.active {
+
+li > a.active {
   color: #5ec48c;
   background-color: transparent
 }
@@ -26,7 +27,7 @@ li>a.active {
 
 }
 
-.sidebar-nav{
+.sidebar-nav {
   background-color: #F8751E !important;
   box-shadow: 0px 0px 10px #00000029;
 }

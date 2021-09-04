@@ -1,28 +1,28 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
-import {IMyProduct} from '../../_models/myProduct.model';
+import { IMyProduct } from '../../_models/myProduct.model';
 
-import {ProductService} from "../../_services/product.service";
-import {Router} from "@angular/router";
+import { ProductService } from "../../_services/product.service";
+import { Router } from "@angular/router";
 
 
 @Component({
-  selector: 'myProduct-table',
-  templateUrl: './myProduct-table.component.html',
-  styleUrls: ['./myProduct-table.component.css']
+  selector : 'myProduct-table',
+  templateUrl : './myProduct-table.component.html',
+  styleUrls : ['./myProduct-table.component.css']
 })
 export class MyProductTableComponent implements OnChanges {
-  @Input() products: IMyProduct[]
+  @Input() products : IMyProduct[]
 
   @Input()
-  filterBy: number
+  filterBy : number
   @Input()
-  sortBy!: string
+  sortBy! : string
 
-  visibleProducts: IMyProduct[] = []
+  visibleProducts : IMyProduct[] = []
 
 
-  constructor(private router:Router, private productService:ProductService){
+  constructor(private router : Router, private productService : ProductService) {
   }
 
 
@@ -39,7 +39,7 @@ export class MyProductTableComponent implements OnChanges {
     }
   }
 
-  filterProduct(filter:number) {
+  filterProduct(filter : number) {
     if (filter === 0) {
       this.visibleProducts = this.products.slice(0)
     } else {
@@ -49,11 +49,11 @@ export class MyProductTableComponent implements OnChanges {
     }
   }
 
-  delete(id:any) {
+  delete(id : any) {
     this.productService.deleteProduct(id)
       .subscribe(
         data => {
-          console.log("Usunięte id:",id , data)
+          console.log("Usunięte id:", id, data)
         },
         error => {
           console.log(error);
@@ -64,21 +64,21 @@ export class MyProductTableComponent implements OnChanges {
 
 }
 
-function sortByNameAsc(s1: IMyProduct, s2: IMyProduct) {
+function sortByNameAsc(s1 : IMyProduct, s2 : IMyProduct) {
   if (s1.name > s2.name) return 1
   else if (s1.name === s2.name) return 0
   else return -1
 }
 
 
-function sortByDateAdd(s1: IMyProduct, s2: IMyProduct) {
+function sortByDateAdd(s1 : IMyProduct, s2 : IMyProduct) {
   s1
   if (s1.createdAt.getTime() > s2.createdAt.getTime()) return 1
   else if (s1.createdAt.getTime() === s2.createdAt.getTime()) return 0
   else return -1
 }
 
-function sortByDateExp(s1: IMyProduct, s2: IMyProduct) {
+function sortByDateExp(s1 : IMyProduct, s2 : IMyProduct) {
   if (s1.expireDate.getTime() > s2.expireDate.getTime()) return 1
   else if (s1.expireDate.getTime() === s2.expireDate.getTime()) return 0
   else return -1

@@ -9,7 +9,7 @@
       <div class="form-group" [ngClass]="{'error' :name.invalid && name.dirty }">
         <label for="productName">Product Name:</label>
         <em *ngIf="name.invalid && name.dirty">Required</em>
-        <input formControlName="name" id="productName" type="text" class="form-control" placeholder="product name..." />
+        <input formControlName="name" id="productName" type="text" class="form-control" placeholder="product name..."/>
       </div>
 
       <div class="form-group" [ngClass]="{'error' :categoryId.invalid && categoryId.dirty }">
@@ -29,13 +29,14 @@
       <div class="form-group" [ngClass]="{'error' :quantity.invalid && quantity.dirty }">
         <label for="quantity">Quantity:</label>
         <em *ngIf="quantity.invalid && quantity.dirty">Required</em>
-        <input formControlName="quantity" id="quantity" type="text" class="form-control" placeholder="quantity..." />
+        <input formControlName="quantity" id="quantity" type="text" class="form-control" placeholder="quantity..."/>
       </div>
 
       <div class="form-group" [ngClass]="{'error' :expireDate.invalid && expireDate.dirty }">
         <label for="expireDate">Expiration date</label>
         <em *ngIf="expireDate.invalid && expireDate.dirty">Required</em>
-        <input formControlName="expireDate" id="expireDate" type="date" class="form-control" placeholder="ExpireDate..." />
+        <input formControlName="expireDate" id="expireDate" type="date" class="form-control"
+               placeholder="ExpireDate..."/>
       </div>
 
 
