@@ -1,51 +1,67 @@
 <div class="container-fluid mt-5 pt-3">
-  <div class="col-md-12">
-    <header>
-      <h1>Add product to your storage</h1>
-    </header>
-  </div>
-  <div class="col-md-6" *ngIf="editMyProductForm">
-    {{editMyProductForm}}
-    <form [formGroup]="editMyProductForm" (ngSubmit)="updateSession(editMyProductForm.value)" autocomplete="off">
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      <form [formGroup]="editMyProductForm" (ngSubmit)="updateSession(editMyProductForm.value)" autocomplete="off">
 
-      <div class="form-group" [ngClass]="{'error' :name.invalid && name.dirty }">
-        <label for="name">Product Name:</label>
-        <em *ngIf="name.invalid && name.dirty">Required</em>
-        <input formControlName="name" id="name" type="text" class="form-control" placeholder="product name..."/>
-      </div>
-
-      <div class="form-group" [ngClass]="{'error' :categoryId.invalid && categoryId.dirty }">
-        <label for="categoryId">Product type:</label>
-        <em *ngIf="categoryId.invalid && categoryId.dirty">Required</em>
-        <select formControlName="categoryId" class="form-control">
-          <option value="">select product type...</option>
-          <option value="1">Dairy and Egg Products</option>
-          <option value="2">Spices and Herbs</option>
-          <option value="3">Fats and Oils</option>
-          <option value="4">Poultry Products</option>
-          <option value="5">Fruits and Fruit Juices</option>
-          <option value="6">Nut and Seed Products</option>
-          <option value="17">KURWA</option>
-
-        </select>
-      </div>
-
-      <div class="form-group" [ngClass]="{'error' :quantity.invalid && quantity.dirty }">
-        <label for="quantity">Quantity:</label>
-        <em *ngIf="quantity.invalid && quantity.dirty">Required</em>
-        <input formControlName="quantity" id="quantity" type="text" class="form-control" placeholder="quantity..."/>
-      </div>
-
-      <div class="form-group" [ngClass]="{'error' :expireDate.invalid && expireDate.dirty }">
-        <label for="expireDate">Expiration date</label>
-        <em *ngIf="expireDate.invalid && expireDate.dirty">Required</em>
-        <input formControlName="expireDate" id="expireDate" type="date" class="form-control"
-               placeholder="ExpireDate..."/>
-      </div>
+        <div class="row text-center">
+          <header>
+            <h1>Edit product</h1>
+          </header>
+        </div>
 
 
-      <button type="submit" [disabled]="editMyProductForm.invalid" class="btn btn-primary">Save</button>
-      <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
-    </form>
+        <div class="form-group row" [ngClass]="{'error' :name.invalid && name.dirty }">
+
+          <label for="productName" class="col-sm-2 col-form-label">Product Name:</label>
+          <div class="col-sm-10">
+            <em *ngIf="name.invalid && name.dirty">Required</em>
+            <input formControlName="name" id="productName" type="text" class="form-control"
+                   placeholder="product name..."/>
+          </div>
+
+        </div>
+
+        <div class="form-group row" [ngClass]="{'error' :categoryId.invalid && categoryId.dirty }">
+          <label class="col-sm-2 col-form-label">Product type:</label>
+          <div class="col-sm-10">
+            <em *ngIf="categoryId.invalid && categoryId.dirty">Required</em>
+            <select value={{this.product.categoryId}} formControlName="categoryId" class="form-control">
+              <option *ngFor="let category of categories" [value]="category.categoryId"> {{category.title}} </option>
+              <!--TODO show proper category for chosen food-->
+            </select>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="form-group row" [ngClass]="{'error' :quantity.invalid && quantity.dirty }">
+          <label for="quantity" class="col-sm-2 col-form-label">Quantity:</label>
+          <div class="col-sm-10">
+            <em *ngIf="quantity.invalid && quantity.dirty">Required</em>
+            <input formControlName="quantity" id="quantity" type="text" class="form-control" placeholder="quantity..."/>
+          </div>
+        </div>
+
+        <div class="form-group row" [ngClass]="{'error' :expireDate.invalid && expireDate.dirty }">
+          <label for="expireDate" class="col-sm-2 col-form-label">Expiration date</label>
+          <div class="col-sm-10">
+            <em *ngIf="expireDate.invalid && expireDate.dirty">Required</em>
+            <input formControlName="expireDate" id="expireDate" type="date" class="form-control"
+                   placeholder="ExpireDate..."/>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" [disabled]="editMyProductForm.invalid" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
+
+
+
+
+

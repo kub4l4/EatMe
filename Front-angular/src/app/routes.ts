@@ -30,7 +30,7 @@ const routes : Routes = [
   {path : 'about', component : AboutComponent},
   {path : 'settings', component : SettingsComponent},
   {path : 'admin', component : BoardAdminComponent},
-  {path : 'MyProducts/edit/:id', component : EditMyProductComponent, resolve : {productById : ProductResolverService}},
+  {path : 'MyProducts/edit/:id', component : EditMyProductComponent, resolve : {productById : ProductResolverService, categories : CategoriesResolverService}},
 
 
   // {

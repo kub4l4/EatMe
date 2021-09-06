@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { IMyProduct } from "../../../_models/myProduct.model";
 import { ProductService } from "../../../_services/product.service";
+import { ICategory } from "../../../_models/category.model";
 
 @Component({
   templateUrl : './edit-myProduct.component.html',
@@ -16,6 +17,7 @@ export class EditMyProductComponent implements OnInit {
   public expireDate! : FormControl
 
   product : IMyProduct
+  categories: ICategory[]
 
   constructor(private router : Router,
               private productService : ProductService,
@@ -24,11 +26,12 @@ export class EditMyProductComponent implements OnInit {
 
   ngOnInit() {
     this.product = this.route.snapshot.data['productById']
-    console.log(this.product)
-    this.form()
+    this.categories = this.route.snapshot.data['categories']
+
+    this.formInit()
   }
 
-  form() {
+  formInit() {
     this.name = new FormControl(this.product.name, Validators.required)
     this.categoryId = new FormControl(this.product.categoryId, Validators.required)
     this.quantity = new FormControl(this.product.quantity, Validators.required)
@@ -53,7 +56,6 @@ export class EditMyProductComponent implements OnInit {
         error => {
           console.log(error);
         })
-    //TODO zrobić czekanie na dodanie produktu, zanim przejdzie na add products
     this.router.navigate(['/MyProducts'])
   }
 
