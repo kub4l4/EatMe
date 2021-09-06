@@ -24,6 +24,9 @@ import { ProductsResolverService } from "./_services/products-resolver.service";
 import { ProductResolverService } from "./_services/product-resolver.service";
 import { CategoryService } from "./_services/category.service";
 import { CategoriesResolverService } from "./_services/categories-resolver.service";
+import { BoardAdminUsersComponent } from "./Components/board-admin/all-users/all-users.component";
+import { BoardAdminAddCategoryComponent } from "./Components/board-admin/add-category/add-category.component";
+import { BoardAdminAllCategoriesComponent } from "./Components/board-admin/all-categories/all-categories.component";
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { CategoriesResolverService } from "./_services/categories-resolver.servi
     BoardAdminComponent,
     AboutComponent,
     SettingsComponent,
-    EditMyProductComponent
+    EditMyProductComponent,
+    BoardAdminUsersComponent,
+    BoardAdminAddCategoryComponent,
+    BoardAdminAllCategoriesComponent
   ],
   imports: [
     BrowserModule,

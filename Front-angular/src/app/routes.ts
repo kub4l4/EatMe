@@ -29,7 +29,7 @@ const routes : Routes = [
   {path : 'profile', component : ProfileComponent},
   {path : 'about', component : AboutComponent},
   {path : 'settings', component : SettingsComponent},
-  {path : 'admin', component : BoardAdminComponent},
+  {path : 'admin', component : BoardAdminComponent, resolve : {categories : CategoriesResolverService}},
   {path : 'MyProducts/edit/:id', component : EditMyProductComponent, resolve : {productById : ProductResolverService, categories : CategoriesResolverService}},
 
 

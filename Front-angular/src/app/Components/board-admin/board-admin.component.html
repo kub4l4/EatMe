@@ -1,89 +1,25 @@
-<div class="container-fluid mt-5 pt-3">
+<div class="container-fluid mt-4">
   <div class="row">
     <div class="col-md-12">
       <h4>Admin Dashboard</h4>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 mb-3">
-      <div class="card h-100">
-        <div class="card-header">
-          <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-          Soon!
-        </div>
-        <div class="card-body">
-          Wkrótce znajdziesz coś tu ultra przydatnego!
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 mb-3">
-      <div class="card h-100">
-        <div class="card-header">
-          <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-          Dodaj nową kategorie
-        </div>
-        <div class="card-body">
-          Tutaj zrobić formularz dodawania kategorii
-          <!-- TODO Tutaj zrobić formularz dodawania kategorii -->
-        </div>
+    <div class="col-md-12 mb-3">
+      <div class="card">
+        <board-admin-add-category></board-admin-add-category>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12 mb-3">
-      <div class="card">
-        <div class="card-header">
-          <span><i class="bi bi-table me-2"></i></span> User List
-        </div>
-
-        <div class="card-body">
-          <div class="table-responsive">
-            <table id="example" class="table table-striped data-table" style="width: 100%">
-              <thead>
-              <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Change role</th>
-                <th>Delete</th>
-              </tr>
-              </thead>
-              <tbody *ngFor=" let user of users">
-              <tr>
-                <td>{{user?.username}}</td>
-                <td>{{user?.email}}</td>
-
-                <td><span *ngFor="let role of user.roles">{{role?.name}}</span></td>
-
-
-                <td>
-                      <span *ngFor="let role of user.roles">
-                        <span *ngIf="role?.name === 'ROLE_USER'">
-                          <button>Make admin</button>
-                        </span>
-                        <span *ngIf="role?.name === 'ROLE_ADMIN'">
-                          <button>Make user</button>
-                        </span>
-                      </span>
-                </td>
-
-                <td>
-                  <button>Delete account</button>
-                </td>
-              </tr>
-              </tbody>
-              <tfoot>
-              <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Change role</th>
-                <th>Delete</th>
-              </tr>
-              </tfoot>
-            </table>
-          </div>
-        </div>
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        <board-admin-all-categories [categories]="categories" ></board-admin-all-categories>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        <board-admin-uses></board-admin-uses>
       </div>
     </div>
   </div>

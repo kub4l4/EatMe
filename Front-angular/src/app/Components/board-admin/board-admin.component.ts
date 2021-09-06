@@ -1,39 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../_services/user.service';
-import { UsersService } from '../../_services/users.service';
-import { Users } from '../../_models/user.model';
+import { ICategory } from "../../_models/category.model";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector : 'app-board-admin',
-  templateUrl : './board-admin.component.html',
-  styles : [`
-
-  `]
+  templateUrl : './board-admin.component.html'
 })
 export class BoardAdminComponent implements OnInit {
-  users? : Users[];
-  currentIndex = -1;
   name = '';
+  categories: ICategory[]
 
-  constructor(private userService : UserService, private usersService : UsersService) {
+  constructor(private route : ActivatedRoute) {
   }
 
   ngOnInit() : void {
-    this.retrieveUsers();
+    this.categories = this.route.snapshot.data['categories']
 
   }
-
-
-  retrieveUsers() : void { //TODO show this data
-    this.usersService.getAll().subscribe(
-      data => {
-        this.users = data;
-        console.log("halo?", data);
-      },
-      error => {
-        console.log(error);
-      });
-  }
-
-
 }

@@ -4,6 +4,7 @@ import { Observable, of, Subject } from "rxjs";
 import { IMyProduct } from "../_models/myProduct.model";
 import { catchError } from "rxjs/operators";
 import { FormControl } from "@angular/forms";
+import { ICategory } from "../_models/category.model";
 
 const API_URL = 'http://localhost:8080/api/category/';
 
@@ -13,7 +14,6 @@ const httpOptions = {
 
 @Injectable()
 export class CategoryService {
-  temp : any[]
 
   constructor(private http : HttpClient) {
   }
@@ -22,30 +22,13 @@ export class CategoryService {
     return this.http.get<any[]>(API_URL)
   }
 
-  saveCategory(name : string, categoryId : number, quantity : number, expireDate : string) {
+  saveCategory(title : string, description : string) {
     return this.http.post<any>(API_URL, {
-      name,
-      categoryId,
-      quantity,
-      expireDate
+      title,
+      description
     }, httpOptions)
-      .pipe(catchError(this.handleError<IMyProduct[][]>('saveProduct')))
+      .pipe(catchError(this.handleError<ICategory[][]>('saveCategory')))
   }
-
-  updateCategory(id : number, name : string, categoryId : number, quantity : number, expireDate : string) {
-    return this.http.put<any>(API_URL + id, {
-      name,
-      categoryId,
-      quantity,
-      expireDate
-    }, httpOptions)
-      .pipe(catchError(this.handleError<IMyProduct[][]>('saveProduct')))
-  }
-
-  deleteCategory(id : number) {
-    return this.http.delete<any>(API_URL + id)
-  }
-
 
 
   private handleError<T>(operation = 'operation', result? : T) {
