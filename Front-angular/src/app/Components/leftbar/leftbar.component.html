@@ -16,7 +16,8 @@
         <div *ngIf="isLoggedIn">
 
           <li>
-            <a [routerLink]="['/MyProducts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link align-middle">
+            <a [routerLink]="['/MyProducts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+               class="nav-link align-middle">
               <i class="fs-5 bi-bag-check"></i> Products </a>
           </li>
 
@@ -32,19 +33,22 @@
       <ul class=fixed-bottom>
 
         <span *ngIf="!isLoggedIn">
-          <li routerLinkActive="active" class="nav-link px-0 align-middle">
-            <a [routerLink]="['/register']" class="nav-link" routerLink="register">Sign Up</a>
+          <li class="nav-link px-0 align-middle">
+            <a [routerLink]="['/register']" class="nav-link" routerLink="register"
+               routerLinkActive="active">Sign Up</a>
           </li>
 
-          <li routerLinkActive="active" class="nav-link px-0 align-middle">
-            <a [routerLink]="['/login']" class="nav-link" routerLink="login">Log In</a>
+          <li class="nav-link px-0 align-middle">
+            <a [routerLink]="['/login']" class="nav-link" routerLink="login"
+               routerLinkActive="active">Log In</a>
           </li>
         </span>
-
-        <li *ngIf="showAdminBoard" routerLinkActive="active" class="nav-link px-0 align-middle">
-          <a [routerLink]="['/admin']" class="nav-link" routerLink="admin">Admin Dashboard </a>
-        </li>
-
+        <span *ngIf="showAdminBoard">
+          <li class="nav-link px-0 align-middle">
+            <a [routerLink]="['/admin']" class="nav-link" routerLink="admin"
+               routerLinkActive="active">Admin Dashboard </a>
+          </li>
+        </span>
 
         <div *ngIf="isLoggedIn" class="dropdown pb-4 align-middle">
 

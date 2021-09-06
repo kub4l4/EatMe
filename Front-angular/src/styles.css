@@ -1,19 +1,6 @@
 :root {
   --offcanvas-width: 270px;
-  --topNavbarHeight: 56px;
-}
-.sidebar-nav {
-  height: calc(100% - var(--topNavbarHeight));
-}
-.sidebar-link {
-  display: flex;
-  align-items: center;
-}
-.sidebar-link .right-icon {
-  display: inline-flex;
-}
-.sidebar-link[aria-expanded="true"] .right-icon {
-  transform: rotate(180deg);
+  --topNavbarHeight: 0px;
 }
 
 @media (min-width: 992px) {
@@ -22,16 +9,5 @@
   }
   main {
     margin-left: var(--offcanvas-width);
-  }
-  /* this is to remove the backdrop */
-  .offcanvas-backdrop::before {
-    display: none;
-  }
-  .sidebar-nav {
-    -webkit-transform: none;
-    transform: none;
-    visibility: visible !important;
-    height: calc(100% - var(--topNavbarHeight));
-    top: var(--topNavbarHeight);
   }
 }

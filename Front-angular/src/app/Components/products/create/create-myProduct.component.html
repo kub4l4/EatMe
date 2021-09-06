@@ -1,11 +1,11 @@
-<div class="container-fluid mt-5 pt-3">
-  <div class="row justify-content-md-center">
-    <div class="col-md-8">
+<div class="container-fluid">
+  <div class="row justify-content-md-center ">
+    <div class="col-md-8 mt-5 pt-3">
       <form [formGroup]="newMyProductForm" (ngSubmit)="saveSession(newMyProductForm.value)" autocomplete="off">
 
         <div class="row text-center">
           <header>
-            <h1>Add product to your storage</h1>
+            <h1>Add product product to your storage</h1>
           </header>
         </div>
 
@@ -25,7 +25,7 @@
           <label class="col-sm-2 col-form-label">Product type:</label>
           <div class="col-sm-10">
             <em *ngIf="categoryId.invalid && categoryId.dirty">Required</em>
-            <select  formControlName="categoryId" class="form-control" placeholder="product name...">
+            <select formControlName="categoryId" class="form-control">
               <option *ngFor="let category of categories" [value]="category.categoryId"> {{category.title}} </option>
             </select>
           </div>

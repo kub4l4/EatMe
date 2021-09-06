@@ -1,0 +1,9 @@
+.navbar{
+  background-color: #F8751E !important;
+}
+
+@media (min-width: 992px) {
+  .navbar {
+    display: none;
+  }
+}

@@ -22,7 +22,7 @@ export class CreateMyProduct implements OnInit {
   constructor(private router : Router,
               private productService : ProductService,
               private categoryService: CategoryService,
-              private route : ActivatedRoute,) {
+              private route : ActivatedRoute) {
   }
 
   ngOnInit() {

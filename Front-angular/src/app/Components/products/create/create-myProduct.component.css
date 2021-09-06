@@ -2,7 +2,8 @@
 .container-fluid {
   background-image: url("/assets/images/storage.jpg");
   background-color: #F0F0F0;
-  height: 94.9vh
+  background-size: cover;
+  height: 100vh;
 }
 
 form {
