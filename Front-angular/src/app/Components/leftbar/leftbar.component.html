@@ -16,7 +16,7 @@
         <div *ngIf="isLoggedIn">
 
           <li>
-            <a [routerLink]="['/MyProducts']" routerLinkActive="active" class="nav-link align-middle">
+            <a [routerLink]="['/MyProducts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link align-middle">
               <i class="fs-5 bi-bag-check"></i> Products </a>
           </li>
 
