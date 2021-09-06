@@ -20,7 +20,7 @@ import {CategoriesResolverService} from "./_services/categories-resolver.service
 
 const routes : Routes = [
 
-  {path : 'MyProducts', component : MyProductComponent, resolve : {products : ProductsResolverService}},
+  {path : 'MyProducts', component : MyProductComponent, resolve : {products : ProductsResolverService, categories : CategoriesResolverService}},
   {path : 'sidebar', component : LeftbarComponent},
   {path : 'MyProducts/add', component : CreateMyProduct, resolve : {categories : CategoriesResolverService}},
   {path : '', redirectTo : '/login', pathMatch : 'full'},
