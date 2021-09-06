@@ -15,10 +15,6 @@ import { ProductService } from '../../_services/product.service';
       color: #F8751E;
       margin: 20px;
     }
-
-    .bg-leftbar {
-      background-color: #F8751E !important;
-    }
   `]
 })
 export class MyProductComponent implements OnInit {

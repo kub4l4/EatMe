@@ -22,10 +22,12 @@ import { SettingsComponent } from './Components/settings/settings.component';
 import { EditMyProductComponent } from "./Components/products/edit/edit-myProduct.component";
 import { ProductsResolverService } from "./_services/products-resolver.service";
 import { ProductResolverService } from "./_services/product-resolver.service";
+import { CategoryService } from "./_services/category.service";
+import { CategoriesResolverService } from "./_services/categories-resolver.service";
 
 
 @NgModule({
-  declarations : [
+  declarations: [
     AppComponent,
     LeftbarComponent,
     NavbarComponent,
@@ -40,20 +42,22 @@ import { ProductResolverService } from "./_services/product-resolver.service";
     SettingsComponent,
     EditMyProductComponent
   ],
-  imports : [
+  imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers : [
+  providers: [
     ProductService,
     authInterceptorProviders,
     ProductsResolverService,
-    ProductResolverService
+    ProductResolverService,
+    CategoryService,
+    CategoriesResolverService
   ],
-  bootstrap : [AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

@@ -14,8 +14,6 @@ export class ProductResolverService implements Resolve<IMyProduct> {
   }
 
   resolve(route : ActivatedRouteSnapshot, state : RouterStateSnapshot) {
-    console.log("JESTEM TU")
-    console.log(route.paramMap.get('id'))
     return this.productService.getProductById(route.paramMap.get('id')).pipe(map(productById => productById))
   }
 

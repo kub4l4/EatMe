@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { IMyProduct } from "../../../_models/myProduct.model";
 import { ProductService } from "../../../_services/product.service";
+import {CategoryService} from "../../../_services/category.service";
+import {ICategory} from "../../../_models/category.model";
 
 @Component({
   templateUrl : './create-myProduct.component.html',
@@ -15,10 +17,17 @@ export class CreateMyProduct implements OnInit {
   public quantity! : FormControl
   public expireDate! : FormControl
 
-  constructor(private router : Router, private productService : ProductService) {
+  categories: ICategory[]
+
+  constructor(private router : Router,
+              private productService : ProductService,
+              private categoryService: CategoryService,
+              private route : ActivatedRoute,) {
   }
 
   ngOnInit() {
+    this.categories = this.route.snapshot.data['categories']
+
     this.name = new FormControl('', Validators.required)
     this.categoryId = new FormControl('', Validators.required)
     this.quantity = new FormControl('', Validators.required)
@@ -30,6 +39,7 @@ export class CreateMyProduct implements OnInit {
       quantity : this.quantity,
       expireDate : this.expireDate
     })
+
   }
 
 
