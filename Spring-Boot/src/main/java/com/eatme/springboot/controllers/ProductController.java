@@ -1,7 +1,9 @@
 package com.eatme.springboot.controllers;
 
 import com.eatme.springboot.dao.models.Product;
+import com.eatme.springboot.dao.models.Transaction;
 import com.eatme.springboot.services.ProductService;
+import com.eatme.springboot.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -21,10 +23,12 @@ public class ProductController {
 
 
     private final ProductService productService;
+    private final TransactionService transactionService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, TransactionService transactionService) {
         this.productService = productService;
+        this.transactionService = transactionService;
     }
 
     @GetMapping("")
@@ -58,6 +62,66 @@ public class ProductController {
 
         product.setCreatedAt(System.currentTimeMillis());
         product.setId_user((long) request.getAttribute("userId"));
+        product.setAmountLeft(product.getProductQuantity());
+        product.setArchived(0);
+        Transaction transaction = new Transaction();
+        transaction.setIdProduct(product.getIdProduct());
+        transaction.setUserId(product.getId_user());
+        transaction.setAmount_before(0.0);
+        transaction.setAmount_after(product.getAmountLeft());
+        transaction.setAmount_changed(product.getAmountLeft());
+        transaction.setCreatedAt(System.currentTimeMillis());
+        transaction.setTransactionType("New");
+        transactionService.saveAndFlush(transaction);
+        productService.saveAndFlush(product);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @PutMapping("/edit")
+    public ResponseEntity<Product> editQuantity(HttpServletRequest request,
+                                                @RequestBody Product newProduct) {
+
+        Long idProduct = newProduct.getIdProduct();
+        Long idUser = (long) request.getAttribute("userId");
+        Product product = productService.findProductsByIdProducts(idProduct);
+        //TODO information about problem
+        if (product.getId_user() != idUser) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        Transaction transaction = new Transaction();
+        transaction.setIdProduct(idProduct);
+        transaction.setUserId(idUser);
+        transaction.setAmount_before(product.getAmountLeft());
+        transaction.setAmount_after(newProduct.getAmountLeft());
+        transaction.setAmount_changed(newProduct.getAmountLeft() - product.getAmountLeft());
+        transaction.setCreatedAt(System.currentTimeMillis());
+        transaction.setTransactionType("Update");
+        transactionService.saveAndFlush(transaction);
+        productService.saveAndFlush(newProduct);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @PutMapping("/archive")
+    public ResponseEntity<Product> archiveProduct(HttpServletRequest request,
+                                                  @RequestBody Product newProduct) {
+
+        Long idProduct = newProduct.getIdProduct();
+        Long idUser = (long) request.getAttribute("userId");
+        Product product = productService.findProductsByIdProducts(idProduct);
+        //TODO information about problem
+        if (product.getId_user() != idUser) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        product.setArchived(1);
+        Transaction transaction = new Transaction();
+        transaction.setIdProduct(product.getIdProduct());
+        transaction.setUserId(product.getId_user());
+        transaction.setAmount_before(product.getAmountLeft());
+        transaction.setAmount_after(0.0);
+        transaction.setAmount_changed(0 - product.getAmountLeft());
+        transaction.setCreatedAt(System.currentTimeMillis());
+        transaction.setTransactionType("Archive");
+        transactionService.saveAndFlush(transaction);
         productService.saveAndFlush(product);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }

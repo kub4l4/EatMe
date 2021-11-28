@@ -44,12 +44,13 @@ public class Product {
     private long id_user;
     private long createdAt;
     private String expireDate;
+    private int archived;
 
 
     public Product() {
     }
 
-    public Product(long idProduct, long id, Double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, Double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long id_user, long createdAt, String expireDate) {
+    public Product(long idProduct, long id, Double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, Double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long id_user, long createdAt, String expireDate, int archived) {
         this.idProduct = idProduct;
         this.id = id;
         this.servingSize = servingSize;
@@ -74,6 +75,7 @@ public class Product {
         this.id_user = id_user;
         this.createdAt = createdAt;
         this.expireDate = expireDate;
+        this.archived = archived;
     }
 
     public long getIdProduct() {
@@ -266,6 +268,14 @@ public class Product {
 
     public void setExpireDate(String expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public int getArchived() {
+        return archived;
+    }
+
+    public void setArchived(int archived) {
+        this.archived = archived;
     }
 }
 
