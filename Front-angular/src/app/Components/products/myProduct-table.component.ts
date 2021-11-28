@@ -69,7 +69,7 @@ export class MyProductTableComponent implements OnChanges {
       console.log("filterProduct", filter)
       this.visibleProducts = this.products.slice(0)
     } else {
-      console.log("filterProduct", filter)
+      console.log("filterProduct", this.products)
       this.visibleProducts = this.products.filter(products => {
         return products.categoryId === filter;
       })

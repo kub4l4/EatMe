@@ -113,6 +113,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         product.setArchived(1);
+        product.setAmountLeft(0.0);
         Transaction transaction = new Transaction();
         transaction.setIdProduct(product.getIdProduct());
         transaction.setUserId(product.getId_user());
