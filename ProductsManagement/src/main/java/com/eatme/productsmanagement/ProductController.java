@@ -2,7 +2,6 @@ package com.eatme.productsmanagement;
 
 import com.eatme.productsmanagement.models.Products;
 import lombok.AllArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,23 +34,21 @@ public class ProductController {
     public List<Products> searchForProduct(@PathVariable("product") String product) {
         List<Products> productsList = productService.findProductsByProductName(product);
         if (!productsList.isEmpty()) {
-            System.out.println("findProductsByProductNameEn " + productsList);
             return productsList;
         }
-        try{
+        try {
             int foo = Integer.parseInt(product);
             productsList = productService.findProductsByCode((long) foo);
             if (!productsList.isEmpty()) {
-                System.out.println("findAllProductByCode " + productsList);
                 return productsList;
             }
-        }catch (Exception ex){};
+        } catch (Exception ignored) {
+        }
         //TODO Find better solution
 
 
         productsList = productService.findProductsByKeywords(product);
         if (!productsList.isEmpty()) {
-            System.out.println("findProductsByKeywords " + productsList);
             return productsList;
         }
         return productsList;

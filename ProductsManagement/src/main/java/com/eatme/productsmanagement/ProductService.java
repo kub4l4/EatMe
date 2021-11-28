@@ -12,23 +12,23 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Products> getAllProducts(){
+    public List<Products> getAllProducts() {
         return productRepository.findAll();
     }
 
-    public Products findProductById(Long id){
+    public Products findProductById(Long id) {
         return productRepository.findProductById(id);
     }
 
-    public List<Products> findProductsByProductName(String name){
+    public List<Products> findProductsByProductName(String name) {
         return productRepository.findProductsByProductName(name);
     }
 
-    public List<Products> findProductsByCode(Long Code){
+    public List<Products> findProductsByCode(Long Code) {
         return productRepository.findProductsByCode(Code);
     }
 
-    public List<Products> findProductsByKeywords(String keywords){
+    public List<Products> findProductsByKeywords(String keywords) {
         return productRepository.findProductsByKeywords(keywords);
     }
 

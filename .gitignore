@@ -1,8 +1,5 @@
 
 ProductsManagement/mvnw.cmd
 ProductsManagement/mvnw
-ProductsManagement/.mvn/wrapper/MavenWrapperDownloader.java
-ProductsManagement/.mvn/wrapper/maven-wrapper.properties
-ProductsManagement/.mvn/wrapper/maven-wrapper.jar
-ProductsManagement/.mvn/wrapper/maven-wrapper.jar
-ProductsManagement/.mvn/wrapper/maven-wrapper.jar
+ProductsManagement/.mvn/
+ProductsManagement/src/main/resources/application.properties

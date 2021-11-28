@@ -1,15 +1,17 @@
-
 package com.eatme.productsmanagement.models;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
 
 @Document
 @Data
+@JsonInclude
 public class Products {
 
     @Id
@@ -32,6 +34,6 @@ public class Products {
     private List<String> categories;
     private NutriscoreData nutriscoreData;
     private String productSizeType;
-    }
+}
 
 
