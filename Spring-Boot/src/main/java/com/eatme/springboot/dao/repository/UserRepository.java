@@ -1,21 +1,22 @@
 package com.eatme.springboot.dao.repository;
 
-import java.util.Optional;
-
+import com.eatme.springboot.dao.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.eatme.springboot.dao.models.User;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-  Optional<User> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-  Boolean existsByUsername(String username);
+    User findByUserId(Long id);
 
-  Boolean existsByEmail(String email);
+    Boolean existsByUsername(String username);
 
-  void deleteByEmail(String email);
+    Boolean existsByEmail(String email);
+
+    void deleteByEmail(String email);
 
 }

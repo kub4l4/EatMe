@@ -9,10 +9,12 @@ public class UserRequest {
     private UserRepository userRepository;
 
     @Autowired
-    public UserRequest( UserRepository userRepository) {
+    public UserRequest(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public Iterable<User> findAll() { return userRepository.findAll();}
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
+    }
 
 }

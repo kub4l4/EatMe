@@ -1,22 +1,36 @@
 package com.eatme.springboot.services;
 
 import com.eatme.springboot.dao.models.Product;
-import com.eatme.springboot.exceptions.EtBadRequestException;
-import com.eatme.springboot.exceptions.EtResourceNotFoundException;
-
+import com.eatme.springboot.dao.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ProductService {
+@Service
+public class ProductService {
 
-    List<Product> fetchAllProducts(Integer userId);
+    private final ProductRepository productRepository;
 
-    Product fetchProductById(Integer userId, Integer productId) throws EtResourceNotFoundException;
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
-    Product addProduct(String name, long createdAt, String expireDate, String quantity, Integer categoryId, Integer userId) throws EtBadRequestException;
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
 
-    void updateProduct(Integer productId, Integer categoryId,  String name, long createdAt, String expireDate, String quantity, Integer userId, Product product) throws EtBadRequestException;
+    public <S extends Product> S save(S s) {
+        return productRepository.save(s);
+    }
 
-    void removeProduct(Integer userId, Integer productId) throws EtResourceNotFoundException;
+    public <S extends Product> S saveAndFlush(S s) {
+        return productRepository.saveAndFlush(s);
+    }
+
+    public Product findProductsByIdProducts(Long id) {
+        return productRepository.findProductsByIdProduct(id);
+    }
 
 }

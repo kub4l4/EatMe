@@ -1,60 +1,255 @@
 package com.eatme.springboot.dao.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "product")
 public class Product {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Integer productId;
+    @Column(name = "id_product", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idProduct;
+    private long id;
+    private Double servingSize;
+    private long knownIngredientsN;
+    @ElementCollection
+    private List<String> ingredientsHierarchy;
+    private String ingredientsTextWithAllergens;
+    @OneToOne(cascade = CascadeType.ALL)
+    private NutrientLevels nutrientLevels;
+    private String ingredientsText;
+    private long code;
+    private String nutritionDataPreparedPer;
+    @ElementCollection
+    private List<String> keywords;
+    private String ecoscoreTags;
+    @ElementCollection
+    private List<String> allergens;
+    private Double productQuantity;
+    private String productName;
+    private long novaGroups;
+    @ElementCollection
+    private List<String> categoriesHierarchy;
+    @ElementCollection
+    private List<String> categories;
+    @OneToOne(cascade = CascadeType.ALL)
+    private NutriscoreData nutriscoreData;
+    private String productSizeType;
+    private double amountLeft;
+    private long id_user;
     private long createdAt;
     private String expireDate;
-    private String name;
 
-    @ManyToOne
-    private Category category;
-
-    private Integer categoryId;
-
-    private String quantity;
-    private Integer userId;
-
-    @ManyToOne
-    private User user;
 
     public Product() {
     }
 
-    public Product(long createdAt, String expireDate, String name, Integer categoryId, String quantity, Integer userId) {
+    public Product(long idProduct, long id, Double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, Double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long id_user, long createdAt, String expireDate) {
+        this.idProduct = idProduct;
+        this.id = id;
+        this.servingSize = servingSize;
+        this.knownIngredientsN = knownIngredientsN;
+        this.ingredientsHierarchy = ingredientsHierarchy;
+        this.ingredientsTextWithAllergens = ingredientsTextWithAllergens;
+        this.nutrientLevels = nutrientLevels;
+        this.ingredientsText = ingredientsText;
+        this.code = code;
+        this.nutritionDataPreparedPer = nutritionDataPreparedPer;
+        this.keywords = keywords;
+        this.ecoscoreTags = ecoscoreTags;
+        this.allergens = allergens;
+        this.productQuantity = productQuantity;
+        this.productName = productName;
+        this.novaGroups = novaGroups;
+        this.categoriesHierarchy = categoriesHierarchy;
+        this.categories = categories;
+        this.nutriscoreData = nutriscoreData;
+        this.productSizeType = productSizeType;
+        this.amountLeft = amountLeft;
+        this.id_user = id_user;
         this.createdAt = createdAt;
         this.expireDate = expireDate;
-        this.name = name;
-        this.categoryId = categoryId;
-        this.quantity = quantity;
-        this.userId = userId;
     }
 
-    public Product(Integer productId, long createdAt, String expireDate, String name, Integer categoryId, String quantity, Integer userId) {
-        this.productId = productId;
-        this.createdAt = createdAt;
-        this.expireDate = expireDate;
-        this.name = name;
-        this.categoryId = categoryId;
-        this.quantity = quantity;
-        this.userId = userId;
+    public long getIdProduct() {
+        return idProduct;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public void setIdProduct(long idProduct) {
+        this.idProduct = idProduct;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Double getServingSize() {
+        return servingSize;
+    }
+
+    public void setServingSize(Double servingSize) {
+        this.servingSize = servingSize;
+    }
+
+    public long getKnownIngredientsN() {
+        return knownIngredientsN;
+    }
+
+    public void setKnownIngredientsN(long knownIngredientsN) {
+        this.knownIngredientsN = knownIngredientsN;
+    }
+
+    public List<String> getIngredientsHierarchy() {
+        return ingredientsHierarchy;
+    }
+
+    public void setIngredientsHierarchy(List<String> ingredientsHierarchy) {
+        this.ingredientsHierarchy = ingredientsHierarchy;
+    }
+
+    public String getIngredientsTextWithAllergens() {
+        return ingredientsTextWithAllergens;
+    }
+
+    public void setIngredientsTextWithAllergens(String ingredientsTextWithAllergens) {
+        this.ingredientsTextWithAllergens = ingredientsTextWithAllergens;
+    }
+
+    public NutrientLevels getNutrientLevels() {
+        return nutrientLevels;
+    }
+
+    public void setNutrientLevels(NutrientLevels nutrientLevels) {
+        this.nutrientLevels = nutrientLevels;
+    }
+
+    public String getIngredientsText() {
+        return ingredientsText;
+    }
+
+    public void setIngredientsText(String ingredientsText) {
+        this.ingredientsText = ingredientsText;
+    }
+
+    public long getCode() {
+        return code;
+    }
+
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public String getNutritionDataPreparedPer() {
+        return nutritionDataPreparedPer;
+    }
+
+    public void setNutritionDataPreparedPer(String nutritionDataPreparedPer) {
+        this.nutritionDataPreparedPer = nutritionDataPreparedPer;
+    }
+
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    public String getEcoscoreTags() {
+        return ecoscoreTags;
+    }
+
+    public void setEcoscoreTags(String ecoscoreTags) {
+        this.ecoscoreTags = ecoscoreTags;
+    }
+
+    public List<String> getAllergens() {
+        return allergens;
+    }
+
+    public void setAllergens(List<String> allergens) {
+        this.allergens = allergens;
+    }
+
+    public Double getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(Double productQuantity) {
+        this.productQuantity = productQuantity;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public long getNovaGroups() {
+        return novaGroups;
+    }
+
+    public void setNovaGroups(long novaGroups) {
+        this.novaGroups = novaGroups;
+    }
+
+    public List<String> getCategoriesHierarchy() {
+        return categoriesHierarchy;
+    }
+
+    public void setCategoriesHierarchy(List<String> categoriesHierarchy) {
+        this.categoriesHierarchy = categoriesHierarchy;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public NutriscoreData getNutriscoreData() {
+        return nutriscoreData;
+    }
+
+    public void setNutriscoreData(NutriscoreData nutriscoreData) {
+        this.nutriscoreData = nutriscoreData;
+    }
+
+    public String getProductSizeType() {
+        return productSizeType;
+    }
+
+    public void setProductSizeType(String productSizeType) {
+        this.productSizeType = productSizeType;
+    }
+
+    public double getAmountLeft() {
+        return amountLeft;
+    }
+
+    public void setAmountLeft(double amountLeft) {
+        this.amountLeft = amountLeft;
+    }
+
+    public long getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(long id_user) {
+        this.id_user = id_user;
     }
 
     public long getCreatedAt() {
@@ -72,52 +267,6 @@ public class Product {
     public void setExpireDate(String expireDate) {
         this.expireDate = expireDate;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }
+
+
