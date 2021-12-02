@@ -36,11 +36,11 @@ public class ProductController {
         return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProductFromPMById(@PathVariable("productId") Long productId) {
+    @GetMapping("/{idProduct}")
+    public ResponseEntity<Product> getProductFromPMById(@PathVariable("idProduct") Long idProduct) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Product> exchange = restTemplate.exchange(
-                "http://localhost:9090/api/v1/products/" + productId,
+                "http://localhost:9090/api/v1/products/" + idProduct,
                 HttpMethod.GET,
                 HttpEntity.EMPTY,
                 Product.class);
@@ -63,6 +63,18 @@ public class ProductController {
         List<Product> ProductList = productService.findProductByIdUserAndArchived((long) request.getAttribute("userId"), 0);
         return new ResponseEntity<>(ProductList, HttpStatus.OK);
     }
+
+    @GetMapping("/userProduct/{idProduct}")
+    public ResponseEntity<Product> getUserProduct(HttpServletRequest request,
+                                                  @PathVariable("idProduct") Long idProduct){
+
+        Product product = productService.findProductsByIdProducts(idProduct);
+        if (product.getIdUser() != (long) request.getAttribute("userId")){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Product> addProduct(HttpServletRequest request,
                                               @RequestBody Product product) {
@@ -84,7 +96,7 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @PutMapping("/edit")
+    @PutMapping("/edit/")
     public ResponseEntity<Product> editQuantity(HttpServletRequest request,
                                                 @RequestBody Product newProduct) {
 
@@ -108,15 +120,13 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @PutMapping("/archive")
+    @PutMapping("/archive/{idProduct}")
     public ResponseEntity<Product> archiveProduct(HttpServletRequest request,
-                                                  @RequestBody Product newProduct) {
+                                                  @PathVariable("idProduct") Long idProduct) {
 
-        Long idProduct = newProduct.getIdProduct();
-        Long idUser = (long) request.getAttribute("userId");
         Product product = productService.findProductsByIdProducts(idProduct);
         //TODO information about problem
-        if (product.getIdUser() != idUser) {
+        if (product.getIdUser() != (long) request.getAttribute("userId")) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         product.setArchived(1);
