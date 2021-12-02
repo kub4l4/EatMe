@@ -33,4 +33,8 @@ public class ProductService {
         return productRepository.findProductsByIdProduct(id);
     }
 
+    public List<Product> findProductByIdUserAndArchived(Long id, int archived){
+        return productRepository.findProductByIdUserAndArchived(id, archived);
+    }
+
 }

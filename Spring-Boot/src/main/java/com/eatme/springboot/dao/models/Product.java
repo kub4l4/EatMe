@@ -41,7 +41,9 @@ public class Product {
     private NutriscoreData nutriscoreData;
     private String productSizeType;
     private double amountLeft;
-    private long id_user;
+
+    @Column(name = "id_user")
+    private long idUser;
     private long createdAt;
     private String expireDate;
     private int archived;
@@ -50,7 +52,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(long idProduct, long id, Double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, Double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long id_user, long createdAt, String expireDate, int archived) {
+    public Product(long idProduct, long id, Double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, Double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long idUser, long createdAt, String expireDate, int archived) {
         this.idProduct = idProduct;
         this.id = id;
         this.servingSize = servingSize;
@@ -72,7 +74,7 @@ public class Product {
         this.nutriscoreData = nutriscoreData;
         this.productSizeType = productSizeType;
         this.amountLeft = amountLeft;
-        this.id_user = id_user;
+        this.idUser = idUser;
         this.createdAt = createdAt;
         this.expireDate = expireDate;
         this.archived = archived;
@@ -246,12 +248,12 @@ public class Product {
         this.amountLeft = amountLeft;
     }
 
-    public long getId_user() {
-        return id_user;
+    public long getIdUser() {
+        return idUser;
     }
 
-    public void setId_user(long id_user) {
-        this.id_user = id_user;
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
     public long getCreatedAt() {

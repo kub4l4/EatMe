@@ -56,17 +56,24 @@ public class ProductController {
         return new ResponseEntity<>(SavedProduct, HttpStatus.OK);
     }
 
+
+    @GetMapping("/userProducts")
+    public ResponseEntity<List<Product>> getUserProducts(HttpServletRequest request){
+
+        List<Product> ProductList = productService.findProductByIdUserAndArchived((long) request.getAttribute("userId"), 0);
+        return new ResponseEntity<>(ProductList, HttpStatus.OK);
+    }
     @PostMapping("/add")
     public ResponseEntity<Product> addProduct(HttpServletRequest request,
                                               @RequestBody Product product) {
 
         product.setCreatedAt(System.currentTimeMillis());
-        product.setId_user((long) request.getAttribute("userId"));
+        product.setIdUser((long) request.getAttribute("userId"));
         product.setAmountLeft(product.getProductQuantity());
         product.setArchived(0);
         Transaction transaction = new Transaction();
         transaction.setIdProduct(product.getIdProduct());
-        transaction.setUserId(product.getId_user());
+        transaction.setUserId(product.getIdUser());
         transaction.setAmount_before(0.0);
         transaction.setAmount_after(product.getAmountLeft());
         transaction.setAmount_changed(product.getAmountLeft());
@@ -85,7 +92,7 @@ public class ProductController {
         Long idUser = (long) request.getAttribute("userId");
         Product product = productService.findProductsByIdProducts(idProduct);
         //TODO information about problem
-        if (product.getId_user() != idUser) {
+        if (product.getIdUser() != idUser) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         Transaction transaction = new Transaction();
@@ -109,14 +116,14 @@ public class ProductController {
         Long idUser = (long) request.getAttribute("userId");
         Product product = productService.findProductsByIdProducts(idProduct);
         //TODO information about problem
-        if (product.getId_user() != idUser) {
+        if (product.getIdUser() != idUser) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         product.setArchived(1);
         product.setAmountLeft(0.0);
         Transaction transaction = new Transaction();
         transaction.setIdProduct(product.getIdProduct());
-        transaction.setUserId(product.getId_user());
+        transaction.setUserId(product.getIdUser());
         transaction.setAmount_before(product.getAmountLeft());
         transaction.setAmount_after(0.0);
         transaction.setAmount_changed(0 - product.getAmountLeft());

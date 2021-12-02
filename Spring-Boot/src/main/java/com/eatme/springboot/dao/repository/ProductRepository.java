@@ -19,4 +19,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     <S extends Product> S saveAndFlush(S s);
 
     Product findProductsByIdProduct(Long id);
+
+    List<Product> findProductByIdUserAndArchived(Long id, int archived);
 }
