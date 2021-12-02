@@ -75,10 +75,9 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Product> addProduct(HttpServletRequest request,
+    @PostMapping("/new")
+    public ResponseEntity<Product> addNewProduct(HttpServletRequest request,
                                               @RequestBody Product product) {
-
         product.setCreatedAt(System.currentTimeMillis());
         product.setIdUser((long) request.getAttribute("userId"));
         product.setAmountLeft(product.getProductQuantity());
@@ -96,10 +95,31 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @PutMapping("/edit/")
+    @PostMapping("")
+    public ResponseEntity<Product> addProduct(HttpServletRequest request,
+                                              @RequestBody Product product) {
+        product.setProductQuantity((double) Math.round(product.getProductQuantity()));
+        product.setCreatedAt(System.currentTimeMillis());
+        product.setIdUser((long) request.getAttribute("userId"));
+        product.setAmountLeft(product.getProductQuantity());
+        product.setArchived(0);
+        Transaction transaction = new Transaction();
+        transaction.setIdProduct(product.getIdProduct());
+        transaction.setUserId(product.getIdUser());
+        transaction.setAmount_before(0.0);
+        transaction.setAmount_after(product.getAmountLeft());
+        transaction.setAmount_changed(product.getAmountLeft());
+        transaction.setCreatedAt(System.currentTimeMillis());
+        transaction.setTransactionType("New");
+        transactionService.saveAndFlush(transaction);
+        productService.saveAndFlush(product);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @PutMapping("/edit")
     public ResponseEntity<Product> editQuantity(HttpServletRequest request,
                                                 @RequestBody Product newProduct) {
-
+        System.out.println(newProduct.getExpireDate());
         Long idProduct = newProduct.getIdProduct();
         Long idUser = (long) request.getAttribute("userId");
         Product product = productService.findProductsByIdProducts(idProduct);
@@ -115,8 +135,11 @@ public class ProductController {
         transaction.setAmount_changed(newProduct.getAmountLeft() - product.getAmountLeft());
         transaction.setCreatedAt(System.currentTimeMillis());
         transaction.setTransactionType("Update");
+        product.setProductName(newProduct.getProductName());
+        product.setAmountLeft(newProduct.getAmountLeft());
+        product.setExpireDate(newProduct.getExpireDate());
         transactionService.saveAndFlush(transaction);
-        productService.saveAndFlush(newProduct);
+        productService.saveAndFlush(product);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 

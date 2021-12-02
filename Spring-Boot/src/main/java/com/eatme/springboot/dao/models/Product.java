@@ -19,9 +19,11 @@ public class Product {
     private long knownIngredientsN;
     @ElementCollection
     private List<String> ingredientsHierarchy;
+    @Column(columnDefinition="TEXT")
     private String ingredientsTextWithAllergens;
     @OneToOne(cascade = CascadeType.ALL)
     private NutrientLevels nutrientLevels;
+    @Column(columnDefinition="TEXT")
     private String ingredientsText;
     private long code;
     private String nutritionDataPreparedPer;
