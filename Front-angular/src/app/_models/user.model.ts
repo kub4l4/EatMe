@@ -1,12 +1,12 @@
 export class Users {
-  id : string
-  username : string
-  email : string
-  password : string
-  roles : role[]
+  id: string
+  username: string
+  email: string
+  password: string
+  roles: role[]
 }
 
 export class role {
-  id : string
-  name : string
+  id: string
+  name: string
 }

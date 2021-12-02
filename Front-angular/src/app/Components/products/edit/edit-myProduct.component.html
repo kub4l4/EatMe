@@ -10,37 +10,22 @@
         </div>
 
 
-        <div class="form-group row" [ngClass]="{'error' :name.invalid && name.dirty }">
+        <div class="form-group row" [ngClass]="{'error' :productName.invalid && productName.dirty }">
 
           <label for="productName" class="col-sm-2 col-form-label">Product Name:</label>
           <div class="col-sm-10">
-            <em *ngIf="name.invalid && name.dirty">Required</em>
-            <input formControlName="name" id="productName" type="text" class="form-control"
+            <em *ngIf="productName.invalid && productName.dirty">Required</em>
+            <input formControlName="productName" id="productName" type="text" class="form-control"
                    placeholder="product name..."/>
           </div>
-
         </div>
 
-        <div class="form-group row" [ngClass]="{'error' :categoryId.invalid && categoryId.dirty }">
-          <label class="col-sm-2 col-form-label">Product type:</label>
+        <div class="form-group row" [ngClass]="{'error' :amountLeft.invalid && amountLeft.dirty }">
+          <label for="amountLeft" class="col-sm-2 col-form-label">Quantity:</label>
           <div class="col-sm-10">
-            <em *ngIf="categoryId.invalid && categoryId.dirty">Required</em>
-            <select value={{this.product.categoryId}} formControlName="categoryId" class="form-control">
-              <option *ngFor="let category of categories" [value]="category.categoryId"> {{category.title}} </option>
-              <!--TODO show proper category for chosen food-->
-            </select>
-          </div>
-        </div>
-
-
-
-
-
-        <div class="form-group row" [ngClass]="{'error' :quantity.invalid && quantity.dirty }">
-          <label for="quantity" class="col-sm-2 col-form-label">Quantity:</label>
-          <div class="col-sm-10">
-            <em *ngIf="quantity.invalid && quantity.dirty">Required</em>
-            <input formControlName="quantity" id="quantity" type="text" class="form-control" placeholder="quantity..."/>
+            <em *ngIf="amountLeft.invalid && amountLeft.dirty">Required</em>
+            <input formControlName="amountLeft" id="amountLeft" type="text" class="form-control"
+                   placeholder="Amount left..."/>
           </div>
         </div>
 

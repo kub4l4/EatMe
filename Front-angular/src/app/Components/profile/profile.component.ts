@@ -5,23 +5,23 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector : 'app-profile',
-  templateUrl : './profile.component.html',
-  styleUrls : ['./profile.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
 
-  currentUser : any;
+  currentUser: any;
 
 
-  profileForm : FormGroup
-  private firstName : FormControl
-  private lastName : FormControl
+  profileForm: FormGroup
+  private firstName: FormControl
+  private lastName: FormControl
 
-  constructor(private token : TokenStorageService, private router : Router) {
+  constructor(private token: TokenStorageService, private router: Router) {
   }
 
-  ngOnInit() : void {
+  ngOnInit(): void {
     this.currentUser = this.token.getUser();
     console.log(this.currentUser);
 
@@ -29,8 +29,8 @@ export class ProfileComponent implements OnInit {
     this.firstName = new FormControl(this.currentUser.email, [Validators.required, Validators.pattern('[a-zA-Z].*')])
     this.lastName = new FormControl(this.currentUser.email, Validators.required)
     this.profileForm = new FormGroup({
-      firstName : this.firstName,
-      lastName : this.lastName
+      firstName: this.firstName,
+      lastName: this.lastName
     })
   }
 
@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['events'])
   }
 
-  saveProfile(formValues : any) {
+  saveProfile(formValues: any) {
     if (this.profileForm.valid) {
       //this.authService.updateCurrentUser(formValues.firstName, formValues.lastName)
       this.router.navigate(['events'])

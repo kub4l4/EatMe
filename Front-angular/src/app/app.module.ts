@@ -22,11 +22,7 @@ import { SettingsComponent } from './Components/settings/settings.component';
 import { EditMyProductComponent } from "./Components/products/edit/edit-myProduct.component";
 import { ProductsResolverService } from "./_services/products-resolver.service";
 import { ProductResolverService } from "./_services/product-resolver.service";
-import { CategoryService } from "./_services/category.service";
-import { CategoriesResolverService } from "./_services/categories-resolver.service";
 import { BoardAdminUsersComponent } from "./Components/board-admin/all-users/all-users.component";
-import { BoardAdminAddCategoryComponent } from "./Components/board-admin/add-category/add-category.component";
-import { BoardAdminAllCategoriesComponent } from "./Components/board-admin/all-categories/all-categories.component";
 
 
 @NgModule({
@@ -44,9 +40,7 @@ import { BoardAdminAllCategoriesComponent } from "./Components/board-admin/all-c
     AboutComponent,
     SettingsComponent,
     EditMyProductComponent,
-    BoardAdminUsersComponent,
-    BoardAdminAddCategoryComponent,
-    BoardAdminAllCategoriesComponent
+    BoardAdminUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -59,9 +53,7 @@ import { BoardAdminAllCategoriesComponent } from "./Components/board-admin/all-c
     ProductService,
     authInterceptorProviders,
     ProductsResolverService,
-    ProductResolverService,
-    CategoryService,
-    CategoriesResolverService
+    ProductResolverService
   ],
   bootstrap: [AppComponent]
 })

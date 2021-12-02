@@ -16,7 +16,7 @@
 
         <label class="mx-3" for="username">Username</label>
 
-        <div  *ngIf="username.errors && f.submitted">
+        <div *ngIf="username.errors && f.submitted">
           <em *ngIf="username.errors.required">Username is required</em>
           <em *ngIf="username.errors.minlength">Username must be at least 3 characters</em>
           <em *ngIf="username.errors.maxlength">Username must be at most 20 characters</em>
@@ -31,7 +31,7 @@
 
         <label class="mx-3" for="email">Email</label>
 
-        <div  *ngIf="email.errors && f.submitted">
+        <div *ngIf="email.errors && f.submitted">
           <em *ngIf="email.errors.required">Email is required</em>
           <em *ngIf="email.errors.email">Email must be a valid email address</em>
         </div>
@@ -45,7 +45,7 @@
         <label class="mx-3" for="password">Password</label>
 
 
-        <div  *ngIf="password.errors && f.submitted">
+        <div *ngIf="password.errors && f.submitted">
           <em *ngIf="password.errors.required">Password is required</em>
           <em *ngIf="password.errors.minlength">Password must be at least 6 characters</em>
         </div>

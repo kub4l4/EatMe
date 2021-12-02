@@ -1,44 +1,38 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { IMyProduct } from '../../_models/myProduct.model';
-
 import { ProductService } from "../../_services/product.service";
 import { Router } from "@angular/router";
-import { ICategory } from "../../_models/category.model";
+import { IProduct } from "../../_models/Product.model";
 
 
 @Component({
-  selector : 'myProduct-table',
-  templateUrl : './myProduct-table.component.html',
-  styleUrls : ['./myProduct-table.component.css']
+  selector: 'myProduct-table',
+  templateUrl: './myProduct-table.component.html',
+  styleUrls: ['./myProduct-table.component.css']
 })
 export class MyProductTableComponent implements OnChanges {
   @Input()
-  products : IMyProduct[]
+  products: IProduct[]
+  filterBy: number = 0
+  sortBy: string = 'dateExp'
 
-  @Input()
-  categories: ICategory[]
-
-  filterBy : number = 0
-  sortBy : string = 'dateExp'
-
-  visibleProducts : IMyProduct[] = []
+  visibleProducts: IProduct[] = []
 
 
-  constructor(private router : Router, private productService : ProductService) {
+  constructor(private router: Router, private productService: ProductService) {
   }
 
-  changeFilter(newValue:number){
+  changeFilter(newValue: number) {
     console.log(newValue);
-    this.filterBy=+newValue
+    this.filterBy = +newValue
     if (this.products) {
       this.filterProduct(this.filterBy)
-      }
+    }
   }
 
-  changeSort(newValue:string){
+  changeSort(newValue: string) {
     console.log(newValue);
-    this.sortBy=newValue
+    this.sortBy = newValue
     if (this.products) {
       this.filterProduct(this.filterBy)
       if (this.sortBy === 'name') {
@@ -64,20 +58,20 @@ export class MyProductTableComponent implements OnChanges {
     }
   }
 
-  filterProduct(filter : number) {
+  filterProduct(filter: number) {
     if (filter === 0) {
       console.log("filterProduct", filter)
       this.visibleProducts = this.products.slice(0)
     } else {
       console.log("filterProduct", this.products)
       this.visibleProducts = this.products.filter(products => {
-        return products.categoryId === filter;
+        //return products.categoryId === filter;
       })
     }
   }
 
-  delete(id : any) {
-    this.productService.deleteProduct(id)
+  archive(id: any) {
+    this.productService.archiveProduct(id)
       .subscribe(
         data => {
           console.log("Usunięte id:", id, data)
@@ -86,26 +80,26 @@ export class MyProductTableComponent implements OnChanges {
           console.log(error);
         })
     window.location.reload()
-    //TODO Informacja o usunięciu
+    //TODO Informacja o zarchiwizowaniu
   }
 
 }
 
-function sortByNameAsc(s1 : IMyProduct, s2 : IMyProduct) {
-  if (s1.name > s2.name) return 1
-  else if (s1.name === s2.name) return 0
+function sortByNameAsc(s1: IProduct, s2: IProduct) {
+  if (s1.productName > s2.productName) return 1
+  else if (s1.productName === s2.productName) return 0
   else return -1
 }
 
 
-function sortByDateAdd(s1 : IMyProduct, s2 : IMyProduct) {
-  if (s1.createdAt.getTime() > s2.createdAt.getTime()) return 1
-  else if (s1.createdAt.getTime() === s2.createdAt.getTime()) return 0
+function sortByDateAdd(s1: IProduct, s2: IProduct) {
+  if (s1.createdAt > s2.createdAt) return 1
+  else if (s1.createdAt === s2.createdAt) return 0
   else return -1
 }
 
-function sortByDateExp(s1 : IMyProduct, s2 : IMyProduct) {
-  if (s1.expireDate.getTime() > s2.expireDate.getTime()) return 1
-  else if (s1.expireDate.getTime() === s2.expireDate.getTime()) return 0
+function sortByDateExp(s1: IProduct, s2: IProduct) {
+  if (s1.expireDate > s2.expireDate) return 1
+  else if (s1.expireDate === s2.expireDate) return 0
   else return -1
 }

@@ -7,12 +7,12 @@ import { ProductService } from "./product.service";
 @Injectable()
 export class ProductsResolverService implements Resolve<any> {
 
-  constructor(private productService : ProductService) {
+  constructor(private productService: ProductService) {
 
   }
 
   resolve() {
-    return this.productService.getProducts1().pipe(map(products => products))
+    return this.productService.getProducts().pipe(map(products => products))
   }
 
 }

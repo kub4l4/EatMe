@@ -3,17 +3,17 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router, RouterStateSna
 
 import { map } from "rxjs/operators";
 import { ProductService } from "./product.service";
-import { IMyProduct } from "../_models/myProduct.model";
+import { IProduct } from "../_models/Product.model";
 
 @Injectable()
-export class ProductResolverService implements Resolve<IMyProduct> {
+export class ProductResolverService implements Resolve<IProduct> {
 
-  constructor(private productService : ProductService,
-              private route : ActivatedRoute,
-              private router : Router) {
+  constructor(private productService: ProductService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
-  resolve(route : ActivatedRouteSnapshot, state : RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.productService.getProductById(route.paramMap.get('id')).pipe(map(productById => productById))
   }
 

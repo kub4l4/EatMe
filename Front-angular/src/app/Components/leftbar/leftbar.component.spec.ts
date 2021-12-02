@@ -3,12 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeftbarComponent } from './leftbar.component';
 
 describe('LeftbarComponent', () => {
-  let component : LeftbarComponent;
-  let fixture : ComponentFixture<LeftbarComponent>;
+  let component: LeftbarComponent;
+  let fixture: ComponentFixture<LeftbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations : [LeftbarComponent]
+      declarations: [LeftbarComponent]
     })
       .compileComponents();
   });
