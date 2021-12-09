@@ -23,7 +23,12 @@
 
           <li>
             <a [routerLink]="['MyProducts/add']" routerLinkActive="active" class="nav-link align-middle">
-              <i class="fs-5 bi-plus-square"></i> Add products</a>
+              <i class="fs-5 bi-plus-square"></i> Add new product</a>
+          </li>
+
+          <li>
+            <a [routerLink]="['MyProducts/search']" routerLinkActive="active" class="nav-link align-middle">
+              <i class="fs-5 bi-plus-square"></i> Search products</a>
           </li>
         </div>
       </ul>
@@ -54,7 +59,9 @@
 
           <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
              id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-
+            <!--
+            TODO add profile pic
+            -->
             <img src="https://avatars.githubusercontent.com/u/18147901?v=4" alt="hugenerd" width="30" height="30"
                  class="rounded-circle">
             <span class="d-none d-sm-inline mx-3">{{username}}</span>

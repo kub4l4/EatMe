@@ -1,0 +1,50 @@
+<header class="bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="mr-auto" style="width: 100%;">
+
+              <form class="form-inline my-2 my-lg-0" #f="ngForm" (ngSubmit)="onSubmit(f)">
+                <input class="form-control mr-sm-2" type="search" name="search" ngModel placeholder="Search"
+                       aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mt-4 mb-4" *ngIf="searchService.options$ | async as selectedOptions">
+        <header *ngIf="selectedOptions.length > 0">
+          <h3>Search Result list</h3>
+          <h5>Search fraze: {{valueSearch}}</h5>
+        </header>
+        <div class="row row-cols-3 row-cols-md-3">
+          <div class="col mb-4" *ngFor="let item of selectedOptions">
+            <div class="card">
+              <div *ngIf="selectedOptions.length > 0">
+                <div class="card-body">
+                  <h5 class="card-title">{{item.productName}}</h5>
+                  <p class="card-text"> {{item.categories}} </p>
+                  <p>
+                    <span>Quantity: {{item.productQuantity}} {{item.productSizeType}} </span>
+                  </p>
+                  <button [routerLink]="['/MyProducts/search/' + item.id]">Add to your storage</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

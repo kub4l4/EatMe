@@ -6,13 +6,13 @@ import { ProductService } from "./product.service";
 import { IProduct } from "../_models/Product.model";
 
 @Injectable()
-export class ProductResolverService implements Resolve<IProduct> {
+export class ProductPMResolverService implements Resolve<IProduct> {
 
   constructor(private productService: ProductService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.productService.getUserProductById(route.paramMap.get('id')).pipe(map(userProductById => userProductById))
+    return this.productService.getProductById(route.paramMap.get('id')).pipe(map(ProductById => ProductById))
   }
 
 }

@@ -32,4 +32,7 @@ public class ProductService {
         return productRepository.findProductsByKeywords(keywords);
     }
 
+    public List<Products> findProductsByProductNameContaining(String name){
+        return productRepository.findProductsByProductNameContaining(name);
+    }
 }

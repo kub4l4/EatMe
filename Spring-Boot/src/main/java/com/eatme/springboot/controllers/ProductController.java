@@ -1,9 +1,13 @@
 package com.eatme.springboot.controllers;
 
 import com.eatme.springboot.dao.models.Product;
+import com.eatme.springboot.dao.models.ProductSearch;
+import com.eatme.springboot.dao.models.ProductWrapper;
 import com.eatme.springboot.dao.models.Transaction;
 import com.eatme.springboot.services.ProductService;
 import com.eatme.springboot.services.TransactionService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 //TODO add req from port 4200
@@ -36,7 +42,7 @@ public class ProductController {
         return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{idProduct}")
+    @GetMapping("/PM/{idProduct}")
     public ResponseEntity<Product> getProductFromPMById(@PathVariable("idProduct") Long idProduct) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Product> exchange = restTemplate.exchange(
@@ -54,6 +60,22 @@ public class ProductController {
         productsService.save(SavedProduct1);*/
 
         return new ResponseEntity<>(SavedProduct, HttpStatus.OK);
+    }
+
+    @GetMapping("/PM/search/{SearchPhrase}")
+    public ResponseEntity<ProductSearch[]> getProductFromPMById(@PathVariable("SearchPhrase") String searchPhrase) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        List<ProductSearch> foundProducts = null;
+        ResponseEntity<ProductSearch[]> exchange = restTemplate.exchange(
+                "http://localhost:9090/api/v1/products/search/" + searchPhrase,
+                HttpMethod.GET,
+                HttpEntity.EMPTY,
+                ProductSearch[].class
+        );
+        ProductSearch[] productSearch = exchange.getBody();
+
+        return new ResponseEntity<>(productSearch, HttpStatus.OK);
     }
 
 
@@ -97,7 +119,14 @@ public class ProductController {
 
     @PostMapping("")
     public ResponseEntity<Product> addProduct(HttpServletRequest request,
-                                              @RequestBody Product product) {
+                                              @RequestBody String jsonString ) throws JsonProcessingException {
+
+        if (jsonString != null && jsonString.length() > 0 && jsonString.charAt(jsonString.length() - 1) == '}') {
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+        }
+        jsonString=jsonString.substring(11);
+
+        Product product = new ObjectMapper().readValue(jsonString, Product.class);
         product.setProductQuantity((double) Math.round(product.getProductQuantity()));
         product.setCreatedAt(System.currentTimeMillis());
         product.setIdUser((long) request.getAttribute("userId"));
@@ -110,7 +139,7 @@ public class ProductController {
         transaction.setAmount_after(product.getAmountLeft());
         transaction.setAmount_changed(product.getAmountLeft());
         transaction.setCreatedAt(System.currentTimeMillis());
-        transaction.setTransactionType("New");
+        transaction.setTransactionType("New, imported");
         transactionService.saveAndFlush(transaction);
         productService.saveAndFlush(product);
         return new ResponseEntity<>(product, HttpStatus.OK);

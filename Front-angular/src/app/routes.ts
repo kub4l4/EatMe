@@ -5,7 +5,6 @@ import { LeftbarComponent } from "./Components/leftbar/leftbar.component"
 import { CreateMyProduct } from "./Components/products/create/create-myProduct.component"
 import { MyProductComponent } from "./Components/products/myProduct.component"
 
-
 import { RegisterComponent } from './Components/register/register.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ProfileComponent } from './Components/profile/profile.component';
@@ -15,13 +14,17 @@ import { SettingsComponent } from './Components/settings/settings.component';
 import { EditMyProductComponent } from "./Components/products/edit/edit-myProduct.component";
 import { ProductsResolverService } from "./_services/products-resolver.service";
 import { ProductResolverService } from "./_services/product-resolver.service";
+import { SearchProductComponent } from "./Components/products/search/search-product.component";
+import { SearchResultProductComponent } from "./Components/products/search/search-result-product/search-result-product.component";
+import { ProductPMResolverService } from "./_services/product-PM-resolver.service";
 
 
 const routes: Routes = [
 
-  {path: 'MyProducts', component: MyProductComponent, resolve: {products: ProductsResolverService}},
+  {path: 'MyProducts', component: MyProductComponent, resolve: {userProducts: ProductsResolverService}},
   {path: 'sidebar', component: LeftbarComponent},
   {path: 'MyProducts/add', component: CreateMyProduct},
+  {path: 'MyProducts/search', component: SearchProductComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
@@ -29,7 +32,12 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'admin', component: BoardAdminComponent},
-  {path: 'MyProducts/edit/:id', component: EditMyProductComponent, resolve: {productById: ProductResolverService}},
+  {
+    path: 'MyProducts/search/:id',
+    component: SearchResultProductComponent,
+    resolve: {productById: ProductPMResolverService}
+  },
+  {path: 'MyProducts/edit/:id', component: EditMyProductComponent, resolve: {userProductById: ProductResolverService}},
 
 ];
 

@@ -16,7 +16,14 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  saveProduct(productName: string, productQuantity: number, expireDate: number) {
+  saveProduct(product: IProduct) {
+    return this.http.post<any>(API_URL, {
+      product
+    }, httpOptions)
+      .pipe(catchError(this.handleError<IProduct[][]>('add')))
+  }
+
+  saveNewProduct(productName: string, productQuantity: number, expireDate: number) {
     return this.http.post<any>(API_URL, {
       productName,
       productQuantity,
@@ -40,12 +47,16 @@ export class ProductService {
     return this.http.put<any>(API_URL + "archive/" + id, null)
   }
 
-  getProducts(): Observable<any[]> {
+  getUserProducts(): Observable<any[]> {
     return this.http.get<any[]>(API_URL + "userProducts")
   }
 
-  getProductById(id: any): Observable<any> {
+  getUserProductById(id: any): Observable<any> {
     return this.http.get<IProduct>(API_URL + "userProduct/" + id)
+  }
+
+  getProductById(id: any): Observable<any> {
+    return this.http.get<IProduct>(API_URL + "PM/" + id)
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
@@ -55,5 +66,4 @@ export class ProductService {
       return of(result as T)
     }
   }
-
 }

@@ -30,29 +30,30 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @GetMapping("/search/{product}")
-    public List<Products> searchForProduct(@PathVariable("product") String product) {
-        List<Products> productsList = productService.findProductsByProductName(product);
+    @GetMapping("/search/{searchPhrase}")
+    public ResponseEntity<List<Products>> searchForProduct(@PathVariable("searchPhrase") String searchPhrase) {
+        List<Products> productsList = productService.findProductsByProductName(searchPhrase);
         if (!productsList.isEmpty()) {
-            return productsList;
+            System.out.println("BYLEM");
+            return new ResponseEntity<>(productsList, HttpStatus.OK);
         }
         try {
-            int foo = Integer.parseInt(product);
+            int foo = Integer.parseInt(searchPhrase);
             productsList = productService.findProductsByCode((long) foo);
             if (!productsList.isEmpty()) {
-                return productsList;
+                System.out.println("BYLEM2");
+                return new ResponseEntity<>(productsList, HttpStatus.OK);
             }
         } catch (Exception ignored) {
         }
-        //TODO Find better solution
 
-
-        productsList = productService.findProductsByKeywords(product);
+        productsList.addAll(productService.findProductsByProductNameContaining(searchPhrase));
+        productsList.addAll(productService.findProductsByKeywords(searchPhrase));
         if (!productsList.isEmpty()) {
-            return productsList;
+            System.out.println("BYLEM3");
+            return new ResponseEntity<>(productsList, HttpStatus.OK);
         }
-        return productsList;
+        System.out.println("NIE BYLEM");
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-
 }

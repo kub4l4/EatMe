@@ -12,7 +12,7 @@ export class ProductsResolverService implements Resolve<any> {
   }
 
   resolve() {
-    return this.productService.getProducts().pipe(map(products => products))
+    return this.productService.getUserProducts().pipe(map(userProducts => userProducts))
   }
 
 }

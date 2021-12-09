@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { ProductService } from "../../../_services/product.service";
 
 
@@ -16,11 +16,14 @@ export class CreateMyProduct implements OnInit {
 
 
   constructor(private router: Router,
-              private productService: ProductService,
-              private route: ActivatedRoute) {
+              private productService: ProductService) {
   }
 
   ngOnInit() {
+    this.formInit()
+  }
+
+  formInit() {
     this.name = new FormControl('', Validators.required)
     this.quantity = new FormControl('', Validators.required)
     this.expireDate = new FormControl('', [Validators.required, Validators.maxLength(400)])
@@ -30,13 +33,11 @@ export class CreateMyProduct implements OnInit {
       quantity: this.quantity,
       expireDate: this.expireDate
     })
-
   }
-
 
   saveSession(formValues: { name: string, quantity: number, expireDate: string }) {
     let expireDate = new Date(formValues.expireDate)
-    this.productService.saveProduct(formValues.name, formValues.quantity, expireDate.getTime())
+    this.productService.saveNewProduct(formValues.name, formValues.quantity, expireDate.getTime())
       .subscribe(
         data => {
           console.log("DANE:", data)

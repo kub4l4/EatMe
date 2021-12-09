@@ -20,9 +20,12 @@ import { NavbarComponent } from './Components/navbar/navbar.component';
 import { AboutComponent } from './Components/about/about.component';
 import { SettingsComponent } from './Components/settings/settings.component';
 import { EditMyProductComponent } from "./Components/products/edit/edit-myProduct.component";
-import { ProductsResolverService } from "./_services/products-resolver.service";
 import { ProductResolverService } from "./_services/product-resolver.service";
 import { BoardAdminUsersComponent } from "./Components/board-admin/all-users/all-users.component";
+import { SearchProductComponent } from "./Components/products/search/search-product.component";
+import { SearchResultProductComponent } from "./Components/products/search/search-result-product/search-result-product.component";
+import { ProductPMResolverService } from "./_services/product-PM-resolver.service";
+import { ProductsResolverService } from "./_services/products-resolver.service";
 
 
 @NgModule({
@@ -40,20 +43,23 @@ import { BoardAdminUsersComponent } from "./Components/board-admin/all-users/all
     AboutComponent,
     SettingsComponent,
     EditMyProductComponent,
-    BoardAdminUsersComponent
+    BoardAdminUsersComponent,
+    SearchProductComponent,
+    SearchResultProductComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     ProductService,
     authInterceptorProviders,
     ProductsResolverService,
-    ProductResolverService
+    ProductResolverService,
+    ProductPMResolverService
   ],
   bootstrap: [AppComponent]
 })

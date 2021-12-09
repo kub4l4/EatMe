@@ -17,7 +17,7 @@ export class MyProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products = this.route.snapshot.data['products']
+    this.products = this.route.snapshot.data['userProducts']
     this.dateReplacer()
   }
 

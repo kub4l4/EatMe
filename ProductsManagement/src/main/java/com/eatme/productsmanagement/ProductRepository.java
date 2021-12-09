@@ -17,4 +17,7 @@ public interface ProductRepository extends MongoRepository<Products, Long> {
 
     List<Products> findProductsByKeywords(String keywords);
 
+    List<Products> findProductsByProductNameContaining(String name);
+
+
 }

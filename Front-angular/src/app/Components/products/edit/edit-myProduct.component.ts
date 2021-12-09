@@ -22,7 +22,7 @@ export class EditMyProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.product = this.route.snapshot.data['productById']
+    this.product = this.route.snapshot.data['userProductById']
     this.formInit()
   }
 
@@ -39,8 +39,7 @@ export class EditMyProductComponent implements OnInit {
   }
 
 
-  updateSession(formValues: { productName: string, categoryId: number, amountLeft: number, expireDate: string }
-  ) {
+  updateSession(formValues: { productName: string, categoryId: number, amountLeft: number, expireDate: string }) {
     let expireDate = new Date(formValues.expireDate)
     this.productService.updateProduct(this.product.idProduct, formValues.productName, formValues.amountLeft, expireDate.getTime())
       .subscribe(

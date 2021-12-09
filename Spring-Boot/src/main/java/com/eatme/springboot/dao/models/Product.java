@@ -82,6 +82,7 @@ public class Product {
         this.archived = archived;
     }
 
+
     public long getIdProduct() {
         return idProduct;
     }

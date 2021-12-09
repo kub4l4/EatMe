@@ -15,11 +15,15 @@ export class MyProductTableComponent implements OnChanges {
   products: IProduct[]
   filterBy: number = 0
   sortBy: string = 'dateExp'
-
   visibleProducts: IProduct[] = []
+  isShown: boolean = false; // hidden by default
 
 
   constructor(private router: Router, private productService: ProductService) {
+  }
+
+  toggleShow() {
+    this.isShown = !this.isShown;
   }
 
   changeFilter(newValue: number) {
