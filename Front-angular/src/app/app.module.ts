@@ -26,6 +26,10 @@ import { SearchProductComponent } from "./Components/products/search/search-prod
 import { SearchResultProductComponent } from "./Components/products/search/search-result-product/search-result-product.component";
 import { ProductPMResolverService } from "./_services/product-PM-resolver.service";
 import { ProductsResolverService } from "./_services/products-resolver.service";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMenuModule } from "@angular/material/menu";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 
 @NgModule({
@@ -52,7 +56,11 @@ import { ProductsResolverService } from "./_services/products-resolver.service";
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     ProductService,

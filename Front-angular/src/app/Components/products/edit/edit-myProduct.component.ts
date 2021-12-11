@@ -41,7 +41,7 @@ export class EditMyProductComponent implements OnInit {
 
   updateSession(formValues: { productName: string, categoryId: number, amountLeft: number, expireDate: string }) {
     let expireDate = new Date(formValues.expireDate)
-    this.productService.updateProduct(this.product.idProduct, formValues.productName, formValues.amountLeft, expireDate.getTime())
+    this.productService.editProduct(this.product.idProduct, formValues.productName, formValues.amountLeft, expireDate.getTime())
       .subscribe(
         data => {
           console.log("DANE:", data)

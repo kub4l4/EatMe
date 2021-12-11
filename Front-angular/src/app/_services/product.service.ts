@@ -32,9 +32,16 @@ export class ProductService {
       .pipe(catchError(this.handleError<IProduct[][]>('add')))
   }
 
+  editQuantity(idProduct: number, amountLeft: number) {
+    return this.http.put<any>(API_URL + "editQuantity", {
+      idProduct,
+      amountLeft,
+    }, httpOptions)
+      .pipe(catchError(this.handleError<IProduct[][]>("edit")))
+  }
 
-  updateProduct(idProduct: number, productName: string, amountLeft: number, expireDate: number) {
-    return this.http.put<any>(API_URL + "edit", {
+  editProduct(idProduct: number, productName: string, amountLeft: number, expireDate: number) {
+    return this.http.put<any>(API_URL + "editProduct", {
       idProduct,
       productName,
       amountLeft,
@@ -44,7 +51,7 @@ export class ProductService {
   }
 
   archiveProduct(id: number) {
-    return this.http.put<any>(API_URL + "archive/" + id, null)
+    return this.http.put<number>(API_URL + "archive/" + id, null)
   }
 
   getUserProducts(): Observable<any[]> {
