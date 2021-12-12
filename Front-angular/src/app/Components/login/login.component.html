@@ -24,10 +24,7 @@
 
         <input type="password" class="form-control" name="password" id="password" placeholder="password"
                [(ngModel)]="form.password" required minlength="6" #password="ngModel"/>
-
         <label class="mx-3" for="password">Password</label>
-
-
         <div role="alert" *ngIf="password.errors && f.submitted">
           <em *ngIf="password.errors.required">Password is required</em>
           <em *ngIf="password.errors.minlength">Password must be at least 6 characters</em>

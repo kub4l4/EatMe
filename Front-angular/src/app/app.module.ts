@@ -23,13 +23,22 @@ import { EditMyProductComponent } from "./Components/products/edit/edit-myProduc
 import { ProductResolverService } from "./_services/product-resolver.service";
 import { BoardAdminUsersComponent } from "./Components/board-admin/all-users/all-users.component";
 import { SearchProductComponent } from "./Components/products/search/search-product.component";
-import { SearchResultProductComponent } from "./Components/products/search/search-result-product/search-result-product.component";
 import { ProductPMResolverService } from "./_services/product-PM-resolver.service";
 import { ProductsResolverService } from "./_services/products-resolver.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
+import { MatCardModule } from "@angular/material/card";
+import { DialogAddProductComponent } from "./Components/products/search/form-add/dialog-add-product.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatOptionModule } from "@angular/material/core";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { SearchProductItemComponent } from "./Components/products/search/search-result-product/search-product-item.component";
 
 
 @NgModule({
@@ -49,7 +58,8 @@ import { MatButtonModule } from "@angular/material/button";
     EditMyProductComponent,
     BoardAdminUsersComponent,
     SearchProductComponent,
-    SearchResultProductComponent
+    SearchProductItemComponent,
+    DialogAddProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +70,15 @@ import { MatButtonModule } from "@angular/material/button";
     BrowserAnimationsModule,
     MatMenuModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatSnackBarModule
   ],
   providers: [
     ProductService,

@@ -15,8 +15,8 @@ import { EditMyProductComponent } from "./Components/products/edit/edit-myProduc
 import { ProductsResolverService } from "./_services/products-resolver.service";
 import { ProductResolverService } from "./_services/product-resolver.service";
 import { SearchProductComponent } from "./Components/products/search/search-product.component";
-import { SearchResultProductComponent } from "./Components/products/search/search-result-product/search-result-product.component";
 import { ProductPMResolverService } from "./_services/product-PM-resolver.service";
+import { SearchProductItemComponent } from "./Components/products/search/search-result-product/search-product-item.component";
 
 
 const routes: Routes = [
@@ -34,7 +34,7 @@ const routes: Routes = [
   {path: 'admin', component: BoardAdminComponent},
   {
     path: 'MyProducts/search/:id',
-    component: SearchResultProductComponent,
+    component: SearchProductItemComponent,
     resolve: {productById: ProductPMResolverService}
   },
   {path: 'MyProducts/edit/:id', component: EditMyProductComponent, resolve: {userProductById: ProductResolverService}},

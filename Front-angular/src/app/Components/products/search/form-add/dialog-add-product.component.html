@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Fill fields to add a product</h1>
+<div mat-dialog-content>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Expire Date</mat-label>
+    <input matInput [(ngModel)]="data.expireDate" type="date" >
+  </mat-form-field>
+
+  <mat-checkbox (change)="reverseValue()" class="example-margin">I want to change product quantity</mat-checkbox>
+
+  <div *ngIf="changeData">
+    <mat-form-field appearance="fill">
+      <mat-label>Product Quantity</mat-label>
+      <input matInput [(ngModel)]="data.quantity">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Unit</mat-label>
+      <mat-select [(ngModel)]="data.quantityType">
+        <mat-option value="ml">ml</mat-option>
+        <mat-option value="g">g</mat-option>
+        <mat-option value="pcs">pcs</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onYesClick()"> Add Product</button>
+</div>

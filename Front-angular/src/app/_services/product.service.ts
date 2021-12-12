@@ -23,6 +23,24 @@ export class ProductService {
       .pipe(catchError(this.handleError<IProduct[][]>('add')))
   }
 
+  fillProduct1(idProduct:number, expireDate:number) {
+    return this.http.post<any>(API_URL+"setProduct1", {
+      idProduct,
+      expireDate,
+    }, httpOptions)
+      .pipe(catchError(this.handleError<IProduct[][]>('add')))
+  }
+
+  fillProduct2(idProduct:number, expireDate:number, productQuantity:number, productSizeType:string) {
+    return this.http.post<any>(API_URL+"setProduct2", {
+      idProduct,
+      expireDate,
+      productQuantity,
+      productSizeType
+    }, httpOptions)
+      .pipe(catchError(this.handleError<IProduct[][]>('add')))
+  }
+
   saveNewProduct(productName: string, productQuantity: number, expireDate: number) {
     return this.http.post<any>(API_URL, {
       productName,

@@ -47,14 +47,14 @@ public class Product {
     @Column(name = "id_user")
     private long idUser;
     private long createdAt;
-    private String expireDate;
+    private long expireDate;
     private int archived;
 
 
     public Product() {
     }
 
-    public Product(long idProduct, long id, Double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, Double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long idUser, long createdAt, String expireDate, int archived) {
+    public Product(long idProduct, long id, Double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, Double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long idUser, long createdAt, long expireDate, int archived) {
         this.idProduct = idProduct;
         this.id = id;
         this.servingSize = servingSize;
@@ -81,7 +81,6 @@ public class Product {
         this.expireDate = expireDate;
         this.archived = archived;
     }
-
 
     public long getIdProduct() {
         return idProduct;
@@ -267,11 +266,11 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    public String getExpireDate() {
+    public long getExpireDate() {
         return expireDate;
     }
 
-    public void setExpireDate(String expireDate) {
+    public void setExpireDate(long expireDate) {
         this.expireDate = expireDate;
     }
 
