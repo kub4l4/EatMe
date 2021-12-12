@@ -1,13 +1,10 @@
 package com.eatme.springboot.controllers;
 
 import com.eatme.springboot.dao.models.Product;
-import com.eatme.springboot.dao.models.ProductSearch;
-import com.eatme.springboot.dao.models.ProductWrapper;
 import com.eatme.springboot.dao.models.Transaction;
+import com.eatme.springboot.payload.response.ProductSearch;
 import com.eatme.springboot.services.ProductService;
 import com.eatme.springboot.services.TransactionService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 //TODO add req from port 4200
@@ -80,10 +75,11 @@ public class ProductController {
 
 
     @GetMapping("/userProducts")
-    public ResponseEntity<List<Product>> getUserProducts(HttpServletRequest request){
+    public ResponseEntity<List<ProductSearch>> getUserProducts(HttpServletRequest request){
 
         List<Product> ProductList = productService.findProductByIdUserAndArchived((long) request.getAttribute("userId"), 0);
-        return new ResponseEntity<>(ProductList, HttpStatus.OK);
+        List<ProductSearch> productSearchList = (List<ProductSearch>)(List<?>) ProductList;
+        return new ResponseEntity<>(productSearchList, HttpStatus.OK);
     }
 
     @GetMapping("/userProduct/{idProduct}")
@@ -100,6 +96,7 @@ public class ProductController {
     @PostMapping("/new")
     public ResponseEntity<Product> addNewProduct(HttpServletRequest request,
                                               @RequestBody Product product) {
+        product.setAmountLeft(product.getProductQuantity());
         product.setCreatedAt(System.currentTimeMillis());
         product.setIdUser((long) request.getAttribute("userId"));
         product.setArchived(0);

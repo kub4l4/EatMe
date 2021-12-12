@@ -1,13 +1,13 @@
-package com.eatme.springboot.dao.models;
+package com.eatme.springboot.payload.response;
 
 import java.util.List;
 
 public class ProductSearch {
     private long id;
-    private Double servingSize;
+    private double servingSize;
     private long code;
     private String ecoscoreTags;
-    private Double productQuantity;
+    private double productQuantity;
     private String productName;
     private long novaGroups;
     private List<String> categories;
@@ -24,11 +24,11 @@ public class ProductSearch {
         this.id = id;
     }
 
-    public Double getServingSize() {
+    public double getServingSize() {
         return servingSize;
     }
 
-    public void setServingSize(Double servingSize) {
+    public void setServingSize(double servingSize) {
         this.servingSize = servingSize;
     }
 
@@ -48,11 +48,11 @@ public class ProductSearch {
         this.ecoscoreTags = ecoscoreTags;
     }
 
-    public Double getProductQuantity() {
+    public double getProductQuantity() {
         return productQuantity;
     }
 
-    public void setProductQuantity(Double productQuantity) {
+    public void setProductQuantity(double productQuantity) {
         this.productQuantity = productQuantity;
     }
 

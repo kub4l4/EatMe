@@ -11,16 +11,16 @@ public class Transaction {
     private long idTransaction;
     private long idProduct;
     private long userId;
-    private Double amount_before;
-    private Double amount_after;
-    private Double amount_changed;
+    private double amount_before;
+    private double amount_after;
+    private double amount_changed;
     private long createdAt;
     private String TransactionType;
 
     public Transaction() {
     }
 
-    public Transaction(long idTransaction, long idProduct, long userId, Double amount_before, Double amount_after, Double amount_changed, long createdAt, String transactionType) {
+    public Transaction(long idTransaction, long idProduct, long userId, double amount_before, double amount_after, double amount_changed, long createdAt, String transactionType) {
         this.idTransaction = idTransaction;
         this.idProduct = idProduct;
         this.userId = userId;
@@ -55,27 +55,27 @@ public class Transaction {
         this.userId = userId;
     }
 
-    public Double getAmount_before() {
+    public double getAmount_before() {
         return amount_before;
     }
 
-    public void setAmount_before(Double amount_before) {
+    public void setAmount_before(double amount_before) {
         this.amount_before = amount_before;
     }
 
-    public Double getAmount_after() {
+    public double getAmount_after() {
         return amount_after;
     }
 
-    public void setAmount_after(Double amount_after) {
+    public void setAmount_after(double amount_after) {
         this.amount_after = amount_after;
     }
 
-    public Double getAmount_changed() {
+    public double getAmount_changed() {
         return amount_changed;
     }
 
-    public void setAmount_changed(Double amount_changed) {
+    public void setAmount_changed(double amount_changed) {
         this.amount_changed = amount_changed;
     }
 

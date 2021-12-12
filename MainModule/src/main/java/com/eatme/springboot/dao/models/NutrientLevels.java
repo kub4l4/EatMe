@@ -10,7 +10,7 @@ public class NutrientLevels {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String fat;
     private String saturated_fat;
     private String salt;
@@ -27,11 +27,11 @@ public class NutrientLevels {
         this.sugars = sugars;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

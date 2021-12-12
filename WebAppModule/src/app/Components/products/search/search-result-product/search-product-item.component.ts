@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from "../../../../_models/Product.model";
-import { ActivatedRoute, Router } from "@angular/router";
-import { ProductService } from "../../../../_services/product.service";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-search-product-item',

@@ -15,7 +15,7 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-about',
+  selector: 'app-search-product',
   templateUrl: './search-product.component.html',
   styleUrls: ['./search-product.component.css']
 })
@@ -64,8 +64,7 @@ export class SearchProductComponent implements OnInit {
   openDialog(id: number | null): void {
     const dialogRef = this.dialog.open(DialogAddProductComponent, {
       width: '30em',
-      data: {
-      },
+      data: {},
     });
 
     dialogRef.afterClosed().subscribe(result => {

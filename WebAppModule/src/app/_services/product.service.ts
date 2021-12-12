@@ -3,8 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { IProduct } from "../_models/Product.model";
+import { IProductTable } from "../_models/product-table.model";
 
-const API_URL = 'http://localhost:8080/api/v2/products/';
+const API_URL = 'http://localhost:8080/api/v2/products';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -23,16 +24,16 @@ export class ProductService {
       .pipe(catchError(this.handleError<IProduct[][]>('add')))
   }
 
-  fillProduct1(idProduct:number, expireDate:number) {
-    return this.http.post<any>(API_URL+"setProduct1", {
+  fillProduct1(idProduct: number, expireDate: number) {
+    return this.http.post<any>(API_URL + "/setProduct1", {
       idProduct,
       expireDate,
     }, httpOptions)
       .pipe(catchError(this.handleError<IProduct[][]>('add')))
   }
 
-  fillProduct2(idProduct:number, expireDate:number, productQuantity:number, productSizeType:string) {
-    return this.http.post<any>(API_URL+"setProduct2", {
+  fillProduct2(idProduct: number, expireDate: number, productQuantity: number, productSizeType: string) {
+    return this.http.post<any>(API_URL + "/setProduct2", {
       idProduct,
       expireDate,
       productQuantity,
@@ -41,17 +42,18 @@ export class ProductService {
       .pipe(catchError(this.handleError<IProduct[][]>('add')))
   }
 
-  saveNewProduct(productName: string, productQuantity: number, expireDate: number) {
-    return this.http.post<any>(API_URL, {
+  saveNewProduct(productName: string, productQuantity: number, productSizeType: string, expireDate: number) {
+    return this.http.post<any>(API_URL + "/new", {
       productName,
       productQuantity,
+      productSizeType,
       expireDate
     }, httpOptions)
       .pipe(catchError(this.handleError<IProduct[][]>('add')))
   }
 
   editQuantity(idProduct: number, amountLeft: number) {
-    return this.http.put<any>(API_URL + "editQuantity", {
+    return this.http.put<any>(API_URL + "/editQuantity", {
       idProduct,
       amountLeft,
     }, httpOptions)
@@ -59,7 +61,7 @@ export class ProductService {
   }
 
   editProduct(idProduct: number, productName: string, amountLeft: number, expireDate: number) {
-    return this.http.put<any>(API_URL + "editProduct", {
+    return this.http.put<any>(API_URL + "/editProduct", {
       idProduct,
       productName,
       amountLeft,
@@ -69,19 +71,19 @@ export class ProductService {
   }
 
   archiveProduct(id: number) {
-    return this.http.put<number>(API_URL + "archive/" + id, null)
+    return this.http.put<number>(API_URL + "/archive/" + id, null)
   }
 
-  getUserProducts(): Observable<any[]> {
-    return this.http.get<any[]>(API_URL + "userProducts")
+  getUserProducts(): Observable<IProductTable[]> {
+    return this.http.get<any[]>(API_URL + "/userProducts")
   }
 
   getUserProductById(id: any): Observable<any> {
-    return this.http.get<IProduct>(API_URL + "userProduct/" + id)
+    return this.http.get<IProduct>(API_URL + "/userProduct/" + id)
   }
 
   getProductById(id: any): Observable<any> {
-    return this.http.get<IProduct>(API_URL + "PM/" + id)
+    return this.http.get<IProduct>(API_URL + "/PM/" + id)
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -15,7 +15,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idProduct;
     private long id;
-    private Double servingSize;
+    private double servingSize;
     private long knownIngredientsN;
     @ElementCollection
     private List<String> ingredientsHierarchy;
@@ -32,7 +32,7 @@ public class Product {
     private String ecoscoreTags;
     @ElementCollection
     private List<String> allergens;
-    private Double productQuantity;
+    private double productQuantity;
     private String productName;
     private long novaGroups;
     @ElementCollection
@@ -54,7 +54,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(long idProduct, long id, Double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, Double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long idUser, long createdAt, long expireDate, int archived) {
+    public Product(long idProduct, long id, double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long idUser, long createdAt, long expireDate, int archived) {
         this.idProduct = idProduct;
         this.id = id;
         this.servingSize = servingSize;
@@ -98,11 +98,11 @@ public class Product {
         this.id = id;
     }
 
-    public Double getServingSize() {
+    public double getServingSize() {
         return servingSize;
     }
 
-    public void setServingSize(Double servingSize) {
+    public void setServingSize(double servingSize) {
         this.servingSize = servingSize;
     }
 
@@ -186,11 +186,11 @@ public class Product {
         this.allergens = allergens;
     }
 
-    public Double getProductQuantity() {
+    public double getProductQuantity() {
         return productQuantity;
     }
 
-    public void setProductQuantity(Double productQuantity) {
+    public void setProductQuantity(double productQuantity) {
         this.productQuantity = productQuantity;
     }
 

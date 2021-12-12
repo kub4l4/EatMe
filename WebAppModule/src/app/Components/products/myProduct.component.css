@@ -1,6 +1,7 @@
 .container-fluid {
-  background-color: #fffafa;
-  height: 100vh;
+  background-image: url("/assets/images/background5.png");
+  background-color: #F8751E;
+  background-attachment: fixed;
 }
 
 h1 {

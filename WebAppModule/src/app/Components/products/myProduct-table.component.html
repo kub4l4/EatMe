@@ -1,17 +1,11 @@
-<div class="row ">
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label" for="order-select">Sort By:</label>
-    <div class="col-sm-10">
-      <select [ngModel]="sortBy" (ngModelChange)="changeSort($event)" id="order-select">
-        <option value='dateExp'> Expiration date</option>
-        <option selected="selected" value='name'> Name</option>
-        <option value='dateAdd'> Date added</option>
-      </select>
-    </div>
-  </div>
+<div class="card-body">
+  <mat-button-toggle-group [ngModel]="sortBy" (ngModelChange)="changeSort($event)" id="order-select">
+    <mat-button-toggle disabled>Sort By:</mat-button-toggle>
+    <mat-button-toggle value="name">Name</mat-button-toggle>
+    <mat-button-toggle value="dateExp">Date expire</mat-button-toggle>
+    <mat-button-toggle value="dateAdd">Date added</mat-button-toggle>
+  </mat-button-toggle-group>
 </div>
-
-<button (click)="toggleShow()" type="checkbox">show/hide</button>
 
 <div class="card-body">
   <div class="table-responsive">
@@ -28,101 +22,69 @@
       </thead>
       <tbody *ngFor="let visibleProduct of visibleProducts">
       <tr>
-        <td><input type="checkbox" id="{{visibleProduct?.idProduct}}"
-                   name="{{visibleProduct?.idProduct}}"
-                   value="{{visibleProduct?.idProduct}}"></td>
-        <td style="text-align: left">{{visibleProduct?.productName}}</td>
-        <td>{{visibleProduct?.amountLeft}}</td>
-        <td>{{visibleProduct?.expireDate | date:'dd-MM-y'}}</td>
         <td>
-          <i class="bi bi-pencil-square" [routerLink]="['/MyProducts/edit/' + visibleProduct?.idProduct]"></i>
+          <input type="checkbox" id="{{visibleProduct?.idProduct}}"
+                 name="{{visibleProduct?.idProduct}}"
+                 value="{{visibleProduct?.idProduct}}">
         </td>
-        <td><i class="bi bi-x-lg" (click)="archive(visibleProduct.idProduct, visibleProduct.productName)"></i></td>
+        <td class="product-name">
+          {{visibleProduct?.productName}}
+        </td>
+        <td (mouseover)="toggleShow(visibleProduct.idProduct)">
+          {{visibleProduct?.amountLeft}}{{visibleProduct.productSizeType}}
+          <button *ngIf="isShown[visibleProduct.idProduct]" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button *ngIf="visibleProduct.amountLeft>1000"
+                    (click)="updateProduct(visibleProduct.idProduct, 1000, visibleProduct.amountLeft)" mat-menu-item>
+              <span>1000{{visibleProduct.productSizeType}}</span>
+            </button>
+            <button *ngIf="visibleProduct.amountLeft>500"
+                    (click)="updateProduct(visibleProduct.idProduct, 500, visibleProduct.amountLeft)" mat-menu-item>
+              <span>500{{visibleProduct.productSizeType}}</span>
+            </button>
+            <button *ngIf="visibleProduct.amountLeft>250 && visibleProduct.productSizeType!= 'psc'"
+                    (click)="updateProduct(visibleProduct.idProduct, 250, visibleProduct.amountLeft)" mat-menu-item>
+              <span>Glass 250{{visibleProduct.productSizeType}}</span>
+            </button>
+            <button *ngIf="visibleProduct.amountLeft>15 && visibleProduct.productSizeType!= 'psc'"
+                    (click)="updateProduct(visibleProduct.idProduct, 15, visibleProduct.amountLeft)" mat-menu-item>
+              <span>Tablespoon 15{{visibleProduct.productSizeType}}</span>
+            </button>
+            <button *ngIf="visibleProduct.amountLeft>5 && visibleProduct.productSizeType != 'pcs'"
+                    (click)="updateProduct(visibleProduct.idProduct, 5, visibleProduct.amountLeft)" mat-menu-item>
+              <span>Teaspoon 5{{visibleProduct.productSizeType}}</span>
+            </button>
+            <button *ngIf=" visibleProduct.productSizeType == 'pcs'"
+                    (click)="updateProduct(visibleProduct.idProduct, 1, visibleProduct.amountLeft)" mat-menu-item>
+              <span>1 {{visibleProduct.productSizeType}}</span>
+            </button>
+            <button *ngIf="visibleProduct.servingSize && visibleProduct.amountLeft>visibleProduct.servingSize"
+                    (click)="updateProduct(visibleProduct.idProduct, visibleProduct.servingSize, visibleProduct.amountLeft)"
+                    mat-menu-item>
+              <span>Suggested serving size:{{visibleProduct.servingSize}} {{visibleProduct.productSizeType}}</span>
+            </button>
+            <button (click)="archive(visibleProduct.idProduct, visibleProduct.productName)" mat-menu-item>
+              <span>All: {{visibleProduct.amountLeft}} {{visibleProduct.productSizeType}}</span>
+            </button>
+          </mat-menu>
+        </td>
+        <td>
+          {{visibleProduct?.expireDate | date:'dd-MM-y'}}
+        </td>
+        <td>
+          <button mat-icon-button [routerLink]="['/MyProducts/edit/' + visibleProduct?.idProduct]">
+            <mat-icon>mode</mat-icon>
+          </button>
+        </td>
+        <td>
+          <button mat-icon-button (click)="archive(visibleProduct.idProduct, visibleProduct.productName)">
+            <mat-icon class="archive">archive</mat-icon>
+          </button>
+        </td>
       </tr>
       </tbody>
-      <tfoot>
-      <tr>
-        <th style="width: 2%"></th>
-        <th style="width: 40%; text-align: left;">Product</th>
-        <th style="width: 10%">Quantity</th>
-        <th style="width: 10%">Expire Date</th>
-        <th style="width: 10%">Edit</th>
-        <th style="width: 10%">Archive</th>
-      </tr>
-      </tfoot>
     </table>
   </div>
 </div>
-
-
-<div class="row" *ngFor="let visibleProduct of visibleProducts">
-  <div class="col-sm-1">
-    <input type="checkbox" id="old{{visibleProduct?.idProduct}}"
-           name="{{visibleProduct?.idProduct}}"
-           value="{{visibleProduct?.idProduct}}">
-  </div>
-  <div class="col-sm-4">
-    <h5>{{visibleProduct?.productName}}</h5>
-  </div>
-  <div (mouseover)="editMenuShown=true" (mouseout)="editMenuShown=false" class="col-sm-2">
-    {{visibleProduct?.amountLeft}}
-    <button *ngIf="editMenuShown" mat-icon-button [matMenuTriggerFor]="menu" aria-label="EditExample">
-      <mat-icon>mode_edit</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button *ngIf="visibleProduct.amountLeft>1000"
-              (click)="updateProduct(visibleProduct.idProduct, 1000, visibleProduct.amountLeft)" mat-menu-item>
-        <span>1000{{visibleProduct.productSizeType}}</span>
-      </button>
-      <button *ngIf="visibleProduct.amountLeft>500"
-              (click)="updateProduct(visibleProduct.idProduct, 500, visibleProduct.amountLeft)" mat-menu-item>
-        <span>500{{visibleProduct.productSizeType}}</span>
-      </button>
-      <button *ngIf="visibleProduct.amountLeft>250"
-              (click)="updateProduct(visibleProduct.idProduct, 250, visibleProduct.amountLeft)" mat-menu-item>
-        <span>Glass 250{{visibleProduct.productSizeType}}</span>
-      </button>
-      <button *ngIf="visibleProduct.amountLeft>15"
-              (click)="updateProduct(visibleProduct.idProduct, 15, visibleProduct.amountLeft)" mat-menu-item>
-        <span>Tablespoon 15{{visibleProduct.productSizeType}}</span>
-      </button>
-      <button *ngIf="visibleProduct.amountLeft>5"
-              (click)="updateProduct(visibleProduct.idProduct, 5, visibleProduct.amountLeft)" mat-menu-item>
-        <span>Teaspoon 5{{visibleProduct.productSizeType}}</span>
-      </button>
-      <button *ngIf="visibleProduct.servingSize && visibleProduct.amountLeft>visibleProduct.servingSize"
-              (click)="updateProduct(visibleProduct.idProduct, visibleProduct.servingSize, visibleProduct.amountLeft)"
-              mat-menu-item>
-        <span>Suggested serving size:{{visibleProduct.servingSize}} {{visibleProduct.productSizeType}}</span>
-      </button>
-      <button (click)="archive(visibleProduct.idProduct, visibleProduct.productName)" mat-menu-item>
-        <span>All: {{visibleProduct.amountLeft}} {{visibleProduct.productSizeType}}</span>
-      </button>
-    </mat-menu>
-  </div>
-  <div class="col-sm-2">
-    {{visibleProduct?.expireDate | date:'dd-MM-y'}}
-  </div>
-  <div class="col-sm-1">
-
-    <button mat-icon-button [routerLink]="['/MyProducts/edit/' + visibleProduct?.idProduct]">
-      <mat-icon>edit</mat-icon>
-    </button>
-  </div>
-  <div class="col-sm-1">
-    <button mat-icon-button (click)="archive(visibleProduct.idProduct, visibleProduct.productName)">
-      <mat-icon class="archive">archive</mat-icon>
-    </button>
-  </div>
-  <div *ngIf="isShown" class="row details col-lg-11" id="divshow">
-    <div class="row inner">
-      <div class="col-lg-7">
-        <p>
-          Tekst
-        </p>
-      </div>
-    </div>
-  </div>
-  </div>
-
-

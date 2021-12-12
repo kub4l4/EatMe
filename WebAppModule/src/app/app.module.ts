@@ -39,6 +39,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SearchProductItemComponent } from "./Components/products/search/search-result-product/search-product-item.component";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { SearchProductItemComponent } from "./Components/products/search/search-
     MatSelectModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonToggleModule
   ],
   providers: [
     ProductService,

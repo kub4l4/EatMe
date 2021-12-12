@@ -3,6 +3,15 @@
   color: #E05C65;
 }
 
+.mat-button-toggle-checked {
+  background-color: rgb(47, 204, 118);
+}
+
+.mat-button-toggle-disabled {
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #F8751E;
+}
 
 cell-center {
   text-align: center;
@@ -18,7 +27,7 @@ table {
 }
 
 table thead tr {
-  background-color: #2FCC76;
+  background-color: rgba(47, 204, 118, 0.95);
   color: #ffffff;
   text-align: left;
 }
@@ -27,10 +36,12 @@ table th,
 table td {
   padding: 12px 15px;
   text-align: center;
+  vertical-align: middle;
 }
 
 table tbody tr {
   border-bottom: 1px solid #dddddd;
+  background: rgba(250, 235, 215, 0.9);
 }
 
 table tbody tr:nth-of-type(even) {
@@ -42,7 +53,6 @@ table tbody tr:last-of-type {
 }
 
 table tbody tr.active-row {
-  font-weight: bold;
   color: #2FCC76;
 }
 
@@ -51,4 +61,11 @@ select {
   border: none;
   border-bottom: 1px solid gray;
   margin-top: 1em;
+}
+
+.product-name {
+  text-align: left !important;
+  font-weight: bold;
+
+
 }

@@ -43,14 +43,15 @@
           <mat-card-title-group>
             <mat-card-title>{{item.productName}}</mat-card-title>
             <mat-card-subtitle>Quantity: {{item.productQuantity}} {{item.productSizeType}} </mat-card-subtitle>
-            <img *ngIf="item.ecoscoreTags!= '[\'unknown\']'" mat-card-sm-image
+            <img *ngIf="!(item.ecoscoreTags== '[\'unknown\']' || item.ecoscoreTags == '[\'not-applicable\']')"
+                 mat-card-sm-image
                  src="/assets/images/nutriscore/nutriscore-{{item.ecoscoreTags}}.svg">
           </mat-card-title-group>
           <mat-card-content>
             {{item.categories}}
           </mat-card-content>
           <div class="row justify-content-around">
-          <button class="button-storage" (click)="openDialog(item.id)">Add to your storage
+            <button class="button-storage" (click)="openDialog(item.id)">Add to your storage
             </button>
             <button class="button-shopping"
                     [routerLink]="['/MyProducts/search/' + item.id]">Show product details
