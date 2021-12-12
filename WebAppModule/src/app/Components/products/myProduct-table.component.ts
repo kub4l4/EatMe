@@ -4,7 +4,6 @@ import { ProductService } from "../../_services/product.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { IProductTable } from "../../_models/product-table.model";
 
-
 @Component({
   selector: 'myProduct-table',
   templateUrl: './myProduct-table.component.html',
@@ -19,8 +18,10 @@ export class MyProductTableComponent implements OnInit {
   visibleProduct: IProductTable
   editMenuShown: boolean = false;
   isShown: boolean[] = []
+  currentTimeInMilliseconds: number
 
   constructor(private router: Router, private productService: ProductService, private route: ActivatedRoute) {
+    this.currentTimeInMilliseconds=Date.now();
   }
 
   ngOnInit(): void {

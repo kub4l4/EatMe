@@ -21,7 +21,8 @@
       </tr>
       </thead>
       <tbody *ngFor="let visibleProduct of visibleProducts">
-      <tr>
+      <tr [class.expired] = "visibleProduct.expireDate < currentTimeInMilliseconds"
+          [class.expired-soon] = "visibleProduct.expireDate < currentTimeInMilliseconds+259200000 && visibleProduct.expireDate > currentTimeInMilliseconds">
         <td>
           <input type="checkbox" id="{{visibleProduct?.idProduct}}"
                  name="{{visibleProduct?.idProduct}}"
@@ -70,7 +71,7 @@
             </button>
           </mat-menu>
         </td>
-        <td>
+        <td >
           {{visibleProduct?.expireDate | date:'dd-MM-y'}}
         </td>
         <td>
