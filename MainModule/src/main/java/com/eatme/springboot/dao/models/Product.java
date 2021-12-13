@@ -32,7 +32,7 @@ public class Product {
     private String ecoscoreTags;
     @ElementCollection
     private List<String> allergens;
-    private double productQuantity;
+    private Double productQuantity;
     private String productName;
     private long novaGroups;
     @ElementCollection
@@ -42,19 +42,19 @@ public class Product {
     @OneToOne(cascade = CascadeType.ALL)
     private NutriscoreData nutriscoreData;
     private String productSizeType;
-    private double amountLeft;
+    private Double amountLeft;
 
     @Column(name = "id_user")
     private long idUser;
     private long createdAt;
-    private long expireDate;
+    private Long expireDate;
     private int archived;
 
 
     public Product() {
     }
 
-    public Product(long idProduct, long id, double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, double amountLeft, long idUser, long createdAt, long expireDate, int archived) {
+    public Product(long idProduct, long id, double servingSize, long knownIngredientsN, List<String> ingredientsHierarchy, String ingredientsTextWithAllergens, NutrientLevels nutrientLevels, String ingredientsText, long code, String nutritionDataPreparedPer, List<String> keywords, String ecoscoreTags, List<String> allergens, Double productQuantity, String productName, long novaGroups, List<String> categoriesHierarchy, List<String> categories, NutriscoreData nutriscoreData, String productSizeType, Double amountLeft, long idUser, long createdAt, Long expireDate, int archived) {
         this.idProduct = idProduct;
         this.id = id;
         this.servingSize = servingSize;
@@ -186,11 +186,11 @@ public class Product {
         this.allergens = allergens;
     }
 
-    public double getProductQuantity() {
+    public Double getProductQuantity() {
         return productQuantity;
     }
 
-    public void setProductQuantity(double productQuantity) {
+    public void setProductQuantity(Double productQuantity) {
         this.productQuantity = productQuantity;
     }
 
@@ -242,11 +242,11 @@ public class Product {
         this.productSizeType = productSizeType;
     }
 
-    public double getAmountLeft() {
+    public Double getAmountLeft() {
         return amountLeft;
     }
 
-    public void setAmountLeft(double amountLeft) {
+    public void setAmountLeft(Double amountLeft) {
         this.amountLeft = amountLeft;
     }
 
@@ -266,11 +266,11 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    public long getExpireDate() {
+    public Long getExpireDate() {
         return expireDate;
     }
 
-    public void setExpireDate(long expireDate) {
+    public void setExpireDate(Long expireDate) {
         this.expireDate = expireDate;
     }
 

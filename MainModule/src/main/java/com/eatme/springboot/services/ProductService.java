@@ -29,11 +29,11 @@ public class ProductService {
         return productRepository.saveAndFlush(s);
     }
 
-    public Product findProductsByIdProducts(Long id) {
+    public Product findProductsByIdProducts(long id) {
         return productRepository.findProductsByIdProduct(id);
     }
 
-    public List<Product> findProductByIdUserAndArchived(Long id, int archived){
+    public List<Product> findProductByIdUserAndArchived(long id, int archived){
         return productRepository.findProductByIdUserAndArchived(id, archived);
     }
 

@@ -30,7 +30,7 @@ public class TransactionController {
     }
 
     @GetMapping("/{transactionId}")
-    public ResponseEntity<List<Transaction>> findAllByIdProduct(@PathVariable("transactionId") Long transactionId) {
+    public ResponseEntity<List<Transaction>> findAllByIdProduct(@PathVariable("transactionId") long transactionId) {
 
         List<Transaction> transaction = transactionService.findAllByIdProduct(transactionId);
         return new ResponseEntity<>(transaction, HttpStatus.OK);

@@ -16,12 +16,15 @@ public class TransactionService {
     public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
+    public <S extends Transaction> S save(S s) {
+        return transactionRepository.saveAndFlush(s);
+    }
 
     public <S extends Transaction> S saveAndFlush(S s) {
         return transactionRepository.saveAndFlush(s);
     }
 
-    public List<Transaction> findAllByIdProduct(Long id) {
+    public List<Transaction> findAllByIdProduct(long id) {
         return transactionRepository.findAllByIdProduct(id);
     }
 

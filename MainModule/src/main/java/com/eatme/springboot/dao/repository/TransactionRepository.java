@@ -12,7 +12,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     @Override
     <S extends Transaction> S saveAndFlush(S s);
 
-    List<Transaction> findAllByIdProduct(Long id);
+    @Override
+    <S extends Transaction> S save(S s);
+
+
+    List<Transaction> findAllByIdProduct(long id);
 
     @Override
     List<Transaction> findAll();

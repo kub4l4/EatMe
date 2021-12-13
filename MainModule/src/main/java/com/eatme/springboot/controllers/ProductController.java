@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 
 //TODO add req from port 4200
@@ -32,28 +33,146 @@ public class ProductController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<Product>> findAll() {
-        return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+
+    @GetMapping("/userProduct")
+    public ResponseEntity<List<ProductSearch>> getUserProducts(HttpServletRequest request){
+
+        List<Product> ProductList = productService.findProductByIdUserAndArchived((long) request.getAttribute("userId"), 0);
+        List<ProductSearch> productSearchList = (List<ProductSearch>)(List<?>) ProductList;
+        return new ResponseEntity<>(productSearchList, HttpStatus.OK);
+    }
+
+    @GetMapping("/userProduct/{idProduct}")
+    public ResponseEntity<Product> getUserProduct(HttpServletRequest request,
+                                                  @PathVariable("idProduct") long idProduct){
+
+        Product product = productService.findProductsByIdProducts(idProduct);
+        if (product == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (product.getIdUser() != (long) request.getAttribute("userId")){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @PostMapping("/userProduct/new")
+    public ResponseEntity<HashMap<String, String>> addProductNew(HttpServletRequest request,
+                                                 @RequestBody Product product) {
+        System.out.println(product.getProductQuantity());
+        System.out.println(product.getProductSizeType());
+        System.out.println(product.getProductName());
+        System.out.println(product.getExpireDate());
+        if (product.getProductQuantity() == null || product.getProductName() == null ||
+        product.getProductSizeType() == null || product.getExpireDate() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        product.setAmountLeft(product.getProductQuantity());
+        product.setCreatedAt(System.currentTimeMillis());
+        product.setIdUser((long) request.getAttribute("userId"));
+        product.setArchived(0);
+        saveTransaction(product.getIdProduct(), product.getIdUser(), 0, product.getAmountLeft(), "New");
+        productService.saveAndFlush(product);
+        HashMap<String, String> response = new HashMap<String, String>();
+        response.put("productName", product.getProductName());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/userProduct/PM")
+    public ResponseEntity<HashMap<String, String>> addProductFromPM(HttpServletRequest request,
+                                                    @RequestBody Product requestProduct)  {
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Product> exchange = restTemplate.exchange(
+                "http://localhost:9090/api/v1/products/" + requestProduct.getIdProduct(),
+                HttpMethod.GET,
+                HttpEntity.EMPTY,
+                Product.class);
+        Product product = exchange.getBody();
+
+        if (product == null && requestProduct.getExpireDate() == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (requestProduct.getProductName() != null) {
+            product.setProductName(requestProduct.getProductName());
+        }
+        if (requestProduct.getProductQuantity() != null) {
+            product.setProductQuantity(requestProduct.getProductQuantity());
+        }
+        if (requestProduct.getProductSizeType() != null) {
+            product.setProductSizeType(requestProduct.getProductSizeType());
+        }
+        product.setExpireDate(requestProduct.getExpireDate());
+        product.setCreatedAt(System.currentTimeMillis());
+        product.setIdUser((long) request.getAttribute("userId"));
+        product.setAmountLeft(product.getProductQuantity());
+        product.setArchived(0);
+        saveTransaction(product.getIdProduct(), product.getIdUser(), 0, product.getAmountLeft(), "New, imported");
+        productService.saveAndFlush(product);
+        HashMap<String, String> response = new HashMap<String, String>();
+        response.put("productName", product.getProductName());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/userProduct")
+    public ResponseEntity<HashMap<String, String>> editProduct(HttpServletRequest request,
+                                               @RequestBody Product requestProduct) {
+
+        long idProduct = requestProduct.getIdProduct();
+        long idUser = (long) request.getAttribute("userId");
+        Product product = productService.findProductsByIdProducts(idProduct);
+        if (product == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (product.getIdUser() != idUser) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        if (requestProduct.getProductName() != null) {
+            product.setProductName(requestProduct.getProductName());
+        }
+        if (requestProduct.getAmountLeft() != null) {
+            product.setAmountLeft(requestProduct.getAmountLeft());
+        }
+        if (requestProduct.getExpireDate() != null) {
+            product.setExpireDate(requestProduct.getExpireDate());
+        }
+        saveTransaction(idProduct, idUser, product.getAmountLeft(), requestProduct.getAmountLeft(), "Update");
+        productService.saveAndFlush(product);
+        HashMap<String, String> response = new HashMap<String, String>();
+        response.put("productName", product.getProductName());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/userProduct/{idProduct}")
+    public ResponseEntity<HashMap<String, String>> archiveProduct(HttpServletRequest request,
+                                                  @PathVariable("idProduct") long idProduct) {
+        Product product = productService.findProductsByIdProducts(idProduct);
+        if (product == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (product.getIdUser() != (long) request.getAttribute("userId")) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        product.setArchived(1);
+        product.setAmountLeft(0.0);
+        saveTransaction(product.getIdProduct(), product.getIdUser(), product.getAmountLeft(), 0, "Archive");
+        productService.saveAndFlush(product);
+        HashMap<String, String> response = new HashMap<String, String>();
+        response.put("productName", product.getProductName());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/PM/{idProduct}")
-    public ResponseEntity<Product> getProductFromPMById(@PathVariable("idProduct") Long idProduct) {
+    public ResponseEntity<Product> getProductFromPMById(@PathVariable("idProduct") long idProduct) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Product> exchange = restTemplate.exchange(
                 "http://localhost:9090/api/v1/products/" + idProduct,
                 HttpMethod.GET,
                 HttpEntity.EMPTY,
                 Product.class);
+
         Product SavedProduct = exchange.getBody();
-
-        /*ResponseEntity<Products> response =
-                restTemplate.getForEntity(
-                        "http://localhost:9090/api/v1/products/"+productId,
-                        Products.class);
-        Products SavedProduct1 = response.getBody();
-        productsService.save(SavedProduct1);*/
-
         return new ResponseEntity<>(SavedProduct, HttpStatus.OK);
     }
 
@@ -61,7 +180,6 @@ public class ProductController {
     public ResponseEntity<ProductSearch[]> getProductFromPMById(@PathVariable("SearchPhrase") String searchPhrase) {
 
         RestTemplate restTemplate = new RestTemplate();
-        List<ProductSearch> foundProducts = null;
         ResponseEntity<ProductSearch[]> exchange = restTemplate.exchange(
                 "http://localhost:9090/api/v1/products/search/" + searchPhrase,
                 HttpMethod.GET,
@@ -73,182 +191,15 @@ public class ProductController {
         return new ResponseEntity<>(productSearch, HttpStatus.OK);
     }
 
-
-    @GetMapping("/userProducts")
-    public ResponseEntity<List<ProductSearch>> getUserProducts(HttpServletRequest request){
-
-        List<Product> ProductList = productService.findProductByIdUserAndArchived((long) request.getAttribute("userId"), 0);
-        List<ProductSearch> productSearchList = (List<ProductSearch>)(List<?>) ProductList;
-        return new ResponseEntity<>(productSearchList, HttpStatus.OK);
-    }
-
-    @GetMapping("/userProduct/{idProduct}")
-    public ResponseEntity<Product> getUserProduct(HttpServletRequest request,
-                                                  @PathVariable("idProduct") Long idProduct){
-
-        Product product = productService.findProductsByIdProducts(idProduct);
-        if (product.getIdUser() != (long) request.getAttribute("userId")){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
-    @PostMapping("/new")
-    public ResponseEntity<Product> addNewProduct(HttpServletRequest request,
-                                              @RequestBody Product product) {
-        product.setAmountLeft(product.getProductQuantity());
-        product.setCreatedAt(System.currentTimeMillis());
-        product.setIdUser((long) request.getAttribute("userId"));
-        product.setArchived(0);
+    public void saveTransaction(long IdProduct, long IdUser, double Amount_before, double Amount_after, String operationType){
         Transaction transaction = new Transaction();
-        transaction.setIdProduct(product.getIdProduct());
-        transaction.setUserId(product.getIdUser());
-        transaction.setAmount_before(0.0);
-        transaction.setAmount_after(product.getAmountLeft());
-        transaction.setAmount_changed(product.getAmountLeft());
+        transaction.setIdProduct(IdProduct);
+        transaction.setUserId(IdUser);
+        transaction.setAmount_before(Amount_before);
+        transaction.setAmount_after(Amount_after);
+        transaction.setAmount_changed(Amount_before - Amount_after);
         transaction.setCreatedAt(System.currentTimeMillis());
-        transaction.setTransactionType("New");
-        transactionService.saveAndFlush(transaction);
-        productService.saveAndFlush(product);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
-
-    @PostMapping("/setProduct1")
-    public ResponseEntity<Product> addProductFromPM(HttpServletRequest request,
-                                               @RequestBody Product requestProduct)  {
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Product> exchange = restTemplate.exchange(
-                "http://localhost:9090/api/v1/products/" + requestProduct.getIdProduct(),
-                HttpMethod.GET,
-                HttpEntity.EMPTY,
-                Product.class);
-        Product product = exchange.getBody();
-
-        product.setExpireDate(requestProduct.getExpireDate());
-        product.setCreatedAt(System.currentTimeMillis());
-        product.setIdUser((long) request.getAttribute("userId"));
-        product.setAmountLeft(product.getProductQuantity());
-        product.setArchived(0);
-        Transaction transaction = new Transaction();
-        transaction.setIdProduct(product.getIdProduct());
-        transaction.setUserId(product.getIdUser());
-        transaction.setAmount_before(0.0);
-        transaction.setAmount_after(product.getAmountLeft());
-        transaction.setAmount_changed(product.getAmountLeft());
-        transaction.setCreatedAt(System.currentTimeMillis());
-        transaction.setTransactionType("New, imported");
-        transactionService.saveAndFlush(transaction);
-        productService.saveAndFlush(product);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
-    @PostMapping("/setProduct2")
-    public ResponseEntity<Product> addAndEditProductFromPM(HttpServletRequest request,
-                                                    @RequestBody Product requestProduct)  {
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Product> exchange = restTemplate.exchange(
-                "http://localhost:9090/api/v1/products/" + requestProduct.getIdProduct(),
-                HttpMethod.GET,
-                HttpEntity.EMPTY,
-                Product.class);
-        Product product = exchange.getBody();
-
-        product.setProductQuantity(requestProduct.getProductQuantity());
-        product.setProductSizeType(requestProduct.getProductSizeType());
-        product.setExpireDate(requestProduct.getExpireDate());
-        product.setCreatedAt(System.currentTimeMillis());
-        product.setIdUser((long) request.getAttribute("userId"));
-        product.setAmountLeft(product.getProductQuantity());
-        product.setArchived(0);
-        Transaction transaction = new Transaction();
-        transaction.setIdProduct(product.getIdProduct());
-        transaction.setUserId(product.getIdUser());
-        transaction.setAmount_before(0.0);
-        transaction.setAmount_after(product.getAmountLeft());
-        transaction.setAmount_changed(product.getAmountLeft());
-        transaction.setCreatedAt(System.currentTimeMillis());
-        transaction.setTransactionType("New, imported");
-        transactionService.saveAndFlush(transaction);
-        productService.saveAndFlush(product);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
-    @PutMapping("/editProduct")
-    public ResponseEntity<Product> editProduct(HttpServletRequest request,
-                                                @RequestBody Product newProduct) {
-        System.out.println(newProduct.getExpireDate());
-        Long idProduct = newProduct.getIdProduct();
-        Long idUser = (long) request.getAttribute("userId");
-        Product product = productService.findProductsByIdProducts(idProduct);
-        //TODO information about problem
-        if (product.getIdUser() != idUser) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        Transaction transaction = new Transaction();
-        transaction.setIdProduct(idProduct);
-        transaction.setUserId(idUser);
-        transaction.setAmount_before(product.getAmountLeft());
-        transaction.setAmount_after(newProduct.getAmountLeft());
-        transaction.setAmount_changed(newProduct.getAmountLeft() - product.getAmountLeft());
-        transaction.setCreatedAt(System.currentTimeMillis());
-        transaction.setTransactionType("Update");
-        product.setProductName(newProduct.getProductName());
-        product.setAmountLeft(newProduct.getAmountLeft());
-        product.setExpireDate(newProduct.getExpireDate());
-        transactionService.saveAndFlush(transaction);
-        productService.saveAndFlush(product);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
-    @PutMapping("/editQuantity")
-    public ResponseEntity<Product> editQuantity(HttpServletRequest request,
-                                               @RequestBody Product newProduct) {
-        System.out.println(newProduct.getExpireDate());
-        Long idProduct = newProduct.getIdProduct();
-        Long idUser = (long) request.getAttribute("userId");
-        Product product = productService.findProductsByIdProducts(idProduct);
-        //TODO information about problem
-        if (product.getIdUser() != idUser) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        Transaction transaction = new Transaction();
-        transaction.setIdProduct(idProduct);
-        transaction.setUserId(idUser);
-        transaction.setAmount_before(product.getAmountLeft());
-        transaction.setAmount_after(newProduct.getAmountLeft());
-        transaction.setAmount_changed(newProduct.getAmountLeft() - product.getAmountLeft());
-        transaction.setCreatedAt(System.currentTimeMillis());
-        transaction.setTransactionType("Update");
-        product.setAmountLeft(newProduct.getAmountLeft());
-        transactionService.saveAndFlush(transaction);
-        productService.saveAndFlush(product);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
-    @PutMapping("/archive/{idProduct}")
-    public ResponseEntity<Long> archiveProduct(HttpServletRequest request,
-                                                  @PathVariable("idProduct") Long idProduct) {
-
-        Product product = productService.findProductsByIdProducts(idProduct);
-        //TODO information about problem
-        if (product.getIdUser() != (long) request.getAttribute("userId")) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        product.setArchived(1);
-        product.setAmountLeft(0.0);
-        Transaction transaction = new Transaction();
-        transaction.setIdProduct(product.getIdProduct());
-        transaction.setUserId(product.getIdUser());
-        transaction.setAmount_before(product.getAmountLeft());
-        transaction.setAmount_after(0.0);
-        transaction.setAmount_changed(0 - product.getAmountLeft());
-        transaction.setCreatedAt(System.currentTimeMillis());
-        transaction.setTransactionType("Archive");
-        transactionService.saveAndFlush(transaction);
-        productService.saveAndFlush(product);
-        return new ResponseEntity<>(product.getIdProduct(), HttpStatus.OK);
+        transaction.setTransactionType(operationType);
+        transactionService.save(transaction);
     }
 }
