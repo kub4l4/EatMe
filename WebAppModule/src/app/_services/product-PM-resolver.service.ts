@@ -12,7 +12,7 @@ export class ProductPMResolverService implements Resolve<IProduct> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.productService.getProductById(route.paramMap.get('id')).pipe(map(ProductById => ProductById))
+    return this.productService.getProductByIdFromPM(route.paramMap.get('id')).pipe(map(ProductById => ProductById))
   }
 
 }

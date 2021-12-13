@@ -17,15 +17,8 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  saveProduct(product: IProduct) {
-    return this.http.post<any>(API_URL, {
-      product
-    }, httpOptions)
-      .pipe(catchError(this.handleError<IProduct[][]>('add')))
-  }
-
   fillProduct1(idProduct: number, expireDate: number) {
-    return this.http.post<any>(API_URL + "/setProduct1", {
+    return this.http.post<any>(API_URL + "/userProduct/PM", {
       idProduct,
       expireDate,
     }, httpOptions)
@@ -33,7 +26,7 @@ export class ProductService {
   }
 
   fillProduct2(idProduct: number, expireDate: number, productQuantity: number, productSizeType: string) {
-    return this.http.post<any>(API_URL + "/setProduct2", {
+    return this.http.post<any>(API_URL + "/userProduct/PM", {
       idProduct,
       expireDate,
       productQuantity,
@@ -43,17 +36,17 @@ export class ProductService {
   }
 
   saveNewProduct(productName: string, productQuantity: number, productSizeType: string, expireDate: number) {
-    return this.http.post<any>(API_URL + "/new", {
+    return this.http.post<String>(API_URL + "/userProduct/new", {
       productName,
       productQuantity,
       productSizeType,
       expireDate
     }, httpOptions)
-      .pipe(catchError(this.handleError<IProduct[][]>('add')))
+      .pipe(catchError(this.handleError<any>('add')))
   }
 
   editQuantity(idProduct: number, amountLeft: number) {
-    return this.http.put<any>(API_URL + "/editQuantity", {
+    return this.http.put<any>(API_URL + "/userProduct", {
       idProduct,
       amountLeft,
     }, httpOptions)
@@ -61,7 +54,7 @@ export class ProductService {
   }
 
   editProduct(idProduct: number, productName: string, amountLeft: number, expireDate: number) {
-    return this.http.put<any>(API_URL + "/editProduct", {
+    return this.http.put<any>(API_URL + "/userProduct", {
       idProduct,
       productName,
       amountLeft,
@@ -71,18 +64,18 @@ export class ProductService {
   }
 
   archiveProduct(id: number) {
-    return this.http.put<number>(API_URL + "/archive/" + id, null)
+    return this.http.put<number>(API_URL + "/userProduct/" + id, null)
   }
 
   getUserProducts(): Observable<IProductTable[]> {
-    return this.http.get<any[]>(API_URL + "/userProducts")
+    return this.http.get<IProductTable[]>(API_URL + "/userProduct")
   }
 
-  getUserProductById(id: any): Observable<any> {
+  getUserProductById(id: any): Observable<IProduct> {
     return this.http.get<IProduct>(API_URL + "/userProduct/" + id)
   }
 
-  getProductById(id: any): Observable<any> {
+  getProductByIdFromPM(id: any): Observable<any> {
     return this.http.get<IProduct>(API_URL + "/PM/" + id)
   }
 

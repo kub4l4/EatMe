@@ -28,7 +28,7 @@ export class EditMyProductComponent implements OnInit {
 
   formInit() {
     this.productName = new FormControl(this.product.productName, Validators.required)
-    this.amountLeft = new FormControl(this.product.amountLeft, Validators.required)
+    this.amountLeft = new FormControl(this.product.amountLeft, [Validators.required, Validators.min(0), Validators.pattern('[0-9]*')])
     this.expireDate = new FormControl(this.product.expireDate, [Validators.required, Validators.maxLength(400)])
 
     this.editMyProductForm = new FormGroup({

@@ -24,7 +24,7 @@
           <label for="amountLeft" class="col-sm-2 col-form-label">Quantity:</label>
           <div class="col-sm-10">
             <em *ngIf="amountLeft.invalid && amountLeft.dirty">Required</em>
-            <input formControlName="amountLeft" id="amountLeft" type="text" class="form-control"
+            <input formControlName="amountLeft" id="amountLeft" type="number" class="form-control"
                    placeholder="Amount left..."/>
           </div>
         </div>

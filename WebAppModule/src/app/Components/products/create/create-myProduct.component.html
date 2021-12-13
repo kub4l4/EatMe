@@ -23,8 +23,8 @@
         <div class="form-group row" [ngClass]="{'error' :productQuantity.invalid && productQuantity.dirty }">
           <label for="productQuantity" class="col-sm-2 col-form-label">Quantity:</label>
           <div class="col-sm-10">
-            <em *ngIf="productQuantity.invalid && productQuantity.dirty">Required</em>
-            <input formControlName="productQuantity" id="productQuantity" type="text" class="form-control"
+            <em *ngIf="productQuantity.invalid && productQuantity.dirty">Required number greater then 0</em>
+            <input formControlName="productQuantity" id="productQuantity" type="number" class="form-control"
                    placeholder="quantity..."/>
           </div>
         </div>
@@ -32,7 +32,7 @@
         <div class="form-group row" [ngClass]="{'error' :productSizeType.invalid && productSizeType.dirty }">
           <label class="col-sm-2 col-form-label">Product type:</label>
           <div class="col-sm-10">
-            <em *ngIf="productSizeType.invalid && productSizeType.dirty">Required</em>
+            <em *ngIf="productSizeType.invalid && productSizeType.dirty">R </em>
             <select formControlName="productSizeType" class="form-control">
               <option value="ml"> ml</option>
               <option value="g"> g</option>
