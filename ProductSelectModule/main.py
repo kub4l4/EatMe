@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
-import json
-
+from pymongo import MongoClient
 
 
 def get_data():
@@ -20,20 +19,17 @@ def get_data():
 
 def check_data(df):
     avaible_vars = list(df.columns)
-    required_vars = ['_id',
-                     '_keywords',
+    required_vars = ['_keywords',
                      'allergens',
                      'categories',
                      'categories_hierarchy',
                      'code',
                      'ecoscore_tags',
-                     'images',
                      'ingredients_hierarchy',
                      'ingredients_text_en',
                      'ingredients_text_with_allergens_en',
                      'known_ingredients_n',
                      'nova_groups',
-                     'nova_groups_tags',
                      'nutrient_levels',
                      'nutriscore_data',
                      'nutrition_data_prepared_per',
@@ -82,8 +78,6 @@ def data_clean(df):
     df = df.drop(df[df.ToDelete == 1].index)
 
     df = df.drop(columns='ToDelete', axis=1)
-    df = df.drop(columns='nova_groups_tags', axis=1)
-    df = df.drop(columns='images', axis=1)
     print("DateClean Done.")
     return df
 
@@ -128,7 +122,16 @@ def name_replacement(df):
 def export_result(df):
     print("exportResult")
     print(df.info())
-    df.to_json(r'productsOut.json', "records", True)
+    df.to_json(r'productsOut.json', "records", lines=True)
+
+
+def export_to_mongodb(df):
+    print("Exporting products to MongoDB")
+    client = MongoClient('mongodb://rootuser:rootpass@localhost:27017/')
+    db = client['EatMe']
+    collection = db['test']
+    data = df.to_dict(orient='records')
+    collection.insert_many(data)
 
 
 if __name__ == '__main__':
@@ -143,3 +146,5 @@ if __name__ == '__main__':
     df = name_replacement(df)
     print("\n---------------------------------")
     export_result(df)
+    print("\n---------------------------------")
+    export_to_mongodb(df)
