@@ -3,11 +3,11 @@
   color: #b4121e;
 }
 
-.expired{
+.expired {
   background-color: rgba(255, 139, 128, 0.9) !important;
 }
 
-.expired-soon{
+.expired-soon {
   background-color: rgba(255, 218, 128, 0.9) !important;
 }
 
@@ -74,6 +74,12 @@ select {
 .product-name {
   text-align: left !important;
   font-weight: bold;
+}
 
+.show-edit {
+  visibility: visible;
+}
 
+.hide-edit {
+  visibility: hidden;
 }

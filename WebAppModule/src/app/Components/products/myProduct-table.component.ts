@@ -16,34 +16,27 @@ export class MyProductTableComponent implements OnInit {
   sortBy: string = 'dateExp'
   visibleProducts: IProductTable[] = []
   visibleProduct: IProductTable
-  editMenuShown: boolean = false;
-  isShown: boolean[] = []
+  editQuantityShown: boolean[] = []
   currentTimeInMilliseconds: number
 
   constructor(private router: Router, private productService: ProductService, private route: ActivatedRoute) {
-    this.currentTimeInMilliseconds=Date.now();
+    this.currentTimeInMilliseconds = Date.now();
   }
 
   ngOnInit(): void {
     this.products = this.route.snapshot.data['userProducts']
-    console.log(this.products)
     this.changeSort();
   }
 
-  toggleShow(idProduct: number) {
-    console.log("Pojawiam sie")
-    console.log(idProduct)
-    this.isShown[idProduct] = true
+  toggleHide(idProduct: number) {
+    this.editQuantityShown[idProduct] = false;
   }
 
-  toggleHide(idProduct: number) {
-    console.log("Znikam")
-    console.log(idProduct)
-    this.isShown[idProduct] = false
+  toggleShow(idProduct: number) {
+    this.editQuantityShown[idProduct] = true
   }
 
   changeFilter(newValue: number) {
-    console.log(newValue);
     this.filterBy = +newValue
     if (this.products) {
       this.filterProduct(this.filterBy)
@@ -51,7 +44,6 @@ export class MyProductTableComponent implements OnInit {
   }
 
   changeSort(newValue: string = 'name') {
-    console.log(newValue);
     this.sortBy = newValue
     if (this.products) {
       this.filterProduct(this.filterBy)
@@ -115,7 +107,6 @@ export class MyProductTableComponent implements OnInit {
     this.changeSort();
   }
 
-
 }
 
 
@@ -124,7 +115,6 @@ function sortByNameAsc(s1: IProductTable, s2: IProductTable) {
   else if (s1.productName === s2.productName) return 0
   else return -1
 }
-
 
 function sortByDateAdd(s1: IProductTable, s2: IProductTable) {
   if (s1.createdAt > s2.createdAt) return 1

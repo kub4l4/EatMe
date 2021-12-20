@@ -21,8 +21,8 @@
       </tr>
       </thead>
       <tbody *ngFor="let visibleProduct of visibleProducts">
-      <tr [class.expired] = "visibleProduct.expireDate < currentTimeInMilliseconds"
-          [class.expired-soon] = "visibleProduct.expireDate < currentTimeInMilliseconds+259200000 && visibleProduct.expireDate > currentTimeInMilliseconds">
+      <tr [class.expired]="visibleProduct.expireDate < currentTimeInMilliseconds"
+          [class.expired-soon]="visibleProduct.expireDate < currentTimeInMilliseconds+259200000 && visibleProduct.expireDate > currentTimeInMilliseconds">
         <td>
           <input type="checkbox" id="{{visibleProduct?.idProduct}}"
                  name="{{visibleProduct?.idProduct}}"
@@ -31,12 +31,17 @@
         <td class="product-name">
           {{visibleProduct?.productName}}
         </td>
-        <td (mouseover)="toggleShow(visibleProduct.idProduct)">
+        <td (mouseenter)="toggleShow(visibleProduct.idProduct)" (mouseleave)="toggleHide(visibleProduct.idProduct)">
           {{visibleProduct?.amountLeft}}{{visibleProduct.productSizeType}}
-          <button *ngIf="isShown[visibleProduct.idProduct]" mat-icon-button [matMenuTriggerFor]="menu">
+          <button
+            [ngClass]="{'show-edit': editQuantityShown[visibleProduct.idProduct] , 'hide-edit' : !editQuantityShown[visibleProduct.idProduct] }"
+            mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>mode_edit</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
+            <button disabled mat-menu-item>
+              <span> Reduce the amount: </span>
+            </button>
             <button *ngIf="visibleProduct.amountLeft>1000"
                     (click)="updateProduct(visibleProduct.idProduct, 1000, visibleProduct.amountLeft)" mat-menu-item>
               <span>1000{{visibleProduct.productSizeType}}</span>
@@ -59,19 +64,19 @@
             </button>
             <button *ngIf=" visibleProduct.productSizeType == 'pcs'"
                     (click)="updateProduct(visibleProduct.idProduct, 1, visibleProduct.amountLeft)" mat-menu-item>
-              <span>1 {{visibleProduct.productSizeType}}</span>
+              <span>1{{visibleProduct.productSizeType}}</span>
             </button>
             <button *ngIf="visibleProduct.servingSize && visibleProduct.amountLeft>visibleProduct.servingSize"
                     (click)="updateProduct(visibleProduct.idProduct, visibleProduct.servingSize, visibleProduct.amountLeft)"
                     mat-menu-item>
-              <span>Suggested serving size:{{visibleProduct.servingSize}} {{visibleProduct.productSizeType}}</span>
+              <span>Suggested serving size: {{visibleProduct.servingSize}}{{visibleProduct.productSizeType}}</span>
             </button>
             <button (click)="archive(visibleProduct.idProduct, visibleProduct.productName)" mat-menu-item>
-              <span>All: {{visibleProduct.amountLeft}} {{visibleProduct.productSizeType}}</span>
+              <span>All: {{visibleProduct.amountLeft}}{{visibleProduct.productSizeType}}</span>
             </button>
           </mat-menu>
         </td>
-        <td >
+        <td>
           {{visibleProduct?.expireDate | date:'dd-MM-y'}}
         </td>
         <td>
