@@ -1,22 +1,29 @@
 a {
-  font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   color: #FFFFFF;
   margin: 10px;
   text-transform: uppercase;
 }
 
-:active {
-  color: #2FCC76 !Important;
-}
-
 li {
-  list-style-type: none
+  list-style-type: none;
+  margin-bottom: 7px;
+  margin-top: 7px;
 }
 
-li > a.active {
-  color: #5ec48c;
-  background-color: transparent
+li > a.active, li > a.active > mat-icon{
+  color: #94ffc4;
+  background-color: transparent;
+}
+
+menu {
+  padding-left: 20px;
+}
+
+.mat-icon {
+  color: #e5fff1;
+  padding-right: 40px;
+  vertical-align: bottom;
 }
 
 .sidebar-nav {
@@ -25,17 +32,10 @@ li > a.active {
   box-shadow: 0px 0px 10px #00000029;
 }
 
-.sidebar-link {
-  display: flex;
-  align-items: center;
-}
-
-.sidebar-link .right-icon {
-  display: inline-flex;
-}
-
-.sidebar-link[aria-expanded="true"] .right-icon {
-  transform: rotate(180deg);
+.bottom-menu{
+  bottom: 0;
+  width: 100%;
+  position: absolute;
 }
 
 @media (min-width: 992px) {

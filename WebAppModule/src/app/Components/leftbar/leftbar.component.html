@@ -1,82 +1,85 @@
 <div class="offcanvas sidebar-nav" tabindex="-1" id="sidebar">
+  <div class="offcanvas-header p-0">
+    <a>
+      <img src="/assets/images/logo.svg" alt="EatMe" class="img-fluid logo">
+    </a>
+  </div>
   <div class="offcanvas-body p-0">
-    <nav class="navbar-dark">
+    <menu>
+      <li>
+        <a [routerLink]="['/about']" class="nav-link align-middle">
+          <mat-icon>info</mat-icon>
+          About EatMe
+        </a>
+      </li>
 
-      <!-- Zdecydować gdzie zrobić router -->
-      <a>
-        <img src="/assets/images/logo.svg" alt="EatMe" class="img-fluid logo">
-      </a>
-
-      <ul id="menu">
+      <div *ngIf="isLoggedIn">
         <li>
-          <a [routerLink]="['/about']" class="nav-link align-middle">
-            <i class="fs-5 bi-info-square"></i> About EatMe </a>
+          <a [routerLink]="['/MyProducts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+             class="nav-link align-middle">
+            <mat-icon>kitchen</mat-icon>
+            Products
+          </a>
         </li>
 
-        <div *ngIf="isLoggedIn">
-
-          <li>
-            <a [routerLink]="['/MyProducts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-               class="nav-link align-middle">
-              <i class="fs-5 bi-bag-check"></i> Products </a>
-          </li>
-
-          <li>
-            <a [routerLink]="['MyProducts/add']" routerLinkActive="active" class="nav-link align-middle">
-              <i class="fs-5 bi-plus-square"></i> Add new product</a>
-          </li>
-
-          <li>
-            <a [routerLink]="['MyProducts/search']" routerLinkActive="active" class="nav-link align-middle">
-              <i class="fs-5 bi-plus-square"></i> Search products</a>
-          </li>
-        </div>
-      </ul>
-
-
-      <!-- Bottom -->
-      <ul class=fixed-bottom>
-
-        <span *ngIf="!isLoggedIn">
-          <li class="nav-link px-0 align-middle">
-            <a [routerLink]="['/register']" class="nav-link" routerLink="register"
-               routerLinkActive="active">Sign Up</a>
-          </li>
-
-          <li class="nav-link px-0 align-middle">
-            <a [routerLink]="['/login']" class="nav-link" routerLink="login"
-               routerLinkActive="active">Log In</a>
-          </li>
-        </span>
-        <span *ngIf="showAdminBoard">
-          <li class="nav-link px-0 align-middle">
-            <a [routerLink]="['/admin']" class="nav-link" routerLink="admin"
-               routerLinkActive="active">Admin Dashboard </a>
-          </li>
-        </span>
-
-        <div *ngIf="isLoggedIn" class="dropdown pb-4 align-middle">
-
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <!--
-            TODO add profile pic
-            -->
-            <img src="https://avatars.githubusercontent.com/u/18147901?v=4" alt="hugenerd" width="30" height="30"
-                 class="rounded-circle">
-            <span class="d-none d-sm-inline mx-3">{{username}}</span>
-
+        <li>
+          <a [routerLink]="['MyProducts/add']" routerLinkActive="active" class="nav-link align-middle">
+            <mat-icon>add</mat-icon>
+            Add new product
           </a>
+        </li>
 
-          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="nav-link" [routerLink]="['/profile']">Profile</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a href class="nav-link" (click)="logout()">LogOut</a></li>
-          </ul>
-        </div>
-      </ul>
-    </nav>
+        <li>
+          <a routerLinkActive="active" class="nav-link align-middle">
+            <mat-icon>shopping_basket</mat-icon>
+            Shopping list
+          </a>
+        </li>
+
+        <li>
+          <a [routerLink]="['MyProducts/search']" routerLinkActive="active" class="nav-link align-middle">
+            <mat-icon>search</mat-icon>
+            Product search
+          </a>
+        </li>
+
+        <li *ngIf="showAdminBoard">
+          <a [routerLink]="['/admin']" class="nav-link" routerLinkActive="active">
+            <mat-icon>admin_panel_settings</mat-icon>
+            Admin space
+          </a>
+        </li>
+      </div>
+    </menu>
+    <menu class="bottom-menu">
+      <div *ngIf="!isLoggedIn">
+        <li class="nav-link px-0 align-middle">
+          <a [routerLink]="['/register']" class="nav-link" routerLinkActive="active">Sign Up</a>
+        </li>
+
+        <li class="nav-link px-0 align-middle">
+          <a [routerLink]="['/login']" class="nav-link" routerLinkActive="active">Log In</a>
+        </li>
+      </div>
+      <div *ngIf="isLoggedIn" class="dropdown pb-4 align-middle">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+           id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          <!--TODO add profile pic-->
+          <img src="https://avatars.githubusercontent.com/u/18147901?v=4" alt="hugenerd" width="30" height="30"
+               class="rounded-circle">
+          <span class="d-none d-sm-inline mx-3">{{username}}</span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+          <li>
+            <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+          </li>
+
+          <li>
+            <a href class="nav-link" (click)="logout()">LogOut</a>
+          </li>
+        </ul>
+      </div>
+    </menu>
   </div>
 </div>
