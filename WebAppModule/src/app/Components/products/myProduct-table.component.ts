@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ProductService } from "../../_services/product.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { IProductTable } from "../../_models/product-table.model";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'myProduct-table',
@@ -19,7 +20,10 @@ export class MyProductTableComponent implements OnInit {
   editQuantityShown: boolean[] = []
   currentTimeInMilliseconds: number
 
-  constructor(private router: Router, private productService: ProductService, private route: ActivatedRoute) {
+  constructor(private router: Router,
+              private productService: ProductService,
+              private route: ActivatedRoute,
+              private _snackBar: MatSnackBar) {
     this.currentTimeInMilliseconds = Date.now();
   }
 
@@ -70,8 +74,9 @@ export class MyProductTableComponent implements OnInit {
   }
 
   archive(id: any, productName: String) {
+    //TODO Change this to snackBar
     if (!confirm("Are you sure to archive " + productName + "?")) {
-      console.log("Ok!");
+      console.log("Ok, not archived!");
       return;
     }
     this.productService.archiveProduct(id)
@@ -80,33 +85,41 @@ export class MyProductTableComponent implements OnInit {
           this.products.forEach((value, index) => {
             if (value.idProduct == data) this.products.splice(index, 1);
           });
+          this._snackBar.open(`The product ${productName} has been archived!`, 'OK', {
+            duration: 4000
+          });
           this.changeSort();
-          //TODO add popup about proper archive
         },
         error => {
-          console.log(error);
-          //TODO add popup about error
-        })
+          this._snackBar.open(error, 'OK', {
+            duration: 4000
+          });
+        }
+      )
   }
 
   updateProduct(idProduct: number, amountChanged: number, amountLeft: number) {
     let amountNew = amountLeft - amountChanged;
     if (amountNew < 0) {
-      /*TODO przypominajka!*/
-      console.log("HALO! ZA DUZO!")
+      this._snackBar.open(`The number should be bigger then 0. Your new amount would be ${amountNew}`, 'OK');
     }
     this.productService.editQuantity(idProduct, amountNew)
       .subscribe(
         data => {
-          console.log("DANE:", data)
+          this._snackBar.open(`Product saved. The new amount is ${amountNew}`, 'OK', {
+            duration: 4000
+          });
+          this.products = this.route.snapshot.data['userProducts']
+          this.changeSort();
+
         },
         error => {
-          console.log(error);
-        })
-    this.products = this.route.snapshot.data['userProducts']
-    this.changeSort();
+          this._snackBar.open(error, 'OK', {
+            duration: 4000
+          });
+        }
+      )
   }
-
 }
 
 

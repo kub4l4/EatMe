@@ -49,23 +49,18 @@ export class CreateMyProduct implements OnInit {
     this.productService.saveNewProduct(formValues.productName, formValues.productQuantity, formValues.productSizeType, expireDate.getTime())
       .subscribe(
         data => {
-          console.log("DANE:", data)
-          if (data != undefined) {
-            this._snackBar.open("The product has been saved!", 'OK', {
-              duration: 4000
-            });
-            this.router.navigate(['/MyProducts'])
-            return
-          }
-          this._snackBar.open("A problem occured", 'OK', {
+          this._snackBar.open("The product has been saved!", 'OK', {
             duration: 4000
           });
+          this.router.navigate(['/MyProducts'])
+          return
         },
         error => {
           this._snackBar.open(error, 'OK', {
             duration: 4000
           });
-        })
+        }
+      )
   }
 
   cancel() {

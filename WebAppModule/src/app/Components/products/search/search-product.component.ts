@@ -6,6 +6,7 @@ import { map } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAddProductComponent } from "./form-add/dialog-add-product.component";
 import { ProductService } from "../../../_services/product.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export interface DialogData {
   userDecision: boolean;
@@ -23,13 +24,14 @@ export class SearchProductComponent implements OnInit {
   public valueSearch: any;
   userDecision: boolean | undefined;
   expireDate: string;
-  quantity: number | undefined;
-  quantityType: string | undefined;
+  quantity: number;
+  quantityType: string;
 
   constructor(public searchService: SearchService,
               private router: Router,
               public dialog: MatDialog,
-              public productService: ProductService) {
+              public productService: ProductService,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -41,24 +43,31 @@ export class SearchProductComponent implements OnInit {
       this.productService.fillProduct1(id, expireDate.getTime())
         .subscribe(
           data => {
-            console.log("DANE:", data)
+            this._snackBar.open("The product has been added!", 'OK', {
+              duration: 4000
+            });
           },
           error => {
-            console.log(error);
-          })
-
-      return
+            this._snackBar.open(error, 'OK', {
+              duration: 4000
+            });
+          }
+        )
     }
 
     this.productService.fillProduct2(id, expireDate.getTime(), this.quantity, this.quantityType)
       .subscribe(
         data => {
-          console.log("DANE:", data)
+          this._snackBar.open("The product has been added!", 'OK', {
+            duration: 4000
+          });
         },
         error => {
-          console.log(error);
-        })
-    return
+          this._snackBar.open(error, 'OK', {
+            duration: 4000
+          });
+        }
+      )
   }
 
   openDialog(id: number | null): void {

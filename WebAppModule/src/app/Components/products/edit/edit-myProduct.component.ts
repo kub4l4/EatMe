@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProductService } from "../../../_services/product.service";
 import { IProduct } from "../../../_models/Product.model";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   templateUrl: './edit-myProduct.component.html',
@@ -18,7 +19,8 @@ export class EditMyProductComponent implements OnInit {
 
   constructor(private router: Router,
               private productService: ProductService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -44,12 +46,18 @@ export class EditMyProductComponent implements OnInit {
     this.productService.editProduct(this.product.idProduct, formValues.productName, formValues.amountLeft, expireDate.getTime())
       .subscribe(
         data => {
-          console.log("DANE:", data)
+          this._snackBar.open("The product has been updated!", 'OK', {
+            duration: 4000
+          });
+          this.router.navigate(['/MyProducts'])
+          return
         },
         error => {
-          console.log(error);
-        })
-    this.router.navigate(['/MyProducts'])
+          this._snackBar.open(error, 'OK', {
+            duration: 4000
+          });
+        }
+      )
   }
 
   cancel() {
