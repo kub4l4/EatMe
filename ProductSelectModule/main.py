@@ -7,19 +7,20 @@ def get_data():
     try:
         pd.read_json('ProductsIn.json', lines=True)
     except ValueError as e:
-        print("The specified file is not a properly formatted json file")
+        print("The specified file is not a properly formatted json file", e)
         exit(0)
     print("getData")
-    df = pd.read_json('ProductsIn.json', lines=True)
-    print(df.head(5))
-    print(df.info())
+    df_fun = pd.read_json('ProductsIn.json', lines=True)
+    print(df_fun.head(5))
+    print(df_fun.info())
     print("getData Done.")
-    return df
+    return df_fun
 
 
-def check_data(df):
-    avaible_vars = list(df.columns)
-    required_vars = ['_keywords',
+def check_data(df_fun):
+    available_vars = list(df_fun.columns)
+    required_vars = ['_id',
+                     '_keywords',
                      'allergens',
                      'categories',
                      'categories_hierarchy',
@@ -37,68 +38,71 @@ def check_data(df):
                      'product_quantity',
                      'serving_size']
 
-    check = all(item in avaible_vars for item in required_vars)
+    check = all(item in available_vars for item in required_vars)
 
     if check is False:
         print("The input data is invalid.")
         exit(1)
     print("The input data is valid.")
-    redundant_vars = [x for x in avaible_vars if x not in required_vars]
+    redundant_vars = [x for x in available_vars if x not in required_vars]
 
     for redundant_var in redundant_vars:
         print("Excess column was removed: ", redundant_var)
-        del df[redundant_var]
+        del df_fun[redundant_var]
 
-    return df
+    return df_fun
 
 
-def extracting_serving_size(df):
+def extracting_serving_size(df_fun):
     print("extractingServingSize")
     conditions = [
-        df['serving_size'].str.contains("^[0-9].*g$"),
-        df['serving_size'].str.contains("^[0-9].*ml$")
+        df_fun['serving_size'].str.contains("^[0-9].*g$"),
+        df_fun['serving_size'].str.contains("^[0-9].*ml$")
     ]
     values = ['g', 'ml']
-    df['product_size_type'] = np.select(conditions, values)
-    df["serving_size"] = df["serving_size"].str.split("g", 1, True)[0]
-    df["serving_size"] = df["serving_size"].str.split("ml", 1, True)[0]
+    df_fun['product_size_type'] = np.select(conditions, values)
+    df_fun["serving_size"] = df_fun["serving_size"].str.split("g", 1, True)[0]
+    df_fun["serving_size"] = df_fun["serving_size"].str.split("ml", 1, True)[0]
     print("ExtractingServingSize Done.")
-    return df
+    return df_fun
 
 
-def data_clean(df):
+def data_clean(df_fun):
     print("dataClean")
 
     conditions = [
-        df['product_size_type'].str.contains("0"),
-        df['serving_size'].str.contains("[^0-9]")
+        df_fun['product_size_type'].str.contains("0"),
+        df_fun['serving_size'].str.contains("[^0-9]")
     ]
     values = [1, 1]
-    df['ToDelete'] = np.select(conditions, values)
-    df = df.drop(df[df.ToDelete == 1].index)
+    df_fun['ToDelete'] = np.select(conditions, values)
+    df_fun = df_fun.drop(df_fun[df_fun.ToDelete == 1].index)
 
-    df = df.drop(columns='ToDelete', axis=1)
+    df_fun = df_fun.drop(columns='ToDelete', axis=1)
     print("DateClean Done.")
-    return df
+    return df_fun
 
 
-def data_conversion(df):
+def data_conversion(df_fun):
     print("dataConversion")
-    df['serving_size'] = df['serving_size'].str.replace(',', '').astype(float)
-    df['ingredients_text_with_allergens_en'] = df['ingredients_text_with_allergens_en'].astype(str)
-    df['ingredients_text_en'] = df['ingredients_text_en'].astype(str)
-    df['code'] = df['code'].astype(int)
-    df['nutrition_data_prepared_per'] = df['nutrition_data_prepared_per'].astype(str)
-    df['ecoscore_tags'] = df['ecoscore_tags'].astype(str)
-    df['product_name_en'] = df['product_name_en'].astype(str)
-    df['categories'] = df['categories'].astype(str)
+    df_fun['_id'] = df_fun['_id'].astype(int)
+    df_fun['serving_size'] = df_fun['serving_size'].str.replace(',', '').astype(float)
+    df_fun['ingredients_text_with_allergens_en'] = df_fun['ingredients_text_with_allergens_en'].astype(str)
+    df_fun['ingredients_text_en'] = df_fun['ingredients_text_en'].astype(str)
+    df_fun['code'] = df_fun['code'].astype(int)
+    df_fun['nutrition_data_prepared_per'] = df_fun['nutrition_data_prepared_per'].astype(str)
+    df_fun['ecoscore_tags'] = df_fun['ecoscore_tags'].astype(str)
+    df_fun['product_name_en'] = df_fun['product_name_en'].astype(str)
+    df_fun['categories'] = df_fun['categories'].astype(str)
     print("dataConversion Done.")
-    return df
+    print(df_fun.info())
+
+    return df_fun
 
 
-def name_replacement(df):
+def name_replacement(df_fun):
     print("nameReplacement")
-    df = df.rename({
+    df_fun.rename(columns={
         'serving_size': 'servingSize',
         'known_ingredients_n': 'knownIngredientsN',
         'ingredients_hierarchy': 'ingredientsHierarchy',
@@ -114,23 +118,24 @@ def name_replacement(df):
         'categories_hierarchy': 'categoriesHierarchy',
         'nutriscore_data': 'nutriscoreData',
         'product_size_type': 'productSizeType'
-    })
+    }, inplace=True)
     print("nameReplacement Done.")
-    return df
+    return df_fun
 
 
-def export_result(df):
+def export_result(df_fun):
     print("exportResult")
-    print(df.info())
-    df.to_json(r'productsOut.json', "records", lines=True)
+    print(df_fun.info())
+    df_fun.to_json(r'productsOut.json', "records", lines=True)
 
 
-def export_to_mongodb(df):
+def export_to_mongodb(df_fun):
+    df_fun.drop_duplicates(subset="_id", keep='last', inplace=True)
     print("Exporting products to MongoDB")
     client = MongoClient('mongodb://rootuser:rootpass@localhost:27017/')
     db = client['EatMe']
-    collection = db['test']
-    data = df.to_dict(orient='records')
+    collection = db['products']
+    data = df_fun.to_dict(orient='records')
     collection.insert_many(data)
 
 
@@ -142,6 +147,8 @@ if __name__ == '__main__':
     df = extracting_serving_size(df)
     print("\n---------------------------------")
     df = data_clean(df)
+    print("\n---------------------------------")
+    df = data_conversion(df)
     print("\n---------------------------------")
     df = name_replacement(df)
     print("\n---------------------------------")
