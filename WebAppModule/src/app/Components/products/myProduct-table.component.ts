@@ -11,14 +11,45 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ['./myProduct-table.component.css']
 })
 export class MyProductTableComponent implements OnInit {
-  @Input()
-  products: IProductTable[]
+  @Input() products: IProductTable[]
   filterBy: number = 0
   sortBy: string = 'dateExp'
   visibleProducts: IProductTable[] = []
-  visibleProduct: IProductTable
   editQuantityShown: boolean[] = []
   currentTimeInMilliseconds: number
+
+  listOfColumns: any[] = [
+    {
+      name: '',
+    },
+    {
+      name: 'Resource name',
+      width: '60%',
+      sortOrder: 'ascend',
+      sortFn: true
+    },
+    {
+      name: 'Type',
+      width: '10%',
+      sortFn: true,
+      filterFn: true,
+    },
+    {
+      name: 'Expire Date',
+      width: '15%',
+      sortFn: true,
+      filterFn: true,
+    },
+    {
+      name: 'Edit',
+      width: '7%',
+
+    },
+    {
+      name: 'Archive',
+      width: '8%',
+    },
+  ];
 
   constructor(private router: Router,
               private productService: ProductService,
@@ -76,7 +107,10 @@ export class MyProductTableComponent implements OnInit {
   archive(id: any, productName: String) {
     //TODO Change this to snackBar
     if (!confirm("Are you sure to archive " + productName + "?")) {
-      console.log("Ok, not archived!");
+
+      this._snackBar.open(`Operation archive canceled`, 'OK', {
+        duration: 4000
+      });
       return;
     }
     this.productService.archiveProduct(id)

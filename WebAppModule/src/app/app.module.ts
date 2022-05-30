@@ -41,6 +41,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SearchProductItemComponent } from "./Components/products/search/search-result-product/search-product-item.component";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { NzTableModule } from "ng-zorro-antd/table";
 
 
 @NgModule({
@@ -82,8 +83,9 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
     MatCheckboxModule,
     MatSnackBarModule,
     MatButtonToggleModule,
-    MatDatepickerModule
-  ],
+    MatDatepickerModule,
+    NzTableModule
+    ],
   providers: [
     ProductService,
     authInterceptorProviders,
