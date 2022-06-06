@@ -1,6 +1,51 @@
 import numpy as np
 import pandas as pd
+import json
 from pymongo import MongoClient
+
+
+def get_data_from_open_food_facts_jsonl():
+    required_vars = ['_id',
+                     '_keywords',
+                     'allergens',
+                     'categories',
+                     'categories_hierarchy',
+                     'code',
+                     'ecoscore_tags',
+                     'ingredients_hierarchy',
+                     'ingredients_text_en',
+                     'ingredients_text_with_allergens_en',
+                     'known_ingredients_n',
+                     'nova_groups',
+                     'nutrient_levels',
+                     'nutriscore_data',
+                     'nutrition_data_prepared_per',
+                     'product_name_en',
+                     'product_quantity',
+                     'serving_size']
+
+    data = []
+    file_name = 'OFF_Export.jsonl'
+
+    with open(file_name, encoding='latin-1') as f:
+        for line in f:
+            doc = json.loads(line)
+            try:
+                lst = doc['_id'], doc['_keywords'], doc['allergens'], doc['categories'], doc['categories_hierarchy'], \
+                      doc['code'], doc['ecoscore_tags'], doc['ingredients_hierarchy'], doc['ingredients_text_en'], \
+                      doc['ingredients_text_with_allergens_en'], doc['known_ingredients_n'], doc['nova_groups'], \
+                      doc['nutrient_levels'], doc['nutriscore_data'], doc['nutrition_data_prepared_per'], \
+                      doc['product_name_en'], doc['product_quantity'], doc['serving_size']
+            except:
+                pass
+            else:
+                data.append(lst)
+
+    df = pd.DataFrame(data=data, columns=required_vars)
+    df.to_json(r'productsInOFF.json', "records", lines=True)
+    print(df.info())
+
+    print("getData From OFF Done")
 
 
 def get_data():
@@ -140,6 +185,8 @@ def export_to_mongodb(df_fun):
 
 
 if __name__ == '__main__':
+    # get_data_from_open_food_facts_jsonl() - use with exported file from Open Food Facts
+
     df = get_data()
     print("\n---------------------------------")
     df = check_data(df)
@@ -154,4 +201,4 @@ if __name__ == '__main__':
     print("\n---------------------------------")
     export_result(df)
     print("\n---------------------------------")
-    export_to_mongodb(df)
+    #export_to_mongodb(df)
