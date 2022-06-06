@@ -23,7 +23,7 @@ export class SearchService {
     productQuantity: null,
     productName: null,
     novaGroups: null,
-    categories: null,
+    ingredientsText: null,
     productSizeType: null,
   });
 

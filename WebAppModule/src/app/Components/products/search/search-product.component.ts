@@ -99,7 +99,7 @@ export class SearchProductComponent implements OnInit {
       productQuantity: null,
       productName: null,
       novaGroups: null,
-      categories: null,
+      ingredientsText: null,
       productSizeType: null,
     });
 

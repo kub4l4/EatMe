@@ -6,6 +6,6 @@ export interface ISearchProduct {
   productQuantity: number | null;
   productName: string | null;
   novaGroups: number | null;
-  categories: string[] | null;
+  ingredientsText: string | null;
   productSizeType: string | null;
 }
