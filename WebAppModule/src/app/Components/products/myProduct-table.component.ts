@@ -29,7 +29,7 @@ export class MyProductTableComponent implements OnInit {
       sortFn: true
     },
     {
-      name: 'Type',
+      name: 'Amount',
       width: '10%',
       sortFn: true,
       filterFn: true,
@@ -122,7 +122,7 @@ export class MyProductTableComponent implements OnInit {
           this._snackBar.open(`The product ${productName} has been archived!`, 'OK', {
             duration: 4000
           });
-          this.changeSort();
+          window.location.reload();
         },
         error => {
           this._snackBar.open(error, 'OK', {
@@ -143,7 +143,7 @@ export class MyProductTableComponent implements OnInit {
           this._snackBar.open(`Product saved. The new amount is ${amountNew}`, 'OK', {
             duration: 4000
           });
-          this.products = this.route.snapshot.data['userProducts']
+          window.location.reload();
           this.changeSort();
 
         },

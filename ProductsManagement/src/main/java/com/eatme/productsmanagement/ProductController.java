@@ -18,10 +18,10 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping("")
-    public List<Products> fetchAllProducts() {
-        return productService.getAllProducts();
-    }
+//    @GetMapping("")
+//    public List<Products> fetchAllProducts() {
+//        return productService.getAllProducts();
+//    }
 
 
     @GetMapping("/{productId}")
@@ -34,14 +34,12 @@ public class ProductController {
     public ResponseEntity<List<Products>> searchForProduct(@PathVariable("searchPhrase") String searchPhrase) {
         List<Products> productsList = productService.findProductsByProductName(searchPhrase);
         if (!productsList.isEmpty()) {
-            System.out.println("BYLEM");
             return new ResponseEntity<>(productsList, HttpStatus.OK);
         }
         try {
             int foo = Integer.parseInt(searchPhrase);
             productsList = productService.findProductsByCode((long) foo);
             if (!productsList.isEmpty()) {
-                System.out.println("BYLEM2");
                 return new ResponseEntity<>(productsList, HttpStatus.OK);
             }
         } catch (Exception ignored) {
@@ -50,10 +48,8 @@ public class ProductController {
         productsList.addAll(productService.findProductsByProductNameContaining(searchPhrase));
         productsList.addAll(productService.findProductsByKeywords(searchPhrase));
         if (!productsList.isEmpty()) {
-            System.out.println("BYLEM3");
             return new ResponseEntity<>(productsList, HttpStatus.OK);
         }
-        System.out.println("NIE BYLEM");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

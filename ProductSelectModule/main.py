@@ -27,7 +27,7 @@ def get_data_from_open_food_facts_jsonl():
     data = []
     file_name = 'OFF_Export.jsonl'
 
-    with open(file_name, encoding='latin-1') as f:
+    with open(file_name, encoding='utf-8') as f:
         for line in f:
             doc = json.loads(line)
             try:
@@ -175,7 +175,9 @@ def export_result(df_fun):
 
 
 def export_to_mongodb(df_fun):
-    df_fun.drop_duplicates(subset="_id", keep='last', inplace=True)
+    del df_fun['_id']
+    df_fun['_id'] = range(1, len(df) + 1)
+    # df_fun.drop_duplicates(subset="_id", keep='last', inplace=True)
     print("Exporting products to MongoDB")
     client = MongoClient('mongodb://rootuser:rootpass@localhost:27017/')
     db = client['EatMe']

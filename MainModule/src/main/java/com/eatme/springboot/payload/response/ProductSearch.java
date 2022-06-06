@@ -10,7 +10,7 @@ public class ProductSearch {
     private double productQuantity;
     private String productName;
     private long novaGroups;
-    private List<String> categories;
+    private String ingredientsText;
     private String productSizeType;
 
     public ProductSearch() {
@@ -72,12 +72,12 @@ public class ProductSearch {
         this.novaGroups = novaGroups;
     }
 
-    public List<String> getCategories() {
-        return categories;
+    public String getIngredientsText() {
+        return ingredientsText;
     }
 
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
+    public void setIngredientsText(String ingredientsText) {
+        this.ingredientsText = ingredientsText;
     }
 
     public String getProductSizeType() {

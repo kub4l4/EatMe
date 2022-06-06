@@ -59,10 +59,6 @@ public class ProductController {
     @PostMapping("/userProduct/new")
     public ResponseEntity<HashMap<String, String>> addProductNew(HttpServletRequest request,
                                                  @RequestBody Product product) {
-        System.out.println(product.getProductQuantity());
-        System.out.println(product.getProductSizeType());
-        System.out.println(product.getProductName());
-        System.out.println(product.getExpireDate());
         if (product.getProductQuantity() == null || product.getProductName() == null ||
         product.getProductSizeType() == null || product.getExpireDate() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -171,7 +167,6 @@ public class ProductController {
                 HttpMethod.GET,
                 HttpEntity.EMPTY,
                 Product.class);
-
         Product SavedProduct = exchange.getBody();
         return new ResponseEntity<>(SavedProduct, HttpStatus.OK);
     }
